@@ -1,0 +1,14 @@
+.form-item-step1-selectTable2 {
+  float: left;
+  width: 150px;
+  height: 150px;
+}
+.form-item-step1-selectTable2:last {
+  clear: both;
+}
+.form-item-step1-selectTable2 > input {
+  float: left;
+}
+.form-item-step1-selectTable2 > label {
+  float: left;
+}

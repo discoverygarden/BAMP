@@ -1,0 +1,105 @@
+<?php
+// $Id$
+
+include 'ireport.common.inc';
+include 'ireport.query.inc';
+
+/**
+* Your module will use the subject as the main title and load the content from your function
+*/
+function ireport_block($op='list', $delta=0, $edit=array()) {
+  switch ($op) {
+    case 'list':
+	    $blocks[0]['info'] = t('iReport');
+	    return $blocks;
+      break;
+
+    case 'view':
+      $blocks['subject'] = t('iReport');
+      $blocks['content'] = ireport_block_content();
+      return $blocks;
+	}//end switch
+}//end ireport_block
+
+/**
+* Your module should generate it's content here. This will be displayed within your module
+*/
+function ireport_block_content() {
+  $content .= "Replace with your logic";
+  return $content;
+}//end ireport_block_content
+
+/**
+* This will allow you to restrict certain actions of the module to certain roles
+*/
+function ireport_perm() {
+  return array('access ireport','administer ireport');
+}//end ireport_perm
+
+
+/**
+* This will create an admin menu
+*/
+function ireport_menu()
+{
+  $items = array ();
+  $items['ireport/view'] = array(
+    'title' => 'View Reports',
+    'page callback' => 'ireport_report_list',
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+    'weight' => '1',
+  );
+
+  /*$items['ireport/create'] = array(
+    'title' => 'Create Report',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ireport_create_form'),
+    'access callback' => 'user_access', 
+    'access arguments' => array('input form'),
+    'weight' => '2',
+  );*/
+
+  $items['admin/settings/ireport'] = array (
+    'title' => t('iReport'),
+    'description' => t('iReport module allows you to specify database tables you would like to enable for reporting.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ireport_settings'),
+    'access arguments' => array('administer ireport'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+* This will construct the form used within the admin menu
+*/
+function ireport_settings()
+{
+  $form['ireport_general_settings'] = array(
+    '#title' => t('General iReport Settings'),
+    '#type' => "fieldset",
+    '#collapsible' => TRUE,
+  );
+  $form['ireport_general_settings']['text'] = array(
+    '#title' => t('Select Reportable Tables'),
+    '#type' => "fieldset",
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $tables = db_query("show tables")->fetchCol();
+  foreach($tables as $k=>$table){
+    $table = 'ireport_'.$table;
+    $form['ireport_general_settings']['text'][$table] = array(
+      '#title' => $table,
+      '#type' => "checkbox",
+      '#default_value' => variable_get($table, false) //false by default
+    );
+  }
+  return system_settings_form($form);
+}
+
+function ireport_views_api() {
+  return array('api' => 3.0);
+}
