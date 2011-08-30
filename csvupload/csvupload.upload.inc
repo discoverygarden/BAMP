@@ -23,8 +23,6 @@
  * 
  */
 function csvupload_upload_form($form, &$form_state) {
-  $dbh = Database::getConnection('bamp_new','default');
-
   //Create wrapper around the form for ajax callback
   $form['#prefix'] = '<div id="wizard-form-wrapper">';
   $form['#suffix'] = '</div>';
@@ -45,29 +43,20 @@ function csvupload_upload_form($form, &$form_state) {
       );
 
       //Get database tables
-      $tables = $dbh->query("show tables")->fetchCol();
+      $tables = db_query("SHOW TABLES FROM bamp_new", array(), array('target' => 'bamp_new'))->fetchCol();
 
       //Create import_tables array to hold importable tables for dropdown
       $import_tables = array('ps' => '--Please Select--');
-      $import_tables2 = array();
 
       //Loop over tables and see if they have been selected in the admin config (easier way to do this??)
       foreach ($tables as $k => $table) {
-        //Check if the table is enabled for import and add to the importTables array
-        $table_select = variable_get($table, FALSE);
-        if ($table_select != FALSE) {
+        if (!strstr($table, '_tmp_')) {
           $import_tables[$table] = $table;
-          $import_tables2[$table] = '<img src="http://icons.mysitemyway.com/wp-content/gallery/rounded-glossy-black-icons-culture/thumbs/thumbs_033302-rounded-glossy-black-icon-culture-astrology1-fish-sc37.png"/><br/>'.$table;
         }//end if
       }//end foreach
 
       if (count($import_tables) > 0) {
         drupal_add_css(drupal_get_path('module', 'csvupload') . '/csvupload.css');
-        /*$form['step1']['selectTable2'] = array(
-          '#type' => 'radios',
-          '#title' => t('Which type of data would you like to import?'),
-          '#options' => $import_tables2,
-        );*/ 
         $form['step1']['selectTable'] = array(
           '#type' => 'select',
           '#options' => $import_tables,
@@ -109,7 +98,7 @@ function csvupload_upload_form($form, &$form_state) {
 
       $aa = csvupload_csv2aa($csv_file_path, ',');
       $headers = $aa[0];
-      $table_cols = $dbh->query("show columns from " . $form_state['values']['step1']['selectTable'])->fetchCol();//Get database Columns 
+      $table_cols = db_query("show columns from " . $form_state['values']['step1']['selectTable'], array(), array('target' => 'bamp_new'))->fetchCol();//Get database Columns 
       $cols = array('sk' => 'Skip this field');
       foreach ($table_cols as $k => $v) {
         $cols[$v] = $v;
@@ -145,7 +134,10 @@ function csvupload_upload_form($form, &$form_state) {
     case 3:
       $error = FALSE;
       $rows = array();
-      $result = $dbh->query("SELECT * FROM {" . $form_state['storage']['tempTable'] . "} LIMIT 0, 100");//Get rows from temp table
+      
+      //Get first 100 rows from temporary tables
+      $sql = "SELECT * FROM {" . $form_state['storage']['tempTable'] . "}";
+      $result = db_query_range($sql, 0, 100, '', array('target' => 'bamp_new'));
       while ($record = $result->fetchAssoc()) {
         $rows[] = $record;
       }
@@ -172,7 +164,7 @@ function csvupload_upload_form($form, &$form_state) {
       }
       else {
         drupal_set_message(t('There was an error during import. Possible causes may include: Errors in the input file, Mismatched columns, Foreign charecters, blank fields mapped to a database field that requires input. If you require assistance, please contact DGI.'), 'error');
-        $dbh->query('DROP TABLE ' . $form_state['storage']['tempTable']); 
+        db_query('DROP TABLE ' . $form_state['storage']['tempTable'], array(), array('target' => 'bamp_new')); 
         $error = TRUE;
       }//end if
     break;
@@ -205,8 +197,6 @@ function csvupload_upload_form_callback($form, $form_state) {
 }
 
 function csvupload_upload_form_submit($form, &$form_state) {
-  $dbh = Database::getConnection('bamp_new','default');
-  
   // Save away the current informationr
   $current_step = 'step' . $form_state['storage']['step'];
   if (!empty($form_state['values'][$current_step])) {
@@ -239,17 +229,17 @@ function csvupload_upload_form_submit($form, &$form_state) {
 
     case 'step3':
       if (!empty($form_state['storage']['tempTable']) && !empty($form_state['storage']['destTable'])) {
-        $results = $dbh->query('SELECT * FROM {' . $form_state['storage']['tempTable'] . '}');
+        $results = db_query('SELECT * FROM {' . $form_state['storage']['tempTable'] . '}', array(), array('target' => 'bamp_new'));
         if ($results) {
           $totalrows = count($results);
           while ($result = $results->fetchAssoc()) {
             if (isset($result['id'])) {
               unset($result['id']);
             }//end if
-            $dbh->insert($form_state['storage']['destTable'])->fields($result)->execute();
+            db_insert($form_state['storage']['destTable'], array('target' => 'bamp_new'))->fields($result)->execute();
           }//end foreach 
 
-          $dbh->query('DROP TABLE ' . $form_state['storage']['tempTable']);
+          db_query('DROP TABLE ' . $form_state['storage']['tempTable'], array(), array('target' => 'bamp_new'));
           drupal_set_message(t('Import has been completed.'));
           drupal_goto('csvupload');
         }
