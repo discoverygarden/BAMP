@@ -1,0 +1,8 @@
+;$Id$
+name = "mapping"
+description = "Mapping project module"
+package = "Content"
+core = 7.x
+php = 5.3
+version = 7.x-1.0
+files[] = mapping.module

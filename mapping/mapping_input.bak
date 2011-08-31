@@ -1,0 +1,58 @@
+<?php
+
+// $Id: mapping_input.inc
+
+/**
+ * @file
+ * Code to display input operations to load data.
+ */
+function mapping_input_menu_callback() {
+  return drupal_get_form('mapping_input_form');
+}
+
+function mapping_input_form($form, &$form_state) {
+  drupal_set_title(t("Input menu"));
+
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title' => check_plain('Title Label'),
+    '#default_value' => !empty($form->title) ? $form->title : '',
+    '#required' => TRUE,
+    '#weight' => -5,
+    // apply css formatting to this element
+    //'#attributes' => array(style=>"float:right")
+  );
+  $form['field1'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom  field'),
+    //'#default_value' => $form->field1,
+    '#maxlength' => 63,
+  );
+  // a dropdown box
+  $form['selection'] = array(
+    '#type' => 'select',
+    '#title' => t('Select box'),
+    //'#default_value' => $form->selectbox,
+    '#options' => array(
+      1 => 'Option A',
+      2 => 'Option B',
+      3 => 'Option C',
+      4 => 'Option D',
+    ),
+    '#description' => t('Choose one of the above option.'),
+  );
+  // an example of using straight markup on a page
+  $form['html'] = array(
+    '#type' => 'markup',
+    '#markup' => '<tr><th>Name</th><th>Value</th></tr><tr><td>None</td><td>0</td></tr><tr><td>All</td><td>1</td></tr>',
+    //'#description' => 'An example table defined by markup in the _form hook',
+    '#prefix' => '<table>',
+    '#suffix' => '</table>',
+  );
+
+//  drupal_add_js("http://maps.google.com/maps/api/js?sensor=false", 'external');
+//  drupal_add_js(drupal_get_path('module', 'mapping') . '/myjs.js');
+//  drupal_get_js();
+
+  return $form;
+}
