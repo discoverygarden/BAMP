@@ -1,7 +1,7 @@
 <?
 function ireport_views_data(){
   $data = array();
-  $data['bamp_farm_aggregate']['table'] = array('group' =>'BAMP-Farm', 'title'=>'Bamp Farm Aggregate Data', 'help' => 'bamp_farm_aggregate');
+  $data['bamp_farm_aggregate']['table'] = array('group' =>'BAMP-Farm-Aggregate', 'title'=>'Bamp Farm Aggregate Data', 'help' => 'bamp_farm_aggregate');
   $data['bamp_farm_aggregate']['table']['base'] = array(
     'field' => 'id',
     'title' => t('BAMP Farm - Aggregate Data'),
@@ -266,7 +266,7 @@ function ireport_views_data(){
     ),
   );
 
-  $data['bamp_farm_environment']['table'] = array('group' =>'BAMP-Farm', 'title'=>'BAMP Farm Environmental Information', 'help' => 'bamp_farm_environment');
+  $data['bamp_farm_environment']['table'] = array('group' =>'BAMP-Farm-Environment', 'title'=>'BAMP Farm Environmental Information', 'help' => 'bamp_farm_environment');
   $data['bamp_farm_environment']['table']['base'] = array(
     'field' => 'id',
     'title' => t('BAMP Farm - Environment Data'),
@@ -516,7 +516,7 @@ function ireport_views_data(){
     ),
   );
   
-  $data['bamp_farm_fish_data']['table'] = array('group' =>'BAMP-Farm', 'title'=>'BAMP Farm Fish Level', 'help' => 'bamp_farm_fish_data');
+  $data['bamp_farm_fish_data']['table'] = array('group' =>'BAMP-Farm-Fish-Data', 'title'=>'BAMP Farm Fish Level', 'help' => 'bamp_farm_fish_data');
   $data['bamp_farm_fish_data']['table']['base'] = array(
     'field' => 'id',
     'title' => t('BAMP Farm - Fish Level Data'),
@@ -799,7 +799,7 @@ function ireport_views_data(){
     ),
   );
   
-  $data['bamp_farm_inventory']['table'] = array('group' =>'BAMP-Farm', 'title'=>'BAMP Farm Inventory', 'help' => 'bamp_farm_inventory');
+  $data['bamp_farm_inventory']['table'] = array('group' =>'BAMP-Farm-Inventory', 'title'=>'BAMP Farm Inventory', 'help' => 'bamp_farm_inventory');
   $data['bamp_farm_inventory']['table']['base'] = array(
     'field' => 'id',
     'title' => t('BAMP Farm - Inventory'),
@@ -1050,7 +1050,7 @@ function ireport_views_data(){
   );
 
 
-  $data['bamp_farm_sites']['table'] = array('group' =>'BAMP-Farm', 'title'=>'BAMP Farm Sites', 'help' => 'bamp_farm_sites');
+  $data['bamp_farm_sites']['table'] = array('group' =>'BAMP-Farm-Sites', 'title'=>'BAMP Farm Sites', 'help' => 'bamp_farm_sites');
   $data['bamp_farm_sites']['table']['base'] = array(
     'field' => 'id',
     'title' => t('BAMP Farm - Sites'),
@@ -1156,7 +1156,7 @@ function ireport_views_data(){
     ),
   );
 
-  $data['bamp_wild_fish_data']['table'] = array('group' =>'BAMP-Wild', 'title'=>'BAMP Wild Fish Data', 'help' => 'bamp_wild_fish_data');
+  $data['bamp_wild_fish_data']['table'] = array('group' =>'BAMP-Wild-Fish-Data', 'title'=>'BAMP Wild Fish Data', 'help' => 'bamp_wild_fish_data');
   $data['bamp_wild_fish_data']['table']['base'] = array(
     'field' => 'id',
     'title' => t('BAMP Wild - Fish Level Data'),
@@ -1662,7 +1662,7 @@ function ireport_views_data(){
     ),
   );
   
-  $data['bamp_wild_lab_results']['table'] = array('group' =>'BAMP-Wild', 'title'=>'BAMP Wild Lab Results', 'help' => 'bamp_wild_lab_results');
+  $data['bamp_wild_lab_results']['table'] = array('group' =>'BAMP-Wild-Lab-Results', 'title'=>'BAMP Wild Lab Results', 'help' => 'bamp_wild_lab_results');
   $data['bamp_wild_lab_results']['table']['base'] = array(
     'field' => 'id',
     'title' => t('BAMP Wild - Lab Results'),
@@ -2248,7 +2248,7 @@ function ireport_views_data(){
     ),
   );
   
-  $data['bamp_wild_sites']['table'] = array('group' =>'BAMP-Wild', 'title'=>'BAMP Wild Sites', 'help' => 'bamp_wild_sites');
+  $data['bamp_wild_sites']['table'] = array('group' =>'BAMP-Wild-Sites', 'title'=>'BAMP Wild Sites', 'help' => 'bamp_wild_sites');
 
   $data['bamp_wild_sites']['table']['base'] = array(
     'field' => 'id',
@@ -2388,7 +2388,7 @@ function ireport_views_data(){
     ),
   );
 
-  $data['bamp_wild_trips']['table'] = array('group' =>'BAMP-Wild', 'title'=>'BAMP Wild Trips', 'help' => 'bamp_wild_trips');
+  $data['bamp_wild_trips']['table'] = array('group' =>'BAMP-Wild-Trips', 'title'=>'BAMP Wild Trips', 'help' => 'bamp_wild_trips');
   $data['bamp_wild_trips']['table']['base'] = array(
     'field' => 'id',
     'title' => t('BAMP Wild - Trips Information'),
@@ -2396,6 +2396,12 @@ function ireport_views_data(){
     'database' => 'bamp_new',
     'weight' => -10, 
   );
+  //year/trip/lab in lab_results relates to trips by year, rep, to_lab
+  $data['bamp_wild_trips']['table']['join']['bamp_wild_sites'] = array(
+    'left_field' => 'site_number',
+    'field' => 'site_number',
+  );
+
 
   $data['bamp_wild_trips']['id'] = array(
     'title' => t('id'),
