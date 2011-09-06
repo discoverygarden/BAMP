@@ -3,6 +3,7 @@
 var map;
 var container;
 var polyDragControl;
+var infoWnd = new google.maps.InfoWindow();
 
 function load() {
   container = document.getElementById("mapDiv");
@@ -31,12 +32,15 @@ function load() {
       position: point,
       map: map,
     });
+    mrkr.set("code", json.row[i].code);
+    google.maps.event.addListener(mrkr, 'click', function(){showInfoWnd(this);});
     x += point.lat();
     y += point.lng();
   }
   // auto-calculate the center position
   centerPoint = new google.maps.LatLng(x/json.row.length, y/json.row.length);
   map.setCenter(centerPoint);
+//  google.maps.event.addListener(map, 'click', function(){infoWnd.close();});
 
   polyDragControl = new MPolyDragControl({map:map});
   polyDragControl.ondragend = getParameters;
@@ -58,6 +62,15 @@ function eraseSelection() {
 
 function unload() {
 //	GUnload();
+}
+
+function showInfoWnd(marker){
+  var pos = marker.getPosition();
+  
+  var caption = marker.get("code") + '<br>' + pos.lat().toFixed(5) + '&deg; lat, ' + pos.lng().toFixed(5) + '&deg; lon';
+  infoWnd.setOptions({position: marker.position, content: caption});
+  infoWnd.open(marker.map, map);
+  infoWnd.open(marker.map, marker);
 }
 
 //Drupal.Behaviors.mapping = load;
