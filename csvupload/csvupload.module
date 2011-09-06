@@ -1,8 +1,8 @@
 <?php
 // $Id$
-
 include 'csvupload.common.inc';
 include 'csvupload.upload.inc';
+
 
 /**
 * Your module will use the subject as the main title and load the content from your function
@@ -49,7 +49,7 @@ function csvupload_hook_help($path, $arg) {
 }
 
 /**
-* This will create an admin menu
+* CSV Upload Menua
 */
 function csvupload_menu() {
   $items = array();
@@ -61,44 +61,5 @@ function csvupload_menu() {
     'access arguments' => array('input form'),
     'weight' => '1',
   );
-
-  $items['admin/settings/csvupload'] = array(
-    'title' => 'csvupload',
-    'description' => 'CSVupload module allows you to specify database tables you would like to enable for importing files.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('csvupload_settings'),
-    'access arguments' => array('administer csvupload'),
-    'type' => MENU_NORMAL_ITEM,
-  );
   return $items;
-}
-
-/**
-* This will construct the form used within the admin menu
-*/
-function csvupload_settings() {
-  $dbh = Database::getConnection('bamp_new','default');
-
-  $form['csvupload_general_settings'] = array(
-    '#title' => t('General CSV Upload Settings'),
-    '#type' => "fieldset",
-    '#collapsible' => TRUE,
-  );
-  $form['csvupload_general_settings']['text'] = array(
-    '#title' => t('Select Importable Tables'),
-    '#type' => "fieldset",
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-
-  $tables = $dbh->query("show tables")->fetchCol();
-
-  foreach ($tables as $k => $table) {
-    $form['csvupload_general_settings']['text'][$table] = array(
-      '#title' => $table,
-      '#type' => "checkbox",
-      '#default_value' => variable_get($table, FALSE) //false by default
-    );
-  }
-  return system_settings_form($form);
 }

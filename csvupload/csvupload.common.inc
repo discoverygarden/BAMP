@@ -36,9 +36,8 @@ if (!function_exists('csvupload_csv2aa')) {
 if (!function_exists('csvupload_createTempTable')) {
   function csvupload_createTempTable($table) {
     global $user;
-    $dbh = Database::getConnection('bamp_new','default');
     $tmp_table = $table . '_' . $user->uid . '_tmp_' . time();
-    $result = $dbh->query("CREATE TABLE IF NOT EXISTS $tmp_table LIKE $table");
+    $result = db_query("CREATE TABLE IF NOT EXISTS $tmp_table LIKE $table", array(), array('target' => 'bamp_new'));
 
     return $tmp_table;
   }//end csvupload_createTempTable();
@@ -72,8 +71,6 @@ if (!function_exists('csvupload_createTempTable')) {
  */
 if (!function_exists('csvupload_csvimport')) {
   function csvupload_csvimport($table, $tmp_table, $file, $map) {
-      $dbh = Database::getConnection('bamp_new','default');
-
       //Array to hold error messages.
       $error = array();
 
@@ -100,7 +97,7 @@ if (!function_exists('csvupload_csvimport')) {
       foreach ($row as $line => $data1) {
         $test_type = csvupload_checkColType($tmp_table, $data1);
         if ($test_type['check'] !== FALSE) {
-          $dbh->insert($tmp_table)->fields($data1)->execute();
+          db_insert($tmp_table, array('target' => 'bamp_new'))->fields($data1)->execute();
         }
         else {
           $error[$line] = $test_type;
@@ -146,10 +143,8 @@ if (!function_exists('csvupload_array2table')) {
 
 if (!function_exists('csvupload_checkColType')) {
   function csvupload_checkColType($table, $data) {
-    $dbh = Database::getConnection('bamp_new','default');
-
     //Get the field definitions from the database
-    $fields = $dbh->query('SHOW columns FROM ' . $table)->fetchAll();
+    $fields = db_query('SHOW columns FROM ' . $table, array(), array('target' => 'bamp_new'))->fetchAll();
 
     //Loop over field definitions and check to see if data is proper type
     foreach ($fields as $fd) {
@@ -161,12 +156,10 @@ if (!function_exists('csvupload_checkColType')) {
         //field type is in datatype(length) format, split that apart
         $type = explode('(', $fd->type);
         
-        error_log('type: '.var_export($type, true));
-
         $d_type = $type[0];
         switch ($d_type) {
           case 'int':
-            if(isset($type[1])){
+            if (isset($type[1])) {
               $length = substr($type[1], 0, -1);
               if (!is_int($var) && strlen($var) > $length) {
                 $error = t('Error: Value is not an integer or is longer than the allowed length for this field.');
@@ -179,7 +172,7 @@ if (!function_exists('csvupload_checkColType')) {
 
           case 'char':
           case 'varchar':
-            if(isset($type[1])){
+            if (isset($type[1])) {
               $length = substr($type[1], 0, -1);
               if (!is_string($var) && strlen($var) > $length) {
                 $error = t('Error: Value is not a valid char/varchar or is longer than the allowed length for this field.');
@@ -188,7 +181,6 @@ if (!function_exists('csvupload_checkColType')) {
             break;
           
           case 'timestamp':
-            //hmmmmmmm.....how to handle this :)
             break;
         }
       }
