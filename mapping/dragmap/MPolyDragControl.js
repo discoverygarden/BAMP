@@ -1,14 +1,5 @@
 //(function($){ // wrap for drupal
 
-//alert(Drupal.settings.base_path);
-	var styleStr = '';
-	styleStr += '<style>';
-	styleStr += '.MDR_labelStyle {background: #FFFF40;font: bold 10px verdana;text-align: left;border: 1px solid gray;width: 180px;padding: 2px;}';
-	styleStr += '</style>';
-	styleStr += '<script src="/dragmap/elabel.js"></script>';
-	document.write(styleStr);
-
-
 MPolyDragControl = function(MOptions) {
 	MOptions = MOptions ? MOptions : {};
 	this.map = MOptions.map ? MOptions.map : null;
@@ -16,189 +7,123 @@ MPolyDragControl = function(MOptions) {
 	this.initialize()
 };
 
-
 MPolyDragControl.prototype.initialize = function() {
-	this.self = this;
-	this.polyInitialized = false;
-	this.bounds = null;
+  this.self = this;
+  this.bounds = null;
+  this.poly = null;
 
-	this.dragMarker0;
-	this.dragMarker1;
+// maybe we should use two different images since they behave slightly different
+  var path = Drupal.settings.imagePath + "/polyEditSquare.png";
+  this.dragImage = new google.maps.MarkerImage(path, new google.maps.Size(10,10), new google.maps.Point(0,0), new google.maps.Point(5,5));
 
-	var baseIcon = new GIcon();
-	baseIcon.iconSize = new GSize(11,11);
-	baseIcon.iconAnchor = new GPoint(6,6);
-	baseIcon.infoWindowAnchor = new GPoint(1,1);
-	baseIcon.dragCrossSize = new GSize(0,0);
-	baseIcon.maxHeight = 0.1;
+  this.dragging = false;
+  this.addMarkers();
 
-	this.dragImage = appRoot + "images/polyEditSquare.png";
-	this.transImage = appRoot + "images/transparent.png";
-	this.polyEditIcon = (new GIcon(baseIcon, this.dragImage));
-	this.transIcon = (new GIcon(baseIcon, this.transImage));
-
-	this.floatingLabel = new ELabel(this.map.getCenter(), 'Label text', 'MDR_labelStyle',new GSize(10,20));
-	this.floatingLabel.hide();
-	this.map.addOverlay(this.floatingLabel); 
-
-	this.addMarkers();
-	this.enableTransMarker();
-
-};
-
+  this.poly = new google.maps.Rectangle({
+    bounds: null,//new google.maps.LatLngBounds(new google.maps.LatLng(50, -130), new google.maps.LatLng(60, -120)),
+    clickable: false,
+    fillColor: "#0000FF",
+    fillOpacity: 0.25,
+    strokeColor: "#0000FF",
+    strokeOpacity: 0.5,
+    map:this.map,
+  });
+}
 
 MPolyDragControl.prototype.addMarkers = function() {
-	var self = this.self;
-//	GEvent.addListener(this.map,'click',function(a,b,c){self.mapClick(b)});
+  var self = this.self;
 
-	this.dragMarker0 = new GMarker(this.map.getCenter(),{icon:this.transIcon,draggable:true,bouncy:false,dragCrossMove:true});
-	this.map.addOverlay(this.dragMarker0);
+  var opts = {
+    icon:this.dragImage,
+    draggable:true,
+    bouncy:false,
+    dragCrossMove:true,
+    position:this.map.getCenter(),
+    map:this.map,
+    raiseOnDrag:false,
+  };
+  this.mdListener = google.maps.event.addListener(this.map, 'mousedown', function(latlon){self.markerMouseDown(latlon)});
+  this.muListener = google.maps.event.addListener(this.map, 'mouseup', function(latlon){self.markerMouseUp(latlon)});
+  this.mmListener = google.maps.event.addListener(this.map, 'mousemove', function(latlon){self.markerMouseDrag(latlon)});
 
-	this.mdListener = GEvent.addListener(this.dragMarker0,'mousedown',function(){self.markerMouseDown()});
-	GEvent.addListener(this.dragMarker0,'dragstart',function(){self.dragStart(this)});
-	GEvent.addListener(this.dragMarker0,'drag',function(){self.drag(this)});
-	GEvent.addListener(this.dragMarker0,'dragend',function(){self.dragEnd(this)});
+  // create marker 0
+  this.dragMarker0 = new google.maps.Marker(opts);
+  // hude this until we're ready
+  this.dragMarker0.setVisible(false);
+  // create marker 1
+  this.dragMarker1 = new google.maps.Marker(opts);
+	// hide it since we don't need it yet
+	this.dragMarker1.setVisible(false);
 
-	this.dragMarker1 = new GMarker(this.map.getCenter(),{icon:this.polyEditIcon,draggable:true,bouncy:false,dragCrossMove:true});
-	this.map.addOverlay(this.dragMarker1);
-	GEvent.addListener(self.dragMarker1,'dragstart',function(){self.dragStart(this)});
-	GEvent.addListener(self.dragMarker1,'drag',function(){self.drag(this)});
-	GEvent.addListener(self.dragMarker1,'dragend',function(){self.dragEnd(this)});
-	this.dragMarker1.hide();
+  // update the rectangles when dragged
+  google.maps.event.addListener(this.dragMarker0, 'drag', function(event){self.updateMarker0()});
+  google.maps.event.addListener(this.dragMarker1, 'drag', function(event){self.updateMarker1()});
+  // update the export corrdinates when finished
+  google.maps.event.addListener(this.dragMarker0, 'dragend', function(event){self.finishDrag()});
+  google.maps.event.addListener(this.dragMarker1, 'dragend', function(event){self.finishDrag()});
+
 }
 
+MPolyDragControl.prototype.markerMouseDown = function(latlon) {
+  this.dragMarker0.setVisible(true);
+	this.dragMarker1.setPosition(latlon.latLng); // place marker1 at the start of the rectangle
+	this.dragMarker1.setVisible(true); // show marker 1
 
-MPolyDragControl.prototype.markerMouseDown = function() {
-	var self = this.self;
-	this.dragMarker0.setImage(this.dragImage);
-	this.dragMarker1.setLatLng(this.dragMarker0.getLatLng());
-	this.dragMarker1.show();
-	GEvent.removeListener(this.mdListener);
+  this.dragging = true;
+  // stop listening for mouse down
+//	google.maps.event.removeListener(this.mdListener);
 }
 
-MPolyDragControl.prototype.mapClick = function(latlon) {
-	var self = this.self;
-	this.poly = new GPolygon([latlon,latlon,latlon,latlon,latlon],'#0000ff',1,1,'#0000ff',0.3);
-	this.map.addOverlay(this.poly);
-
-	GEvent.trigger(self.dragMarker1,'dragstart');
-};
-
-
-MPolyDragControl.prototype.enableTransMarker = function() {
-	var self = this.self;
-	this.dragMarker0.setImage(this.transImage);
-	this.movelistener = GEvent.addListener(this.map,'mousemove',function(latlon){
-		self.dragMarker0.setLatLng(latlon);
-	});
+MPolyDragControl.prototype.markerMouseDrag = function(latlon){
+  if (this.dragging){
+    this.dragMarker0.setPosition(latlon.latLng);
+    this.updateRectangle();
+  }
 }
 
-MPolyDragControl.prototype.disableTransMarker = function() {
-	GEvent.removeListener(this.movelistener);
+MPolyDragControl.prototype.markerMouseUp = function(latlon){
+//  google.maps.event.removeListener(this.mmListener);
+//  google.maps.event.remove(this.muListener);
+//  google.maps.event.addListener(this.mdListener);
+  this.dragging = false;
+  this.updateRectangle();
+  this.finishDrag();
 }
 
-MPolyDragControl.prototype.reset = function() {
-	var self = this.self;
-	if (this.poly) {
-		this.poly.hide();
-	}
-
-	if (this.dragMarker1) {
-		this.dragMarker1.hide();
-	}
-	if (this.floatingLabel) {
-		this.floatingLabel.hide();
-	}
-
-	this.enableTransMarker();
-	this.mdListener = GEvent.addListener(this.dragMarker0,'mousedown',function(){self.markerMouseDown()});
-
-};
-
-
-
-
-MPolyDragControl.prototype.dragStart = function(marker) {
-	var self = this.self;
-};
-
-MPolyDragControl.prototype.drag = function() {
-	var self = this.self;
-	self.updateRectangle();
-};	
-
-MPolyDragControl.prototype.dragEnd = function() {
-	var self = this.self;
-	if (typeof self.ondragend == 'function') {
-		self.ondragend();
-	}
-	self.disableTransMarker();
-};
-
-
-
-
+MPolyDragControl.prototype.updateMarker0 = function(){
+//  if (dragging) return;
+//  this.dragMarker0.setPosition(latlon.latLng);
+  this.updateRectangle();
+}
+MPolyDragControl.prototype.updateMarker1 = function(){
+//  if (dragging) return;
+//  this.dragMarker1.setPosition(latlon.latLng);
+  this.updateRectangle();
+}
 
 MPolyDragControl.prototype.updateRectangle = function() {
-	var self = this.self;
-	var latlon0 = self.dragMarker0.getLatLng();
-	var latlon1 = self.dragMarker1.getLatLng();
 
-	self.bounds = null;
-	self.bounds = new GLatLngBounds();
+	this.bounds = new google.maps.LatLngBounds();
+	this.bounds.extend(this.dragMarker0.getPosition());
+	this.bounds.extend(this.dragMarker1.getPosition());
 
-// not sure why this if/else is here, every block is the exact same
-	if (latlon0.lat() <= latlon1.lat() && latlon0.lng() <= latlon1.lng()) {
-		var p1 = latlon0; // SW
-		var p2 = latlon1; // NE
-	}
-	else if (latlon0.lat() <= latlon1.lat() && latlon0.lng() >= latlon1.lng()) {
-		var p1 = latlon0; // SE
-		var p2 = latlon1; // NW
-	}
-	else if (latlon0.lat() >= latlon1.lat() && latlon0.lng() >= latlon1.lng()) {
-		var p1 = latlon0; // NE
-		var p2 = latlon1; // SW
-	}
-	else if (latlon0.lat() >= latlon1.lat() && latlon0.lng() <= latlon1.lng()) {
-		var p1 = latlon0; // NW
-		var p2 = latlon1; // SE
-	}
-
-	self.bounds.extend(p1);
-	self.bounds.extend(p2);
-
-	var p1 = this.bounds.getSouthWest();
-	var p2 = new GLatLng(this.bounds.getNorthEast().lat(),this.bounds.getSouthWest().lng());
-	var p3 = this.bounds.getNorthEast();
-	var p4 = new GLatLng(this.bounds.getSouthWest().lat(),this.bounds.getNorthEast().lng());
-	var points = Array(p1,p2,p3,p4,p1);
-
-	self.drawPoly(points);
-
-};
-
-
-MPolyDragControl.prototype.drawPoly = function(points) {
-	if (this.poly) {
-		this.map.removeOverlay(this.poly);
-		this.poly = null;
-	}
-	this.poly = new GPolygon(points,'#0000ff',1,1,'#0000ff',0.2);
-	this.map.addOverlay(this.poly);
-
-	var html = '';
-	html += 'Lat:&nbsp;' + this.bounds.getSouthWest().lat().toFixed(5) + '&nbsp;to&nbsp;' + this.bounds.getNorthEast().lat().toFixed(5) + '<br>';
-	html += 'Lon:&nbsp;' + this.bounds.getSouthWest().lng().toFixed(5) + '&nbsp;to&nbsp;' + this.bounds.getNorthEast().lng().toFixed(5) + '<br>';
-	
-	this.floatingLabel.setContents(html);
-	this.floatingLabel.setPoint(this.dragMarker1.getLatLng());
-	this.floatingLabel.show();
+	this.poly.setBounds(this.bounds);
 }
 
+MPolyDragControl.prototype.finishDrag = function(){
+  if (typeof this.ondragend == 'function')
+    this.ondragend();
+}
+
+MPolyDragControl.prototype.clearRectangle = function(){
+  this.poly.setBounds(null);
+  this.dragMarker0.setVisible(false);
+  this.dragMarker1.setVisible(false);
+}
 
 MPolyDragControl.prototype.getParams = function() {
-  if (!this.bounds){
+  var bounds = this.poly.getBounds();
+  if (!this.poly){
     return "";
   }
   var str =   'latitude_avg[min]=' + this.bounds.getSouthWest().lat().toFixed(5) +  '&latitude_avg[max]=' + this.bounds.getNorthEast().lat().toFixed(5)
@@ -206,28 +131,5 @@ MPolyDragControl.prototype.getParams = function() {
 
   return str;
 }
-
-MPolyDragControl.prototype.setType = function(type) {
-	this.type = type;
-	if (this.poly) {
-		this.drag();
-		this.dragEnd();
-	}
-};
-
-
-
-
-MPolyDragControl.prototype.show = function() {
-	this.poly.show();
-};
-
-MPolyDragControl.prototype.hide = function() {
-	this.poly.hide();
-};
-
-MPolyDragControl.prototype.isVisible = function() {
-	return !this.poly.isHidden();
-};
 
 //})(jQuery); // wrap for drupal

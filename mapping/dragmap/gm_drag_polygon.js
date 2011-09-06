@@ -1,52 +1,68 @@
 //(function($){ // wrap for drupal
 
-var appRoot = 'http://' + window.location.host + '/';
-
 var map;
 var container;
-var zoom = 10;
-var centerPoint = new GLatLng(50.62,-126.25);
 var polyDragControl;
 
 function load() {
-	if (GBrowserIsCompatible()) {
-		container = document.getElementById("mapDiv");
-		map = new GMap2(container, {draggableCursor:"crosshair"});
+  container = document.getElementById("mapDiv");
+  //map = new GMap2(container, {draggableCursor:"crosshair"});
+  var options = {
+    zoom: 9,
+    mapTypeId: google.maps.MapTypeId.HYBRID,
+    streetViewControl: false,
+    draggable: false,
+  };
+  map = new google.maps.Map(container, options);
 
-		map.setCenter(centerPoint, zoom);
-    map.setMapType(G_HYBRID_MAP);
-		map.addControl(new GScaleControl());
-		map.addControl(new GLargeMapControl());
-		map.addControl(new GMapTypeControl());
-		map.enableScrollWheelZoom();		
+  //map.addControl(new GScaleControl());
+  //map.addControl(new GLargeMapControl());
+  //map.addControl(new GMapTypeControl());
+  //map.enableScrollWheelZoom();		
 
-    // the table at the bottom to display the mouse information
-		//var pos = new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(0, -85));
-		//map.addControl(new MStatusControl({position:pos}));
+  var json = JSON.parse(Drupal.settings.mapping);
+//  console.log(json);
+  // and add them to the map
+  var x = 0, y = 0;
+  for (var i=0; i<json.row.length; i++){
+    //console.log(json.row[i]);
+    var point = new google.maps.LatLng(json.row[i].lat, json.row[i].lng);
+    var mrkr = new google.maps.Marker({
+      position: point,
+      map: map,
+    });
+    x += point.lat();
+    y += point.lng();
+  }
+  // auto-calculate the center position
+  centerPoint = new google.maps.LatLng(x/json.row.length, y/json.row.length);
+  map.setCenter(centerPoint);
 
-		polyDragControl = new MPolyDragControl({map:map,type:'rectangle'});
-		polyDragControl.ondragend = getParameters;
-	}
+  polyDragControl = new MPolyDragControl({map:map});
+  polyDragControl.ondragend = getParameters;
+
 }
 
-function getParameters(){
+function getParameters() {
   var params = polyDragControl.getParams();
   var url = '';
-//  url += appRoot;
-//  url += 'bamp/';
-//  url += '?q='; //this clean_url code doesnt work right //(variable_get('clean_url', 0) ? '' : '?q=');
-//  url += 'map_report';
   url += params;
 
   document.getElementById('coords').value = url;
   //return url;
 }
 
-function unload() {
-	GUnload();
+function eraseSelection() {
+  polyDragControl.clearRectangle();
 }
 
+function unload() {
+//	GUnload();
+}
+
+//Drupal.Behaviors.mapping = load;
 window.onload = load;
+//window.onfocus = loadmap;
 window.onunload = unload;
 
 //})(jQuery); // wrap for drupal
