@@ -137,7 +137,7 @@ function csvupload_upload_form($form, &$form_state) {
       
       //Get first 100 rows from temporary tables
       $sql = "SELECT * FROM {" . $form_state['storage']['tempTable'] . "}";
-      $result = db_query_range($sql, 0, 100, '', array('target' => 'bamp_new'));
+      $result = db_query_range($sql, 0, 100, array(), array('target' => 'bamp_new'));
       while ($record = $result->fetchAssoc()) {
         $rows[] = $record;
       }
