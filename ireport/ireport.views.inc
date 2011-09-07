@@ -2307,8 +2307,8 @@ function ireport_views_data(){
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_sites']['latitude_avg'] = array(
-    'title' => t('latitude_avg'),
+  $data['bamp_wild_sites']['latitude'] = array(
+    'title' => t('latitude'),
     'help' => t('Latitude'),
     'field' => array(
       'handler' => 'views_handler_field',
@@ -2317,14 +2317,14 @@ function ireport_views_data(){
       'handler' => 'views_handler_sort',
     ),
     'filter' => array(
-      'handler' => 'views_handler_filter',
+      'handler' => 'views_handler_filter_numeric',
     ),
     'argument' => array(
-      'handler' => 'views_handler_argument_string',
+      'handler' => 'views_handler_argument_numeric',
     ),
   );
-  $data['bamp_wild_sites']['longitude_avg'] = array(
-    'title' => t('longitude_avg'),
+  $data['bamp_wild_sites']['longitude'] = array(
+    'title' => t('longitude'),
     'help' => t('Longitude'),
     'field' => array(
       'handler' => 'views_handler_field',
@@ -2333,10 +2333,10 @@ function ireport_views_data(){
       'handler' => 'views_handler_sort',
     ),
     'filter' => array(
-      'handler' => 'views_handler_filter',
+      'handler' => 'views_handler_filter_numeric',
     ),
     'argument' => array(
-      'handler' => 'views_handler_argument_string',
+      'handler' => 'views_handler_argument_numeric',
     ),
   );
   $data['bamp_wild_sites']['zone'] = array(
@@ -2349,7 +2349,7 @@ function ireport_views_data(){
       'handler' => 'views_handler_sort',
     ),
     'filter' => array(
-      'handler' => 'views_handler_filter',
+      'handler' => 'views_handler_filter_string',
     ),
     'argument' => array(
       'handler' => 'views_handler_argument_string',
@@ -2365,7 +2365,7 @@ function ireport_views_data(){
       'handler' => 'views_handler_sort',
     ),
     'filter' => array(
-      'handler' => 'views_handler_filter',
+      'handler' => 'views_handler_filter_numeric',
     ),
     'argument' => array(
       'handler' => 'views_handler_argument_numeric',
@@ -2381,7 +2381,7 @@ function ireport_views_data(){
       'handler' => 'views_handler_sort',
     ),
     'filter' => array(
-      'handler' => 'views_handler_filter',
+      'handler' => 'views_handler_filter_string',
     ),
     'argument' => array(
       'handler' => 'views_handler_argument_string',
@@ -2573,10 +2573,10 @@ function ireport_views_data(){
       'handler' => 'views_handler_sort',
     ),
     'filter' => array(
-      'handler' => 'views_handler_filter_string',
+      'handler' => 'views_handler_filter_numeric',
     ),
     'argument' => array(
-      'handler' => 'views_handler_argument_string',
+      'handler' => 'views_handler_argument_numeric',
     ),
   );
   $data['bamp_wild_trips']['latitude'] = array(
@@ -2589,10 +2589,10 @@ function ireport_views_data(){
       'handler' => 'views_handler_sort',
     ),
     'filter' => array(
-      'handler' => 'views_handler_filter_string',
+      'handler' => 'views_handler_filter_numeric',
     ),
     'argument' => array(
-      'handler' => 'views_handler_argument_string',
+      'handler' => 'views_handler_argument_numeric',
     ),
   );
   $data['bamp_wild_trips']['blind_no'] = array(
