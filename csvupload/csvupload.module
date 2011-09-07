@@ -54,7 +54,7 @@ function csvupload_hook_help($path, $arg) {
 function csvupload_menu() {
   $items = array();
   $items['csvupload'] = array(
-    'title' => 'CSV Upload',
+    'title' => 'BAMP CSV Upload',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('csvupload_upload_form'),
     'access callback' => 'user_access',
