@@ -1,0 +1,186 @@
+<?php
+
+// $Id: mapping.module $
+
+include 'mapping.admin.inc';
+
+/**
+ * @file
+ * Creates the forms required for the mapping module.
+ */
+
+/**
+ * Build the links in the navigation menu for each of the forms.
+ */
+function mapping_menu() {
+
+  //Main form
+  $items['mapping'] = array(
+    'title' => 'Map',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mapping_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('mapping module'),
+  );
+  // administration page
+  $items['admin/config/content/mapping'] = array(
+    'title' => 'Mapping',
+    'description' => 'Configure Mapping module',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mapping_admin_settings'),
+    'file' => 'mapping.admin.inc',
+    'access arguments' => array('access administration pages'),
+  );
+
+  return $items;
+}
+
+/**
+ * Build the form that displays an interactive map and buttons to clear and accept the selection.
+ */
+function mapping_form($form, &$form_state) {
+  $scriptPath = drupal_get_path('module', 'mapping') . '/dragmap/';
+
+  drupal_add_js('http://maps.googleapis.com/maps/api/js?sensor=false');
+//  drupal_add_js($scriptPath . 'MStatusControl.js');
+  drupal_add_js($scriptPath . 'MPolyDragControl.js');
+  drupal_add_js($scriptPath . 'gm_drag_polygon.js');
+
+  drupal_set_title(t('Mapping Menu'));
+
+  // dropdown for report selection
+  $form['reportType'] = array(
+    '#type' => 'select',
+    '#title' => t('Select report to view'),
+    '#options' => mapping_get_report_list(),
+  );
+  // submit button
+  $form['accept'] = array(
+    '#type' => 'submit',
+    '#value' => t('View Report'),
+    '#submit' => array('mapping_form_submit'),
+  );
+  // remove the selection rectangle from the map
+  $form['cancel'] = array(
+    '#type' => 'button',
+    '#value' => t('Clear Selection'),
+    '#attributes' => array('onClick' => 'eraseSelection(); return false;'),
+    '#executes_submit_callback' => FALSE,
+  );
+  // the map container (filled by js)
+  $form['map'] = array(
+    '#type' => 'markup',
+    '#markup' => 'It appears your browser does not support google maps',
+    '#prefix' => '<div id="mapDiv" style="height:600px">',
+    '#suffix' => '</div>',
+  );
+  // a hidden textfield to store url information
+  $form['addr'] = array(
+    '#type' => 'textfield',
+    '#id' => 'coords',
+    '#default_value' => '',
+    '#attributes' => array('hidden' => 'true'), // we don't want the user to see this field
+  );
+
+  $json = mapping_get_markers();
+  drupal_add_js(array("mapping" => $json), 'setting');
+  drupal_add_js(array("imagePath" => "/dragmap/images"), 'setting');
+
+  return $form;
+}
+
+/**
+ * Compose a list of all markers in the database (bamp_wild_sites) and json encode them for delivery to javascript.
+ * @return A json encoded string containing all the markers.
+ */
+function mapping_get_markers() {
+
+  db_set_active('bamp_new');
+
+  // A SLIGHTLY MORE BASIC APPROACH TO THE QUERY
+//  $sql = "SELECT id, latitude_avg AS lat, longitude_avg AS lng, concat('Site ', site_number, ': ', site_name) AS code FROM {bamp_wild_sites}";
+//  $result = db_query($sql);
+//  $rows = array();
+//  while ($r = $result->fetchAssoc()) {
+//    $r['lat'] = (float)$r['lat'];
+//    $r['lng'] = (float)$r['lng'];
+//    $rows[] = $r;
+//  }
+
+  // AN ALTERNATE WAY TO PERFORM THE QUERY
+  $query = db_select("bamp_wild_sites", "b");
+  $query->addField("b", "id", "id");
+  $query->addField("b", "latitude_avg", "lat");
+  $query->addField("b", "longitude_avg", "lng");
+  $query->addExpression("CONCAT('Site ', b.site_number, ': ', b.site_name)", "code");
+  $result = $query->execute();
+  $rows = array();
+  foreach ($result as $r)
+    $rows[] = $r;
+
+  db_set_active('default');
+  return drupal_json_encode(array("row" => $rows));
+}
+
+/**
+ * Retrieve a list of all available reports from the database.
+ * @return A list of reports with key=name, value=human_name.
+ * @note This function returns *all* of the pages defined through drupal, not just the reports.  If there are any non-report pages, then we will have to tag the reports somehow so we only get pages that make sense.
+ */
+function mapping_get_report_list() {
+  $reports = "SELECT name, human_name, display_options FROM {views_view} AS vv INNER JOIN {views_display} as vd ON vv.vid=vd.vid WHERE vd.display_plugin='page';";
+  $results = db_query($reports);
+  $rpts = array();
+  while ($rpt = $results->fetchAssoc()) {
+    // deserialize display options to get to the path
+    $opts = unserialize($rpt['display_options']);
+    // if the variable (from configuration) is set (true) then add this report to the list
+    if (variable_get('rpt' . $rpt['name']))
+      $rpts[$opts['path']] = $rpt['human_name'];
+  }
+  return $rpts;
+}
+
+/**
+ * Handle the submit action (the view report button) by compsing the new url (including parameters) and redirecting to that page.
+ */
+function mapping_form_submit($form, &$form_state) {
+  // extract each individual parameter/value pair
+  unset($form_state['storage']);
+
+  // the path of the report to display
+  $path = $form['reportType']['#value'];
+
+  // if there is no selection box then don't supply any arguments
+  if ($form['addr']['#value'] == '') {
+    $form_state['redirect'] = array($path);
+    return; // not sure if we need to return; the redirect might do that already
+  }
+
+  $url = explode('&', $form['addr']['#value']);
+
+  $params = array();
+  // now pull the parameter name and value apart (always exactly 4 params)
+  for ($i=0; $i<4; $i++) {
+    $k = explode('=', $url[$i]);
+    $params[$k[0]] = $k[1];
+  }
+  // go to the target page (with arguments)
+  $form_state['redirect'] = array($path, array('query' => $params));
+}
+
+/**
+ * Permission function.  Don't think its working yet
+ */
+function mapping_permission() {
+  return array(
+    'view mapping module' => array(
+      'title' => t('View mapping module'),
+      'description' => t('Allow users to view and interact with the mapping module'),
+    ),
+    'administer mapping module' => array(
+      'title' => t('Administer mapping module'),
+      'description' => t('Allow users to configure the mapping module'),
+    ),
+  );
+}
