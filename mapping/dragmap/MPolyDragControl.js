@@ -126,8 +126,8 @@ MPolyDragControl.prototype.getParams = function() {
   if (!this.poly){
     return "";
   }
-  var str =   'latitude_avg[min]=' + this.bounds.getSouthWest().lat().toFixed(5) +  '&latitude_avg[max]=' + this.bounds.getNorthEast().lat().toFixed(5)
-          + '&longitude_avg[min]=' + this.bounds.getSouthWest().lng().toFixed(5) + '&longitude_avg[max]=' + this.bounds.getNorthEast().lng().toFixed(5);
+  var str =   'latitude[min]=' + this.bounds.getSouthWest().lat().toFixed(5) +  '&latitude[max]=' + this.bounds.getNorthEast().lat().toFixed(5)
+          + '&longitude[min]=' + this.bounds.getSouthWest().lng().toFixed(5) + '&longitude[max]=' + this.bounds.getNorthEast().lng().toFixed(5);
 
   return str;
 }
