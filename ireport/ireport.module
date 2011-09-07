@@ -23,14 +23,63 @@ function ireport_menu()
 {
   $items = array ();
   $items['ireport/view'] = array(
-    'title' => 'View Reports',
+    'title' => 'BAMP Reports',
     'page callback' => 'ireport_report_list',
     'access callback' => 'user_access',
     'access arguments' => array('input form'),
     'weight' => '1',
   );
+  $items['ireport/bampsearch'] = array(
+    'title' => 'BAMP Search',
+    'page callback' => 'ireport_search_menu_callback',
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+    'weight' => '1',
+  );
+  $items['ireport/bampsearch/wildsites'] = array(
+    'title' => 'Wild Sites Search',
+    'page callback' => 'ireport_wild_search_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+  );
+  $items['ireport/bampsearch/wildtrips'] = array(
+    'title' => 'Wild Trips Search',
+    'page callback' => 'ireport_wild_search_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+  );
+  $items['ireport/bampsearch/wildlab'] = array(
+    'title' => 'Wild Lab Results Search',
+    'page callback' => 'ireport_wild_search_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+  );
+  $items['ireport/bampsearch/wildfish'] = array(
+    'title' => 'Wild Fish Level Search',
+    'page callback' => 'ireport_wild_search_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+  );
 
   return $items;
+}
+
+function ireport_search_menu_callback() {
+  drupal_set_title('Search Menu');
+  
+  $content['form'] = array(
+    '#markup' => '<p> This is the BAMP main menu</p>',
+  );  
+
+  return $content;
+}
+
+function ireport_wild_search_page() {
+  drupal_set_title('Wild Data Search');
+  $content ['form'] = array(
+    '#markup' => '<p>Please use the search block below to search BAMP Wild Information</p>',
+  );
+  return $content;
 }
 
 /**
