@@ -16,7 +16,7 @@ function mapping_menu() {
 
   //Main form
   $items['mapping'] = array(
-    'title' => 'Map',
+    'title' => 'BAMP Reports - Map Selection',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mapping_form'),
     'access callback' => 'user_access',
