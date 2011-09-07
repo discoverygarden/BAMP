@@ -2,8 +2,10 @@
 
 This project consists of a set of DRUPAL modules that facilitate the ingest of CSV data into a set of database tables and then exposes that data via drupal views module. 
 
+A lot of code is specific to the BAMP project but could be re-used on other projects with a few minor changes.
 
 ## Current Modules
 
 - CSVUpload: Allows upload of CSV file, mapping of file to database columns, upload of data to temporary table, review of uploaded data and committ to final production tables.
 - iReport: This currently just displays a list of reports created within the views UI
+- Mapping: This allows the user to select markers on a map and pass those values to a views report. 
