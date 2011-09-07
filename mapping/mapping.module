@@ -84,7 +84,8 @@ function mapping_form($form, &$form_state) {
 
   $json = mapping_get_markers();
   drupal_add_js(array("mapping" => $json), 'setting');
-  drupal_add_js(array("imagePath" => "/dragmap/images"), 'setting');
+  $imgPath = drupal_get_path('module', 'mapping').'/dragmap/images';
+  drupal_add_js(array("imagePath" => $imgPath), 'setting');
 
   return $form;
 }
@@ -110,8 +111,8 @@ function mapping_get_markers() {
   // AN ALTERNATE WAY TO PERFORM THE QUERY
   $query = db_select("bamp_wild_sites", "b");
   $query->addField("b", "id", "id");
-  $query->addField("b", "latitude_avg", "lat");
-  $query->addField("b", "longitude_avg", "lng");
+  $query->addField("b", "latitude", "lat");
+  $query->addField("b", "longitude", "lng");
   $query->addExpression("CONCAT('Site ', b.site_number, ': ', b.site_name)", "code");
   $result = $query->execute();
   $rows = array();
