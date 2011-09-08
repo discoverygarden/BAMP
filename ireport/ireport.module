@@ -95,6 +95,7 @@ function ireport_report_list() {
   $sql.= "FROM views_view vv ";
   $sql.= "INNER JOIN views_display vd ON vv.vid = vd.vid ";
   $sql.= "WHERE vd.display_plugin = 'page' ";
+  $sql.= "AND vv.tag = 'BAMP'";
 
   $limit = 20;
   $header = array(
