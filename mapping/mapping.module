@@ -2,8 +2,6 @@
 
 // $Id: mapping.module $
 
-include 'mapping.admin.inc';
-
 /**
  * @file
  * Creates the forms required for the mapping module.
@@ -22,15 +20,6 @@ function mapping_menu() {
     'access callback' => 'user_access',
     'access arguments' => array('mapping module'),
   );
-  // administration page
-  $items['admin/config/content/mapping'] = array(
-    'title' => 'Mapping',
-    'description' => 'Configure Mapping module',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('mapping_admin_settings'),
-    'file' => 'mapping.admin.inc',
-    'access arguments' => array('access administration pages'),
-  );
 
   return $items;
 }
@@ -42,7 +31,6 @@ function mapping_form($form, &$form_state) {
   $scriptPath = drupal_get_path('module', 'mapping') . '/dragmap/';
 
   drupal_add_js('http://maps.googleapis.com/maps/api/js?sensor=false');
-//  drupal_add_js($scriptPath . 'MStatusControl.js');
   drupal_add_js($scriptPath . 'MPolyDragControl.js');
   drupal_add_js($scriptPath . 'gm_drag_polygon.js');
 
@@ -84,7 +72,7 @@ function mapping_form($form, &$form_state) {
 
   $json = mapping_get_markers();
   drupal_add_js(array("mapping" => $json), 'setting');
-  $imgPath = drupal_get_path('module', 'mapping').'/dragmap/images';
+  $imgPath = $scriptPath.'images';
   drupal_add_js(array("imagePath" => $imgPath), 'setting');
 
   return $form;
@@ -97,16 +85,6 @@ function mapping_form($form, &$form_state) {
 function mapping_get_markers() {
 
   db_set_active('bamp_new');
-
-  // A SLIGHTLY MORE BASIC APPROACH TO THE QUERY
-//  $sql = "SELECT id, latitude_avg AS lat, longitude_avg AS lng, concat('Site ', site_number, ': ', site_name) AS code FROM {bamp_wild_sites}";
-//  $result = db_query($sql);
-//  $rows = array();
-//  while ($r = $result->fetchAssoc()) {
-//    $r['lat'] = (float)$r['lat'];
-//    $r['lng'] = (float)$r['lng'];
-//    $rows[] = $r;
-//  }
 
   // AN ALTERNATE WAY TO PERFORM THE QUERY
   $query = db_select("bamp_wild_sites", "b");
@@ -129,15 +107,17 @@ function mapping_get_markers() {
  * @note This function returns *all* of the pages defined through drupal, not just the reports.  If there are any non-report pages, then we will have to tag the reports somehow so we only get pages that make sense.
  */
 function mapping_get_report_list() {
-  $reports = "SELECT name, human_name, display_options FROM {views_view} AS vv INNER JOIN {views_display} as vd ON vv.vid=vd.vid WHERE vd.display_plugin='page';";
+  $reports = "SELECT name, human_name, display_options ";
+  $reports.= "FROM {views_view} AS vv ";
+  $reports.= "INNER JOIN {views_display} as vd ON vv.vid=vd.vid ";
+  $reports.= "WHERE vd.display_plugin='page' ";
+  $reports.= "AND vv.tag = 'BAMPMAP' ";
   $results = db_query($reports);
   $rpts = array();
   while ($rpt = $results->fetchAssoc()) {
     // deserialize display options to get to the path
     $opts = unserialize($rpt['display_options']);
-    // if the variable (from configuration) is set (true) then add this report to the list
-    if (variable_get('rpt' . $rpt['name']))
-      $rpts[$opts['path']] = $rpt['human_name'];
+    $rpts[$opts['path']] = $rpt['human_name'];
   }
   return $rpts;
 }
