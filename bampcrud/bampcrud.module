@@ -1,0 +1,76 @@
+<?php
+// $Id$
+
+include 'bampcrud.wildtrip.inc';
+include 'bampcrud.wildfish.inc';
+include 'bampcrud.wildsites.inc';
+include 'bampcrud.wildlab.inc';
+
+/**
+ * @file
+ * Contains code for displaying list of reports
+ */
+
+/**
+ * Set up permissions for module 
+ * http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_permission/7
+ */
+function bampcrud_perm() {
+  return array('access ireport','administer ireport');
+}//end ireport_perm
+
+
+/**
+ * Drupal Menu Hook
+ * http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_menu/7
+ */
+function bampcrud_menu() {
+  $items = array ();
+  $items['bampcrud/crud'] = array(
+    'title' => 'BAMP Data Management',
+    'page callback' => 'bampcrud_menu_callback',
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+    'weight' => '1',
+  );
+  $items['bampcrud/crud/wildsites'] = array(
+    'title' => 'Manage Wild Sites',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bampcrud_wild_sites_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+  );
+  $items['bampcrud/crud/wildtrips'] = array(
+    'title' => 'Manage Wild Trips',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bampcrud_wild_trips_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+  );
+  $items['bampcrud/crud/wildlab'] = array(
+    'title' => 'Manage Wild Lab Results',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bampcrud_wild_lab_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+  );
+  $items['bampcrud/crud/wildfish'] = array(
+    'title' => 'Manage Wild Fish Level',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bampcrud_wild_fish_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('input form'),
+  );
+
+  return $items;
+}
+
+function bampcrud_menu_callback() {
+  drupal_set_title('BAMP Data Management');
+  
+  $content['form'] = array(
+    '#markup' => '<p> This is the BAMP Data Management main menu. Please select an option from the menu on the left</p>',
+  );  
+
+  return $content;
+}

@@ -1,0 +1,7 @@
+;$Id$
+name = "BAMPCrud"
+description = "BAMP CRUD Module"
+package = "Content"
+core = 7.x
+php = 5.2
+version = 7.x-1.0
