@@ -77,7 +77,7 @@ function ireport_search_menu_callback() {
 function ireport_wild_search_page() {
   drupal_set_title('Wild Data Search');
   $content ['form'] = array(
-    '#markup' => '<p>Please use the search block below to search BAMP Wild Information</p>',
+    '#markup' => '<p>Please use the search block to search information</p>',
   );
   return $content;
 }
