@@ -3,6 +3,6 @@ name = "iReport"
 description = "iReport report builder module"
 package = "Content"
 core = 7.x
-php = 5.3
+php = 5.2
 version = 7.x-1.0
 dependencies[] = views
