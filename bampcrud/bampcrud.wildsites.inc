@@ -129,7 +129,7 @@ function bampcrud_wild_sites_form_submit($form, &$form_state) {
       ->execute();
     
       //drupal_goto('test/multi_step_form', array('query' => array('sort' => 'desc', 'order' => 'Id')));
-      drupal_set_message('adddddddd');
+      drupal_set_message('New record has been added.');
       break;
     case 'Save Change' :
       //Add db update code
@@ -148,7 +148,7 @@ function bampcrud_wild_sites_form_submit($form, &$form_state) {
       ->execute();
 
       //drupal_goto('test/multi_step_form');
-      drupal_set_message('updatttteeeee');
+      drupal_set_message('Record has been updated.');
       break;
   }//end switch
 }//end addedit_form_submit
