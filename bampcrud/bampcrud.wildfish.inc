@@ -1,7 +1,3 @@
-
-
-
-
 <?php
 
 function bampcrud_wild_fish_form($form, $form_state, $operation = 'add', $record_id = null) {
@@ -16,6 +12,14 @@ function bampcrud_wild_fish_form($form, $form_state, $operation = 'add', $record
     '#title' => t('Data Entry Form'),
     '#collapsible' => TRUE, 
   );  
+
+  if($operation == 'delete') {
+    $num_deleted = db_delete('bamp_wild_fish_data', array('target'=>'bamp_new'))
+    ->condition('id',$record_id)
+    ->execute();
+
+    drupal_set_message($num_deleted . t(' record has been deleted.'));
+  }//end if
 
 
   //if the operation is modify, grab the record from the database.
@@ -333,7 +337,7 @@ function bampcrud_wild_fish_form_submit($form, &$form_state) {
       ->execute();
     
       //drupal_goto('test/multi_step_form', array('query' => array('sort' => 'desc', 'order' => 'Id')));
-      drupal_set_message('adddddddd');
+      drupal_set_message('New record has been added.');
       break;
     case 'Save Change' :
       //Add db update code
@@ -375,7 +379,7 @@ function bampcrud_wild_fish_form_submit($form, &$form_state) {
       ->execute();
 
       //drupal_goto('test/multi_step_form');
-      drupal_set_message('updatttteeeee');
+      drupal_set_message('Record has been saved.');
       break;
   }//end switch
 }//end addedit_form_submit

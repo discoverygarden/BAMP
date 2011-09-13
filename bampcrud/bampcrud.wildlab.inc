@@ -13,7 +13,14 @@ function bampcrud_wild_lab_form($form, $form_state, $operation = 'add', $record_
     '#collapsible' => TRUE, 
   );  
 
+  if($operation == 'delete') {
+    $num_deleted = db_delete('bamp_wild_lab_results', array('target'=>'bamp_new'))
+    ->condition('id',$record_id)
+    ->execute();
 
+    drupal_set_message($num_deleted . t(' record has been deleted.'));
+  }//end if
+ 
   //if the operation is modify, grab the record from the database.
   if ($operation == 'modify') {
     $result = db_select('bamp_wild_lab_results', 'n', array('target'=>'bamp_new'))

@@ -13,6 +13,13 @@ function bampcrud_wild_sites_form($form, $form_state, $operation = 'add', $recor
     '#collapsible' => TRUE, 
   );  
 
+  if($operation == 'delete') {
+    $num_deleted = db_delete('bamp_wild_sites', array('target'=>'bamp_new'))
+    ->condition('id',$record_id)
+    ->execute();
+
+    drupal_set_message($num_deleted . t(' record has been deleted.'));
+  }//end if
 
   //if the operation is modify, grab the record from the database.
   if ($operation == 'modify') {
