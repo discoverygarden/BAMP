@@ -14,6 +14,8 @@ function bampcrud_wild_trips_form($form, $form_state, $operation = 'add', $recor
   );  
 
   if($operation == 'delete') {
+    bampcrud_log('Delete', 'bamp_wild_trips', $record_id, '');
+
     $num_deleted = db_delete('bamp_wild_trips', array('target'=>'bamp_new'))
     ->condition('id',$record_id)
     ->execute();
@@ -307,9 +309,7 @@ function bampcrud_wild_trips_form($form, $form_state, $operation = 'add', $recor
 function bampcrud_wild_trips_form_submit($form, &$form_state) {
   switch ($form_state['values']['op']) {
     case 'Add Record' :
-      //Add db insert 
-      $result = db_insert('bamp_wild_trips', array('target'=>'bamp_new'))
-      ->fields(array(
+      $fields =array(
         'year' => $form_state['values']['year'],
         'date' => $form_state['values']['date'],
         'rep' => $form_state['values']['rep'],
@@ -341,17 +341,18 @@ function bampcrud_wild_trips_form_submit($form, &$form_state) {
         'coho_retain' => $form_state['values']['coho_retain'],
         'weather_comments' => $form_state['values']['weather_comments'],
         'to_lab' => $form_state['values']['to_lab'],
-      ))
-      ->execute();
+      );
+
+      bampcrud_log('Create', 'bamp_wild_trips', 'New', $fields);
+
+      //Add db insert 
+      $result = db_insert('bamp_wild_trips', array('target'=>'bamp_new'))->fields($fields)->execute();
     
       //drupal_goto('test/multi_step_form', array('query' => array('sort' => 'desc', 'order' => 'Id')));
       drupal_set_message('New record has been added.');
-      break;
+    break;
     case 'Save Change' :
-      //Add db update code
-
-      $num_updated = db_update('bamp_wild_trips', array('target'=>'bamp_new'))
-      ->fields(array(
+      $fields = array(
         'year' => $form_state['values']['year'],
         'date' => $form_state['values']['date'],
         'rep' => $form_state['values']['rep'],
@@ -383,9 +384,12 @@ function bampcrud_wild_trips_form_submit($form, &$form_state) {
         'coho_retain' => $form_state['values']['coho_retain'],
         'weather_comments' => $form_state['values']['weather_comments'],
         'to_lab' => $form_state['values']['to_lab'],
-      ))
-      ->condition('id', $form_state['values']['id'],'=')
-      ->execute();
+      );
+
+      bampcrud_log('Update', 'bamp_wild_trips', $form_state['values']['id'], $fields);
+
+      //Add db update code
+      $num_updated = db_update('bamp_wild_trips', array('target'=>'bamp_new'))->fields($fields)->condition('id', $form_state['values']['id'],'=')->execute();
 
       //drupal_goto('test/multi_step_form');
       drupal_set_message('Record has been updated.');

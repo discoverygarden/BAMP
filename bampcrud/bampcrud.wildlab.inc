@@ -14,6 +14,7 @@ function bampcrud_wild_lab_form($form, $form_state, $operation = 'add', $record_
   );  
 
   if($operation == 'delete') {
+    bampcrud_log('Delete', 'bamp_wild_lab_results', $record_id, '');
     $num_deleted = db_delete('bamp_wild_lab_results', array('target'=>'bamp_new'))
     ->condition('id',$record_id)
     ->execute();
@@ -339,9 +340,7 @@ function bampcrud_wild_lab_form($form, $form_state, $operation = 'add', $record_
 function bampcrud_wild_lab_form_submit($form, &$form_state) {
   switch ($form_state['values']['op']) {
     case 'Add Record' :
-      //Add db insert 
-      $result = db_insert('bamp_wild_lab_results', array('target'=>'bamp_new'))
-      ->fields(array(
+      $fields = array(
         'fish_id' => $form_state['values']['fish_id'],
         'year' => $form_state['values']['year'],
         'trip' => $form_state['values']['trip'],
@@ -377,17 +376,18 @@ function bampcrud_wild_lab_form_submit($form, &$form_state) {
         'lessions' => $form_state['values']['lessions'],
         'comments' => $form_state['values']['comments'],
         'initials' => $form_state['values']['initials'],
-      ))
-      ->execute();
+      );
+
+      bampcrud_log('Create', 'bamp_wild_lab_results', 'New', $fields);
+
+      //Add db insert 
+      $result = db_insert('bamp_wild_lab_results', array('target'=>'bamp_new'))->fields($fields)->execute();
     
       //drupal_goto('test/multi_step_form', array('query' => array('sort' => 'desc', 'order' => 'Id')));
       drupal_set_message('New record has been added.');
       break;
     case 'Save Change' :
-      //Add db update code
-
-      $num_updated = db_update('bamp_wild_lab_results', array('target'=>'bamp_new'))
-      ->fields(array(
+      $fields = array(
         'fish_id' => $form_state['values']['fish_id'],
         'year' => $form_state['values']['year'],
         'trip' => $form_state['values']['trip'],
@@ -423,7 +423,13 @@ function bampcrud_wild_lab_form_submit($form, &$form_state) {
         'lessions' => $form_state['values']['lessions'],
         'comments' => $form_state['values']['comments'],
         'initials' => $form_state['values']['initials'],
-      ))
+      );
+
+      bampcrud_log('Update', 'bamp_wild_lab_results', $form_state['values']['id'], $fields);
+
+      //Add db update code
+      $num_updated = db_update('bamp_wild_lab_results', array('target'=>'bamp_new'))
+      ->fields($fields)
       ->condition('id', $form_state['values']['id'],'=')
       ->execute();
 

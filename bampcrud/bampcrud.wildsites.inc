@@ -6,7 +6,6 @@ function bampcrud_wild_sites_form($form, $form_state, $operation = 'add', $recor
     '#value' => $operation,
   );
 
-
   $form['fieldset'] = array(
     '#type' => 'fieldset',
     '#title' => t('Data Entry Form'),
@@ -14,10 +13,15 @@ function bampcrud_wild_sites_form($form, $form_state, $operation = 'add', $recor
   );  
 
   if($operation == 'delete') {
+    //Log the deletion
+    bampcrud_log('Delete', 'bamp_wild_sites', $record_id, '');
+
+    //Delete the record
     $num_deleted = db_delete('bamp_wild_sites', array('target'=>'bamp_new'))
     ->condition('id',$record_id)
     ->execute();
 
+    //Set a message informing the user the record has been deleted.
     drupal_set_message($num_deleted . t(' record has been deleted.'));
   }//end if
 
@@ -116,8 +120,7 @@ function bampcrud_wild_sites_form_submit($form, &$form_state) {
   switch ($form_state['values']['op']) {
     case 'Add Record' :
       //Add db insert 
-      $result = db_insert('bamp_wild_sites', array('target'=>'bamp_new'))
-      ->fields(array(
+      $fields = array(
         'site_number' => $form_state['values']['site_number'],
         'site_name' => $form_state['values']['site_name'],
         'latitude' => $form_state['values']['latitude'],
@@ -125,30 +128,35 @@ function bampcrud_wild_sites_form_submit($form, &$form_state) {
         'zone' => $form_state['values']['zone'],
         'area' => $form_state['values']['area'],
         'comment' => $form_state['values']['comment'],
-      ))
-      ->execute();
-    
+      );
+      $result = db_insert('bamp_wild_sites', array('target'=>'bamp_new'))->fields($fields)->execute();
+
+      //Log the changes to the changelog
+      bampcrud_log('Create', 'bamp_wild_sites', 'New', $fields);
+
       //drupal_goto('test/multi_step_form', array('query' => array('sort' => 'desc', 'order' => 'Id')));
       drupal_set_message('New record has been added.');
       break;
     case 'Save Change' :
       //Add db update code
-
-      $num_updated = db_update('bamp_wild_sites', array('target'=>'bamp_new'))
-      ->fields(array(
+      $fields = array(
         'site_number' => $form_state['values']['site_number'],
         'site_name' => $form_state['values']['site_name'],
         'latitude' => $form_state['values']['latitude'],
         'longitude' => $form_state['values']['longitude'],
         'zone' => $form_state['values']['zone'],
         'area' => $form_state['values']['area'],
-        'comment' => $form_state['values']['comment'],
-      ))
-      ->condition('id', $form_state['values']['id'],'=')
-      ->execute();
+        'comment' => $form_state['values']['comment']
+      );
+
+      //Log the changes to the changelog
+      bampcrud_log('Update', 'bamp_wild_sites', $form_state['values']['id'], $fields);
+
+      //Execute Update
+      $num_updated = db_update('bamp_wild_sites', array('target'=>'bamp_new'))->fields($fields)->condition('id', $form_state['values']['id'],'=')->execute();
 
       //drupal_goto('test/multi_step_form');
       drupal_set_message('Record has been updated.');
-      break;
+    break;
   }//end switch
 }//end addedit_form_submit
