@@ -2917,5 +2917,176 @@ function ireport_views_data(){
     ),
   );
 
+    $data['changelog']['table'] = array('group' =>'changelog', 'title'=>'Change Log', 'help' => 'changelog');
+
+  $data['changelog']['table']['base'] = array(
+    'field' => 'id',
+    'title' => t('BAMP Change Log'),
+    'help' => t("Contains information about data which has been added or modified through the BAMP website."),
+    'database' => 'bamp_new',
+    'weight' => -10,
+  );
+
+  $data['changelog']['id'] = array(
+    'title' => t('id'),
+    'help' => t('Internal database record ID. Auto-Incrementing.'),
+    'field' => array( 'click sortable' => TRUE,
+      'handler' => 'views_handler_field_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+    ),
+  );
+  $data['changelog']['timestamp'] = array(
+    'title' => t('Timestamp'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['changelog']['user'] = array(
+    'title' => t('User'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['changelog']['action'] = array(
+    'title' => t('Action'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['changelog']['dbtable'] = array(
+    'title' => t('Database Table'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['changelog']['recordId'] = array(
+    'title' => t('Database Record ID'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+    ),
+  );
+  $data['changelog']['field'] = array(
+    'title' => t('Field'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['changelog']['oldvalue'] = array(
+    'title' => t('Old Value'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['changelog']['newvalue'] = array(
+    'title' => t('New Value'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['changelog']['additional'] = array(
+    'title' => t('Additional Information'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  ); 
+
   return $data;
 }

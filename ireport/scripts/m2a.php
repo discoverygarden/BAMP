@@ -6,7 +6,7 @@ mysql_select_db('information_schema',$dbh);
 $query = "SELECT table_name ";
 $query.= "FROM `TABLES` ";
 $query.= "WHERE `TABLE_SCHEMA` = 'bamp_new' ";
-$query.= "AND `TABLE_NAME` LIKE '%bamp_%'";
+$query.= "AND `TABLE_NAME` LIKE 'changelog'";
 $result = mysql_query($query,$dbh);
 
 while($row = mysql_fetch_assoc($result)){
