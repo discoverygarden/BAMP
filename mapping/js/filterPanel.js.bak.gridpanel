@@ -1,0 +1,60 @@
+Ext.onReady(function(){
+  Ext.define('MappingInterface.widgets.filters', {
+    extend: 'Ext.panel.Panel',
+    itemId: 'filterPanel',
+    title: 'Filters',
+    region: 'east',
+    collapsible: false,
+    width: 300,
+    items: [{
+      xtype: 'gridpanel',
+      title: 'Map Marker Filters',
+      dockedItems: [{
+        xtype: 'toolbar',
+        items: [{
+          text: 'Add Filter',
+          scope: this,
+          handler: this.onAddClick
+        }, {
+          text: 'Delete Filter',
+          disabled: true,
+          itemId: 'delete',
+          scope: this,
+          handler: this.onDeleteClick
+        }]
+      }],
+      store: [
+        ['string','string'],
+        ['string','string'],
+        ['string','string']
+      ],
+      columns: [
+        {
+          xtype: 'gridcolumn',
+          dataIndex: 'string',
+          header: 'Name'
+        },{
+          xtype: 'gridcolumn',
+          header: ' - ',
+          dataIndex: 'string',
+          width: 50,
+        },{
+          xtype: 'gridcolumn',
+          dataIndex: 'string',
+          header: 'Value'
+        }
+      ],
+      viewConfig: {
+      },
+      plugins: [
+        Ext.create('Ext.grid.plugin.CellEditing', {
+          clicksToEdit: 1,
+        })
+      ]
+    }],
+    onAddClick: function(){
+      alert('hi');
+
+    }
+  });
+});

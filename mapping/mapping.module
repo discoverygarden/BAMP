@@ -1,167 +1,72 @@
 <?php
-
-// $Id: mapping.module $
-
 /**
- * @file
- * Creates the forms required for the mapping module.
+ * Constants
  */
+define("PERM_MAPPING_VIEW_OBJECTS", 'View Mapping Interface');
 
 /**
- * Build the links in the navigation menu for each of the forms.
+ * Implements Menu Hook. Registers Menus.
  */
 function mapping_menu() {
-
-  //Main form
   $items['mapping'] = array(
-    'title' => 'BAMP Reports - Map Selection',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('mapping_form'),
-    'access callback' => 'user_access',
-    'access arguments' => array('mapping module'),
+    'title' => t('Mapping'),
+    'description' => t('Mapping.'),
+    'page callback' => 'mapping',
+    'access arguments' => array(PERM_MAPPING_VIEW_OBJECTS),
+    'type' => MENU_NORMAL_ITEM,
   );
-
   return $items;
 }
 
 /**
- * Build the form that displays an interactive map and buttons to clear and accept the selection.
+ * Implements hook_perm. Register permissions.
+ *
+ * @return array
  */
-function mapping_form($form, &$form_state) {
-  $scriptPath = drupal_get_path('module', 'mapping') . '/dragmap/';
-
-  drupal_add_js('http://maps.googleapis.com/maps/api/js?sensor=false');
-  drupal_add_js($scriptPath . 'MPolyDragControl.js');
-  drupal_add_js($scriptPath . 'gm_drag_polygon.js');
-
-  drupal_set_title(t('Mapping Menu'));
-
-  // dropdown for report selection
-  $form['reportType'] = array(
-    '#type' => 'select',
-    '#title' => t('Select report to view'),
-    '#options' => mapping_get_report_list(),
-  );
-  // submit button
-  $form['accept'] = array(
-    '#type' => 'submit',
-    '#value' => t('View Report'),
-    '#submit' => array('mapping_form_submit'),
-  );
-  // remove the selection rectangle from the map
-  $form['cancel'] = array(
-    '#type' => 'button',
-    '#value' => t('Clear Selection'),
-    '#attributes' => array('onClick' => 'eraseSelection(); return false;'),
-    '#executes_submit_callback' => FALSE,
-  );
-  // the map container (filled by js)
-  $form['map'] = array(
-    '#type' => 'markup',
-    '#markup' => 'It appears your browser does not support google maps',
-    '#prefix' => '<div id="mapDiv" style="height:600px">',
-    '#suffix' => '</div>',
-  );
-  // a hidden textfield to store url information
-  $form['addr'] = array(
-    '#type' => 'textfield',
-    '#id' => 'coords',
-    '#default_value' => '',
-    '#attributes' => array('hidden' => 'true'), // we don't want the user to see this field
-  );
-
-  $json = mapping_get_markers();
-  drupal_add_js(array("mapping" => $json), 'setting');
-  $imgPath = $scriptPath.'images';
-  drupal_add_js(array("imagePath" => $imgPath), 'setting');
-
-  return $form;
-}
-
-/**
- * Compose a list of all markers in the database (bamp_wild_sites) and json encode them for delivery to javascript.
- * @return A json encoded string containing all the markers.
- */
-function mapping_get_markers() {
-
-  db_set_active('bamp_new');
-
-  // AN ALTERNATE WAY TO PERFORM THE QUERY
-  $query = db_select("bamp_wild_sites", "b");
-  $query->addField("b", "id", "id");
-  $query->addField("b", "latitude", "lat");
-  $query->addField("b", "longitude", "lng");
-  $query->addExpression("CONCAT('Site ', b.site_number, ': ', b.site_name)", "code");
-  $result = $query->execute();
-  $rows = array();
-  foreach ($result as $r)
-    $rows[] = $r;
-
-  db_set_active('default');
-  return drupal_json_encode(array("row" => $rows));
-}
-
-/**
- * Retrieve a list of all available reports from the database.
- * @return A list of reports with key=name, value=human_name.
- * @note This function returns *all* of the pages defined through drupal, not just the reports.  If there are any non-report pages, then we will have to tag the reports somehow so we only get pages that make sense.
- */
-function mapping_get_report_list() {
-  $reports = "SELECT name, human_name, display_options ";
-  $reports.= "FROM {views_view} AS vv ";
-  $reports.= "INNER JOIN {views_display} as vd ON vv.vid=vd.vid ";
-  $reports.= "WHERE vd.display_plugin='page' ";
-  $reports.= "AND vv.tag = 'BAMPMAP' ";
-  $results = db_query($reports);
-  $rpts = array();
-  while ($rpt = $results->fetchAssoc()) {
-    // deserialize display options to get to the path
-    $opts = unserialize($rpt['display_options']);
-    $rpts[$opts['path']] = $rpt['human_name'];
-  }
-  return $rpts;
-}
-
-/**
- * Handle the submit action (the view report button) by compsing the new url (including parameters) and redirecting to that page.
- */
-function mapping_form_submit($form, &$form_state) {
-  // extract each individual parameter/value pair
-  unset($form_state['storage']);
-
-  // the path of the report to display
-  $path = $form['reportType']['#value'];
-
-  // if there is no selection box then don't supply any arguments
-  if ($form['addr']['#value'] == '') {
-    $form_state['redirect'] = array($path);
-    return; // not sure if we need to return; the redirect might do that already
-  }
-
-  $url = explode('&', $form['addr']['#value']);
-
-  $params = array();
-  // now pull the parameter name and value apart (always exactly 4 params)
-  for ($i=0; $i<4; $i++) {
-    $k = explode('=', $url[$i]);
-    $params[$k[0]] = $k[1];
-  }
-  // go to the target page (with arguments)
-  $form_state['redirect'] = array($path, array('query' => $params));
-}
-
-/**
- * Permission function.  Don't think its working yet
- */
-function mapping_permission() {
+function mapping_perm() {
   return array(
-    'view mapping module' => array(
-      'title' => t('View mapping module'),
-      'description' => t('Allow users to view and interact with the mapping module'),
-    ),
-    'administer mapping module' => array(
-      'title' => t('Administer mapping module'),
-      'description' => t('Allow users to configure the mapping module'),
+    PERM_MAPPING_VIEW_OBJECTS,
+  );
+}
+
+/**
+ * Implements Hook Theme. Registers themes.
+ *
+ * @return array
+ */
+function mapping_theme() {
+  return array(
+    'mapping' => array(
+      'arguments' => array('pid' => NULL),
+      'template' => 'Viewer',
     ),
   );
+}
+
+function template_preprocess_mapping(array &$variables) {
+  global $base_url;
+}
+
+/**
+ * Renders the Viewer for a given pid if possible.
+ *
+ * @param string $pid
+ */
+function mapping($pid = NULL) {
+    /* Load ExtJS */
+    $path = drupal_get_path('module', 'mapping');
+    $js_path = $path . '/js';
+    $ext_path = $path . '/lib/ext';
+    //drupal_add_js($ext_path . '/ext-all.js');
+    drupal_add_js('http://maps.google.com/maps/api/js?sensor=false');
+    drupal_add_js($ext_path . '/ext-all-debug-w-comments.js');
+    drupal_add_css($path . '/css/Clear.css');
+    drupal_add_css($ext_path . '/resources/css/ext-all-gray.css', 'theme', 'all');
+    drupal_add_js($js_path . '/IncludeFirst.js');
+    drupal_add_js($js_path . '/GMapPanel3.js');
+    drupal_add_js($js_path . '/mapPanel.js');
+    drupal_add_js($js_path . '/filterPanel.js');
+    drupal_add_js($js_path . '/MappingInterface.js');
+    drupal_add_css($path . '/css/mapping.css');
+    return theme('mapping', $pid);
 }

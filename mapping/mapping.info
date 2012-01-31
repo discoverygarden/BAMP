@@ -1,8 +1,6 @@
-;$Id$
-name = "mapping"
-description = "Mapping project module"
-package = "Content"
+; $Id$
+name = Map Viewer 
+description = Displays data on a google map using EXTJS javascript library.
+package = BAMP
+version = 7.0dev
 core = 7.x
-php = 5.2
-version = 7.x-1.0
-dependencies[] = views
