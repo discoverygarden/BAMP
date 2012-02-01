@@ -3011,7 +3011,7 @@ function ireport_views_data(){
     'title' => t('Database Record ID'),
     'help' => t(''),
     'field' => array(
-      'handler' => 'views_handler_field_numeric',
+      'handler' => 'views_handler_field',
     ),
     'sort' => array(
       'handler' => 'views_handler_sort',
@@ -3020,7 +3020,7 @@ function ireport_views_data(){
       'handler' => 'views_handler_filter',
     ),
     'argument' => array(
-      'handler' => 'views_handler_argument_numeric',
+      'handler' => 'views_handler_argument_string',
     ),
   );
   $data['changelog']['field'] = array(
