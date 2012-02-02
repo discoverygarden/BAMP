@@ -3007,20 +3007,38 @@ function ireport_views_data(){
       'handler' => 'views_handler_argument_string',
     ),
   );
+  /*
   $data['changelog']['recordId'] = array(
     'title' => t('Database Record ID'),
     'help' => t(''),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'views_handler_field_numeric',
     ),
     'sort' => array(
       'handler' => 'views_handler_sort',
     ),
     'filter' => array(
-      'handler' => 'views_handler_filter',
+      'handler' => 'views_handler_filter_numeric',
     ),
     'argument' => array(
-      'handler' => 'views_handler_argument_string',
+      'handler' => 'views_handler_argument_numeric',
+    ),
+  );*/
+  $data['changelog']['recordId'] = array(
+    'title' => t('recordId'),
+    'help' => t('Database record ID'),
+    'field' => array( 
+      'click sortable' => TRUE,
+      'handler' => 'views_handler_field_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
     ),
   );
   $data['changelog']['field'] = array(
