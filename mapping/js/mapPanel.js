@@ -40,17 +40,31 @@ Ext.onReady(function(){
           var markers = [];
           var wild_site_markers = Ext.data.StoreManager.lookup('wild_site_markers');
           var site_markers = wild_site_markers.load();
+          /*this.clearMarkers();
+          this.addMarkers(site_markers);
+          this.showMarkers();*/
+
           site_markers.each(function(m){
+            markers.push(m.raw);
+          });
+          this.addMarkers(markers);
+          this.showMarkers();
+
+          /*site_markers.each(function(m){
             markers.push({
               lat: m.get('lat'),
               lng: m.get('lng'),
+              bamp_id: m.get('bamp_id'),
               marker: {
                 title: m.get('marker').title,
+                infoWindow: {
+                  content: m.get('marker').infoWindow.content
+                }
               }
             });
           });
           this.addMarkers(markers);
-          this.showMarkers();
+          this.showMarkers();*/
         }//end mapready()
       }//end listeners
     }//end items
