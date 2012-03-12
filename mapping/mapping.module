@@ -19,13 +19,17 @@ function mapping_menu() {
 }
 
 /**
- * Implements hook_perm. Register permissions.
+ * Implements hook_permission. Register permissions.
  *
  * @return array
  */
-function mapping_perm() {
+function mapping_permission() {
   return array(
-    PERM_MAPPING_VIEW_OBJECTS,
+    PERM_MAPPING_VIEW_OBJECTS  => array(
+      'title' => t(PERM_MAPPING_VIEW_OBJECTS),
+      'description' => t('View BAMP Mapping Interface.'),
+      'restrict access' => TRUE,
+    ),
   );
 }
 
