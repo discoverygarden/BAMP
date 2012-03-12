@@ -1,4 +1,12 @@
 Ext.onReady(function(){
+  Ext.require('Ext.LoadMask', function() {
+    Ext.override(Ext.LoadMask, {
+      onHide: function() {
+        this.callParent();
+      }
+    });
+  });
+
   Ext.define('MappingInterface.widgets.filters', {
     extend: 'Ext.panel.Panel',
     itemId: 'filterPanel',
@@ -16,8 +24,8 @@ Ext.onReady(function(){
             Ext.create("Ext.Window",{
               id: 'addFilterWindow',
               title : 'Add Filter',
-              width : 350,
-              height: 220,
+              width : 500,
+              height: 225,
               closable : true,
               bodyPadding: '20px',
               layout: {
@@ -25,46 +33,17 @@ Ext.onReady(function(){
               },
               items: [{
                   xtype: 'combo',
-                  id: 'comboTable',
-                  store: 'filterTables',
-                  displayField: 'table',
-                  valueField: 'tableId',
-                  fieldLabel: 'Filter Group',
-                  queryMode: 'local',
-                  selectOnTab: false,
-                  name: 'table',
-                  forceSelection: true,
-                  listeners: {
-                    //scope: this,
-                    select: function(){
-                      var comboField = Ext.getCmp('comboField');
-                      comboField.clearValue();
-                      comboField.enable();
-                      comboField.store.clearFilter();
-                      comboField.store.filter('tid',this.getValue());
-
-                      var comboOperator = Ext.getCmp('comboOperator');
-                      comboOperator.clearValue();
-                      comboOperator.disable();
-
-                      var comboValue = Ext.getCmp('comboValue');
-                      comboValue.setValue('');
-                      comboValue.disable();
-                    }
-                  }
-                },{
-                  xtype: 'combo',
                   id: 'comboField',
                   store: 'filterFields',
                   displayField: 'field',
                   valueField: 'fieldId',
+                  width: 400,
                   fieldLabel: 'Filter Column',
                   forceSelection: true,
-                  //queryMode: 'remote',
-                  autoSelect: true,
+                  autoSelect: false,
                   selectOnTab: false,
                   name: 'column',
-                  disabled: true,
+                  disabled: false,
                   listeners: {
                     select: function(){
                       var comboOperator = Ext.getCmp('comboOperator');
@@ -124,7 +103,6 @@ Ext.onReady(function(){
                     handler: function() {
                       var comboField = Ext.getCmp('comboField');
                       comboField.clearValue();
-                      comboField.disable();
 
                       var comboOperator = Ext.getCmp('comboOperator');
                       comboOperator.clearValue();
@@ -133,13 +111,12 @@ Ext.onReady(function(){
                       var comboValue = Ext.getCmp('comboValue');
                       comboValue.setValue('');
                       comboValue.disable();
+
+                      window.mapFilters = '';
                     }
                   }, {
                     text: 'Save',
                     handler: function(){
-                      var comboTable = Ext.getCmp('comboTable');
-                      var table = comboTable.getValue();
-
                       var comboField = Ext.getCmp('comboField');
                       var field = comboField.getValue();
 
@@ -149,14 +126,15 @@ Ext.onReady(function(){
                       var comboValue = Ext.getCmp('comboValue');
                       var value = comboValue.getValue();
 
-                      var filter = {table: table, field: field, operator: operator, value: value};
+                      var filter = {field: field, operator: operator, value: value};
                       window.mapFilters.push(filter);
 
                       //Add filter to the filterPanel
 
-                      var filterHtml = {
+                      var filterHtml = '';
+                      filterHtml = {
                         xtype: 'panel',
-                        html: '<h3>' + table + '.' + field + ' ' + operator + ' ' + value + '</h3>',
+                        html: '<span class="filterEntry"><span class="filterText">' + field + ' <b>' + operator + '</b> ' + value + '</span> <span class="filterDelete"><img src="sites/default/modules/mapping/images/delete.png" onclick="javascript:alert(\'TODO: Milestone 3\');"/></span></span>',
                       };
 
                       var filterPanel = Ext.getCmp('filterPanel');
@@ -177,7 +155,8 @@ Ext.onReady(function(){
           itemId: 'delete',
           //:scope: this,
           handler: function() {
-            window.mapFilters = [];
+            location.reload(true);
+            /*window.mapFilters = [];
             var mappy = Ext.getCmp('bampMap');
             mappy.hideMarkers();
             var markers = [];
@@ -197,12 +176,13 @@ Ext.onReady(function(){
               });
             });
             mappy.addMarkers(markers);
-            mappy.showMarkers();
+            mappy.showMarkers();*/
           }
         }]
       }], 
       items: [{
-        
+        xtype: 'panel',
+        html: '<span class="filterInstructions">To refine the data displayed on the map, click the "Add Filter" button above, choose the field you would like to filter on, select an operator and enter a value. Once your new filter is saved it will appear in this area and you can continue adding filters to achieve the desired result set.</span>'
       }]
   });
 });
