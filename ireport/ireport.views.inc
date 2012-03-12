@@ -1181,6 +1181,22 @@ function ireport_views_data(){
       'handler' => 'views_handler_argument_numeric',
     ),
   );
+  $data['bamp_wild_fish_data']['trip_id'] = array(
+    'title' => t('Trip ID'),
+    'help' => t('Trip ID'),
+    'field' => array( 'click sortable' => TRUE,
+      'handler' => 'views_handler_field',
+    ),   
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),   
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
   $data['bamp_wild_fish_data']['year'] = array(
     'title' => t('year'),
     'help' => t('The year of the data'),
