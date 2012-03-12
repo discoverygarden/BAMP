@@ -10,8 +10,14 @@
  * Set up permissions for module 
  * http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_permission/7
  */
-function ireport_perm() {
-  return array('access ireport','administer ireport');
+function ireport_permission() {
+  return array(
+    'View data'  => array(
+      'title' => t('View data'),
+      'description' => t('Allow user to view BAMP data.'),
+      'restrict access' => TRUE,
+    ),
+  );
 }//end ireport_perm
 
 
@@ -26,39 +32,39 @@ function ireport_menu()
     'title' => 'BAMP Reports',
     'page callback' => 'ireport_report_list',
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('View data'),
     'weight' => '1',
   );
   $items['ireport/bampsearch'] = array(
     'title' => 'BAMP Search',
     'page callback' => 'ireport_search_menu_callback',
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('View data'),
     'weight' => '1',
   );
   $items['ireport/bampsearch/wildsites'] = array(
     'title' => 'Wild Sites Search',
     'page callback' => 'ireport_wild_search_page',
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('View data'),
   );
   $items['ireport/bampsearch/wildtrips'] = array(
     'title' => 'Wild Trips Search',
     'page callback' => 'ireport_wild_search_page',
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('View data'),
   );
   $items['ireport/bampsearch/wildlab'] = array(
     'title' => 'Wild Lab Results Search',
     'page callback' => 'ireport_wild_search_page',
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('View data'),
   );
   $items['ireport/bampsearch/wildfish'] = array(
     'title' => 'Wild Fish Level Search',
     'page callback' => 'ireport_wild_search_page',
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('View data'),
   );
 
   return $items;
