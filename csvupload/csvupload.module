@@ -32,8 +32,14 @@ function csvupload_block_content() {
 /**
 * This will allow you to restrict certain actions of the module to certain roles
 */
-function csvupload_perm() {
-  return array('access csvupload', 'administer csvupload');
+function csvupload_permission() {
+  return array(
+    'Upload data'  => array(
+      'title' => t('Upload data'),
+      'description' => t('Allow user to upload BAMP data.'),
+      'restrict access' => TRUE,
+    ),  
+  );  
 }
 
 /**
@@ -58,7 +64,7 @@ function csvupload_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('csvupload_upload_form'),
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('Upload data'),
     'weight' => '1',
   );
   return $items;
