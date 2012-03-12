@@ -8,7 +8,7 @@ Ext.onReady(function(){
   //Wild Site Markers Model and Store
   Ext.define('MappingInterface.models.wild_site_markers', {
     extend: 'Ext.data.Model',
-    fields: ['lat','lng','marker'],
+    fields: ['lat','lng','bamp_id','marker','fish_count','trip_id'],
   });
   Ext.create('Ext.data.Store', {
     storeId: 'wild_site_markers',
@@ -21,7 +21,7 @@ Ext.onReady(function(){
     autoLoad: true
   });
 
-  //Filters - Tables Model and Store
+/*  //Filters - Tables Model and Store
   Ext.define('MappingInterface.models.filterTables', {
     extend: 'Ext.data.Model',
     fields: ['table','tableId'],
@@ -30,13 +30,14 @@ Ext.onReady(function(){
     storeId: 'filterTables',
     model: MappingInterface.models.filterTables,
     data: [
+      ['View','bamp_wild_view'],
       ['Fish Level Data', 'bamp_wild_fish_data'],
       ['Trips','bamp_wild_trips'],
       ['Sites','bamp_wild_sites'],
       ['Lab Results','bamp_wild_lab_results']
     ]
   });
- 
+*/
 
   //Filters - Fields Model and Store
   Ext.define('MappingInterface.models.filterFields', {
@@ -44,6 +45,7 @@ Ext.onReady(function(){
     fields: ['field','fieldId','fieldType'],
   });
   Ext.create('Ext.data.Store', {
+    autoLoad: true,
     storeId: 'filterFields',
     model: MappingInterface.models.filterFields,
     remoteFilter: true,
