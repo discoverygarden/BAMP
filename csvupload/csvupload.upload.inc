@@ -43,16 +43,14 @@ function csvupload_upload_form($form, &$form_state) {
       );
 
       //Get database tables
-      $tables = db_query("SHOW TABLES FROM bamp_new", array(), array('target' => 'bamp_new'))->fetchCol();
+      $tables = db_query("SHOW TABLES FROM bamp_new WHERE Tables_in_bamp_new NOT IN ('ChangeLog') AND Tables_in_bamp_new NOT LIKE '%tmp%' AND Tables_in_bamp_new NOT LIKE '%view%'", array(), array('target' => 'bamp_new'))->fetchCol();
 
       //Create import_tables array to hold importable tables for dropdown
       $import_tables = array('ps' => '--Please Select--');
 
       //Loop over tables and see if they have been selected in the admin config (easier way to do this??)
       foreach ($tables as $k => $table) {
-        if (!strstr($table, '_tmp_')) {
-          $import_tables[$table] = $table;
-        }//end if
+        $import_tables[$table] = $table;
       }//end foreach
 
       if (count($import_tables) > 0) {
