@@ -1,1 +1,31 @@
 /*styles go here*/
+.filterEntry {
+  display: block;
+  width: 300px;
+  height: 30px;
+  letter-spacing: 1px;
+  padding: 4px 4px 4px 4px;
+}
+.filterEntry > .filterText {
+  float: left;
+  padding-top: 2px;
+  text-shadow: #6374AB 2px 2px 2px;
+}
+
+.filterEntry > .filterDelete {
+  float: right;
+  width: 16px;
+  height: 16px;
+  margin: 7px 7px 7px 0;
+}
+
+.filterInstructions {
+  display: block;
+  width: 300px;
+  height: 125px;
+  line-height: 18px;
+  border-bottom: 1px solid #000;
+  padding: 4px 8px 4px 4px;
+  background-color: #efefef;
+  text-align: justify;
+}
