@@ -77,9 +77,8 @@ function bampcrud_menu_callback() {
 
 function bampcrud_log($action, $table, $recordId, $additional){
   //Get the Drupal user ID
-  //global $user;
-  //$user = $user->uid;
-  $user = 1;
+  global $user;
+  $user = $user->name;
 
   //Handle logging based on which action is being performed (Create/Delete/Update)
   //Create - Logs an entry for each field/value pair. Transaction id placed in additional field for grouping output.
