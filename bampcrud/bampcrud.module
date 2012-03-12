@@ -15,8 +15,14 @@ include 'bampcrud.wildlab.inc';
  * Set up permissions for module 
  * http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_permission/7
  */
-function bampcrud_perm() {
-  return array('access ireport','administer ireport');
+function bampcrud_permission() {
+  return array(
+    'Edit data'  => array(
+      'title' => t('Edit data'),
+      'description' => t('Allow user to edit BAMP data.'),
+      'restrict access' => TRUE,
+    ),
+  );
 }//end ireport_perm
 
 
@@ -30,7 +36,7 @@ function bampcrud_menu() {
     'title' => 'BAMP Data Management',
     'page callback' => 'bampcrud_menu_callback',
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('Edit data'),
     'weight' => '1',
   );
   $items['bampcrud/crud/wildsites'] = array(
@@ -38,28 +44,28 @@ function bampcrud_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('bampcrud_wild_sites_form'),
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('Edit data'),
   );
   $items['bampcrud/crud/wildtrips'] = array(
     'title' => 'Manage Wild Trips',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('bampcrud_wild_trips_form'),
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('Edit data'),
   );
   $items['bampcrud/crud/wildlab'] = array(
     'title' => 'Manage Wild Lab Results',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('bampcrud_wild_lab_form'),
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('Edit data'),
   );
   $items['bampcrud/crud/wildfish'] = array(
     'title' => 'Manage Wild Fish Level',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('bampcrud_wild_fish_form'),
     'access callback' => 'user_access',
-    'access arguments' => array('input form'),
+    'access arguments' => array('Edit data'),
   );
 
   return $items;
