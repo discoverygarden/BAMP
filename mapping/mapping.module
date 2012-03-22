@@ -68,6 +68,7 @@ function mapping($pid = NULL) {
     drupal_add_css($ext_path . '/resources/css/ext-all-gray.css', 'theme', 'all');
     drupal_add_js($js_path . '/IncludeFirst.js');
     drupal_add_js($js_path . '/GMapPanel3.js');
+    drupal_add_js($js_path . '/polygonCreator/v1/polygon.js');
     drupal_add_js($js_path . '/mapPanel.js');
     drupal_add_js($js_path . '/filterPanel.js');
     drupal_add_js($js_path . '/MappingInterface.js');
