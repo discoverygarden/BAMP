@@ -6,7 +6,7 @@
   letter-spacing: 1px;
   padding: 4px 4px 4px 4px;
 }
-.filterEntry > .filterText {
+.filterText {
   float: left;
   padding-top: 2px;
   text-shadow: #6374AB 2px 2px 2px;
