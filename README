@@ -8,4 +8,5 @@ A lot of code is specific to the BAMP project but could be re-used on other proj
 
 - CSVUpload: Allows upload of CSV file, mapping of file to database columns, upload of data to temporary table, review of uploaded data and committ to final production tables.
 - iReport: This currently just displays a list of reports created within the views UI
-- Mapping: This allows the user to select markers on a map and pass those values to a views report. 
+- bampcrud: Forms to allow data to be added and edited
+- Mapping: Mapping application built using google maps api and extjs. Allows user to create filters to refine bamp wild data on a map. 
