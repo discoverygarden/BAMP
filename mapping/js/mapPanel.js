@@ -2,14 +2,21 @@ Ext.onReady(function(){
   Ext.define('MappingInterface.widgets.map', {
     extend: 'Ext.panel.Panel',
     id: 'mapPanel',
-    itemId: 'mapPanel',
     title: 'Map',
     region: 'center',
-    items: {
+    layout: {
+      type: 'vbox',
+    },
+    defaults: {
+      width: '100%',
+      split: true
+    },
+    items: [{
       xtype: 'gmappanel',
       id: 'bampMap',
-      width: 860,
-      height: 600,
+      /*height: 600,*/
+      flex: 7,
+      border: false,
       zoomLevel: 9,
       gmapTypeId: 'map',
       mapConfOpts: ['enableDoubleClickZoom','enableDragging'],
@@ -19,54 +26,37 @@ Ext.onReady(function(){
         lng: -126.508
       },//end setCenter
       markers: [],
-      maplisteners: {
-        click: function(mevt){
-          /*Ext.Msg.alert('Lat/Lng of Click', mevt.latLng.lat() + ' / ' + mevt.latLng.lng());
-          var input = Ext.get('ac').dom,
-          sw = new google.maps.LatLng(39.26940,-76.64323),
-          ne = new google.maps.LatLng(39.38904,-76.54848),
-          bounds = new google.maps.LatLngBounds(sw,ne);
-          var options = {
-            location: mevt.latLng,
-            radius: '1000',
-            types: ['geocode']
-          };*/
-        }//end click
-      },//end mapListeners
       listeners: {
         mapready: function(){
-          //Load all markers by default. 
           this.hideMarkers();
           var markers = [];
           var wild_site_markers = Ext.data.StoreManager.lookup('wild_site_markers');
           var site_markers = wild_site_markers.load();
-          /*this.clearMarkers();
-          this.addMarkers(site_markers);
-          this.showMarkers();*/
-
+          var dataSummary = {total_fish_count: 0, total_trips: 0};
           site_markers.each(function(m){
+            dataSummary.total_fish_count = dataSummary.total_fish_count + parseInt(m.raw.fish_count);
+            dataSummary.total_trips++;
             markers.push(m.raw);
           });
           this.addMarkers(markers);
           this.showMarkers();
 
-          /*site_markers.each(function(m){
-            markers.push({
-              lat: m.get('lat'),
-              lng: m.get('lng'),
-              bamp_id: m.get('bamp_id'),
-              marker: {
-                title: m.get('marker').title,
-                infoWindow: {
-                  content: m.get('marker').infoWindow.content
-                }
-              }
-            });
-          });
-          this.addMarkers(markers);
-          this.showMarkers();*/
+          //Update the data summary panel
+          window.updateDataSummary(dataSummary);
         }//end mapready()
       }//end listeners
-    }//end items
+    },{
+      xtype: 'panel',
+      title: 'Legend',
+      collapsible: true,
+      collapseDirection: 'bottom',
+      flex: 1,
+      bodyPadding: '10',
+      html: '<img src="sites/default/modules/mapping/images/gmapicons/blue_onwhite/symbol_infinite.png"/> = Marty! ' +
+      '<img src="sites/default/modules/mapping/images/gmapicons/red_onwhite/symbol_infinite.png"/>' +
+      '<img src="sites/default/modules/mapping/images/gmapicons/purple_onwhite/symbol_infinite.png"/>' +
+      '<img src="sites/default/modules/mapping/images/gmapicons/orange_onwhite/symbol_infinite.png"/>' +
+      '<img src="sites/default/modules/mapping/images/gmapicons/green_onwhite/symbol_infinite.png"/>'
+    }]//end items
   });//end define MappingInterface.widgets.map
 });//end onReady()
