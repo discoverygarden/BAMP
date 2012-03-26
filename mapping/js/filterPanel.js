@@ -46,87 +46,37 @@ Ext.onReady(function(){
     dockedItems: [{
       xtype: 'toolbar',
       items: [{
-        text: 'Add Filter',
+        text: 'Add Filter Group',
         handler: function(){
           Ext.create("Ext.Window",{
             id: 'addFilterWindow',
-            title : 'Add Filter',
-            width : 500,
-            height: 225,
+            title : 'Add Filter Group',
+            width : 700,
+            height: 525,
             closable : true,
             bodyPadding: '20px',
             layout: {
-              type: 'vbox',
+              type: 'hbox',
             },
             items: [{
-              xtype: 'radiogroup',
-              id: 'conditionRadio',
-              fieldLabel : 'Join Type',
-              width: 350,
-              items: [
-                {fieldLabel: 'AND', labelWidth: 30, name: 'condition', inputValue: 'AND', checked: true},
-                {fieldLabel: 'OR', labelWidth: 30, name: 'condition', inputValue: 'OR'}
-              ]
+              xtype: 'button',
+              text: 'Add filter',
+              handler: function(){
+                var fig = Ext.getCmp('filtersInGroup');
+                var figItems = fig.items.items;
+                if(figItems.length == 0){
+                  Ext.getCmp('filtersInGroup').add(window.fieldGroup1);
+                }else{
+                  Ext.getCmp('filtersInGroup').add(window.fieldGroup);
+                }//end if
+              },//end handler
+              flex: 2
             },{
-              xtype: 'combo',
-              id: 'comboField',
-              store: 'filterFields',
-              displayField: 'field',
-              valueField: 'fieldId',
-              width: 400,
-              fieldLabel: 'Filter Column',
-              forceSelection: true,
-              autoSelect: false,
-              selectOnTab: false,
-              name: 'column',
-              disabled: false,
-              listeners: {
-                select: function(){
-                  var comboOperator = Ext.getCmp('comboOperator');
-                  comboOperator.clearValue();
-                  comboOperator.enable();
-    
-                  var comboValue = Ext.getCmp('comboValue');
-                  comboValue.setValue('');
-                  comboValue.disable();
-                }
-              }//end listeners
-            },{
-              xtype: 'combo',
-              id: 'comboOperator',
-              forceSelection: true,
-              store: Ext.create('Ext.data.ArrayStore', {
-                fields: [ 'operator' ],
-                data: [
-                  ['\='],
-                  ['\>'],
-                  ['\>\='],
-                  ['\<'],
-                  ['\<\='],
-                  ['LIKE'],
-                  ['NOT LIKE'],
-                  ['IN'],
-                  ['NOT IN']
-                ]
-              }),//End create store 
-              displayField: 'operator',
-              fieldLabel: 'Operator',
-              queryMode: 'local',
-              selectOnTab: false,
-              name: 'operator',
-              disabled: true,
-              listeners: {
-                select: function(){
-                  var comboValue = Ext.getCmp('comboValue');
-                  comboValue.enable();
-                }
-              }//end listeners
-            },{
-              xtype: 'textfield',
-              id: 'comboValue',
-              fieldLabel: 'Value',
-              name: 'value',
-              disabled: true,
+              xtype: 'panel',
+              title: 'Filters in group',
+              id: 'filtersInGroup',
+              flex: 8,
+              autoScroll: true
             }],//end window items[]
             modal : true,
             dockedItems: {
@@ -134,59 +84,34 @@ Ext.onReady(function(){
               dock: 'bottom',
               ui: 'footer',
               defaults: {minWidth: 75},
-              items: ['->',/*{
-                text: 'Reset',
-                handler: function() {
-                  var comboField = Ext.getCmp('comboField');
-                  comboField.clearValue();
-                  var comboOperator = Ext.getCmp('comboOperator');
-                  comboOperator.clearValue();
-                  comboOperator.disable();
-                  var comboValue = Ext.getCmp('comboValue');
-                  comboValue.setValue('');
-                  comboValue.disable();
-                }
-              },*/{
+              items: ['->',{
                 text: 'Save',
                 handler: function(){
-                  //Get the values entered by the user
-                  var condition = Ext.getCmp('conditionRadio').getValue();
-                  var field = Ext.getCmp('comboField').getValue();
-                  var operator = Ext.getCmp('comboOperator').getValue();
-                  var value = Ext.getCmp('comboValue').getValue();
-                  var filterId = window.mapFilters.length + 1;
-                  
-                  ///////////////////////////////////////////////////////////
-                  //TODO: VALIDATE nulls
-                  //////////////////////////////////////////////////////////
+                  var filters = [];
+                  //Loop over each fieldContainer
+                  Ext.each(Ext.getCmp('filtersInGroup').items.items, function (child) {
+                    var filterVal = [];
 
-                  //Add the filters to the global filters javascript object 
-                  var filter = {filterId: filterId, join: condition['condition'], field: field, operator: operator, value: value};
-                  window.mapFilters.push(filter);
-    
-                  //Add filter to the filterList
-                  var fhtml = '<span class="filterEntry" id="' + filterId + '">';
-                  fhtml += '<span class="filterText">' + field + ' <b>' + operator + '</b> ' + value + '</span>';
-                  fhtml += '<span class="filterDelete">';
-                  fhtml += '<img src="sites/default/modules/mapping/images/delete.png" onclick="javascript: filterDelete(' + filterId + ');"/>';
-                  fhtml += '</span>';
-                  fhtml += '</span>';
-                  
-                  //Create a panel to hold the filter info
-                  var filterHtml = '';
-                  filterHtml = {
-                    xtype: 'panel',
-                    id: 'filter-' + filterId,
-                    html: fhtml,
-                  };
-    
-                  //Add the filter to the filterList panel
-                  var filterList = Ext.getCmp('filterList');
-                  filterList.add(filterHtml);
+                    //Loop over fields
+                    Ext.each(Ext.getCmp(child.getId()).items.items, function(c){
+                       var f = {field: c.getName(), value: c.getValue()};
+                       filterVal.push(f);
+                    });//end each fieldGroupChildContainer items
+
+                    var fid = filters.length + 1;
+                    //Add the field to the filters array
+                    filters.push({id: fid, content: filterVal});
+                  });//end each fieldGroupContainer items
+
+                  //Add the filters to the global filters array
+                  window.mapFilters.push(filters);
+
+                  //Update the filter panel
+                  window.updateFilters(filters);
 
                   //Refresh the map with the new markers
                   window.refreshMap();
-    
+
                   //Close the add filter window
                   Ext.getCmp('addFilterWindow').close();
                 }//end save handler
