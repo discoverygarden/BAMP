@@ -100,7 +100,6 @@ class dataHandler {
           )
         )
       );
-
     }//end while
     return $markers;
   }//end getData
@@ -108,8 +107,28 @@ class dataHandler {
   private function parseFilters($filters){
     $this->filters = array();
     
-    foreach($filters as $k=>$filter){
-      $this->values[] = $filter->join . ' ' . $filter->field . ' ' . $filter->operator . ' "' . mysql_real_escape_string($filter->value,$this->dbh) . '"';
+    foreach($filters as $k=>$filterGroup){
+      $filtertxt = 'AND (';
+      foreach($filterGroup as $fgk=>$filter){
+        foreach($filter->content as $fk=>$fv){
+          switch($fv->field){
+            case 'column':
+              $filtertxt.= $fv->value;
+            break;
+            case 'operator':
+              $filtertxt.= ' '.$fv->value.' ';
+            break;
+            case 'value':
+              $filtertxt.= '"'.mysql_real_escape_string($fv->value, $this->dbh).'" ';
+            break;
+            case 'join':
+              $filtertxt.= ' '.$fv->value.' ';
+            break;
+          }//end switch
+        }//end foreach
+      }//end foreach
+      $filtertxt.= ') ';
+      $this->filters[] = $filtertxt;
     }//end foreach
   }//end parseFilters();
 
@@ -118,14 +137,13 @@ class dataHandler {
     $query.= "bamp_wild_trips_site_name AS site_name, bamp_wild_trips_latitude AS latitude, bamp_wild_trips_longitude AS longitude, ";
     $query.= "COUNT(bamp_wild_fish_data_id) AS fish_count ";
     $query.= "FROM bamp_new.bamp_wild_view ";
-    $query.= "WHERE 1=1 ";
-    if(!empty($this->values)){
-      foreach($this->values as $value){
+    $query.= "WHERE bamp_wild_trips_id != '' ";
+    if(!empty($this->filters)){
+      foreach($this->filters as $value){
         $query.= $value . " ";
       }//end foreach
     }//end if
     $query.= "GROUP BY bamp_wild_trips_trip_id ";
-
     return $query;
   }//end buildQuery();
 }//end dataHandler class
