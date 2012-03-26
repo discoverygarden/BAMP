@@ -35,7 +35,6 @@ Ext.onReady(function(){
             dataSummary.total_fish_count = dataSummary.total_fish_count + parseInt(obj[key].fish_count);
             dataSummary.total_trips++;
           };
-          console.log(dataSummary);
 
           //Update the data summary panel
           window.updateDataSummary(dataSummary);
@@ -47,18 +46,67 @@ Ext.onReady(function(){
           bampMap.showMarkers();
         },
         failure: function(response, opts) {
-           console.log('server-side failure with status code ' + response.status);
+           alert('server-side failure with status code ' + response.status);
         }
       });
     }//end refreshMap();
-    
+
+    //Add filters to filter pane
+    window.updateFilters = function(filters){
+      var filterList = Ext.getCmp('filterList');
+      var filterGroupPanel = {
+        xtype: 'panel',
+        title: 'AND',
+        layout: 'fit'
+      };
+
+      var fpv = filterList.add(filterGroupPanel);
+
+      Ext.each(filters, function(filterGroup){
+        var fPanel = {xtype: 'panel', id: fpv.id + filterGroup.id, html: ''};
+        fPanel.html += '<span class="filterEntry">';
+        fPanel.html += '<span class="filterText">';
+        Ext.each(filterGroup.content, function(filter){
+          switch(filter.field){
+            case 'column':
+              fPanel.html += filter.value + ' ';
+            break;
+            case 'operator': 
+              fPanel.html += filter.value + ' ';
+            break;
+            case 'value':
+              fPanel.html += filter.value + ' ';
+            break;
+            case 'join':
+              fPanel.html += '<span class="filterJoin">' + filter.value + '</span> ';
+            break;
+          }//end switch
+        });//end each
+        fPanel.html += '</span>';
+        fPanel.html += '<span class="filterDelete">';
+        fPanel.html += '<img src="sites/default/modules/mapping/images/delete.png" onclick="javascript: window.filterDelete(\'' + filterGroup.id + '\',\'' + fpv.id + '\');"/>';
+        fPanel.html += '</span>';
+        fPanel.html += '</span>';
+        var fpx = fpv.add(fPanel);
+      });//end each
+    };//end updateFilters();
+
     //Delete filter functionality
-    window.filterDelete = function(filterId){
-      var filterPanel = Ext.getCmp('filter-'+filterId);
-      filterPanel.destroy();
-      console.log(window.mapFilters);
+    window.filterDelete = function(filterId, filterParentId){
+      //Get the filter group panel
+      var filterPanel = Ext.getCmp(filterParentId);
+
+      //Remove the filter
+      filterPanel.remove(filterParentId + filterId);
+
+      //If no items are left, destroy the panel
+      if(filterPanel.items.items.length == 0){
+        filterPanel.destroy();
+      }//end if
+
       for (var key in window.mapFilters) {
-        if(window.mapFilters[key].filterId == filterId){
+        var ki = parseInt(key) + 1;
+        if(ki == filterId){
           window.mapFilters.splice(key,1);
         }//end if
       }//end for
