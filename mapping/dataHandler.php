@@ -85,6 +85,7 @@ class dataHandler {
   private $vertices_y = array(); // y-coordinates of the vertices of the polygon
   private $vertices = array();
   private $points_polygon = 0; // number vertices
+  private $points = array();//All points contained here.
 
   public function __construct(){
     $this->dbh = mysql_connect('localhost','root','q$%^az');
@@ -99,7 +100,17 @@ class dataHandler {
     }//end if
     $query = $this->buildQuery();
     $result = mysql_query($query,$this->dbh) or die(mysql_error($this->dbh));
+    $count = 1;
     while($row = mysql_fetch_assoc($result)){
+      //Make sure lat/long are unique
+      if(in_array(array($row['longitude'], $row['latitude']), $this->points) ){
+        $offset = 0.002;
+        $row['longitude'] = $row['longitude'] + $offset;
+        $row['latitude'] = $row['latitude'] + $offset;
+      }else{
+        $this->points[] = array($row['longitude'], $row['latitude']);
+      }//end if
+
       $isInside = false;
       //if the selection isn't empty, check if the point is inside. Otherwise exlude it from the results
       if(!empty($selection)){
@@ -119,20 +130,21 @@ class dataHandler {
           'marker' => array(
             'icon'=>'sites/default/modules/mapping/images/gmapicons/blue_onwhite/number_'.$row['fish_count'].'.png',
             'shadow'=>'sites/default/modules/mapping/images/gmapicons/shadow.png',
-            'zIndex'=>(int)$row['fish_count'],
+            'zIndex'=>(int)$count,
             'title'=>$row['site_name'],
             'infoWindow'=>array(
               'content'=>
                 '<h2> '.$row['site_name'].'</h2><br/>'.
-                //'<b>Trip Id Number</b> '.$row['trip_id'].'<br/>'.
+                '<b>Trip Id Number</b> '.$row['trip_id'].'<br/>'.
                 '<b>Fish Sampled:</b> '.$row['fish_count'].'<br/>'.
-                '<b>Coordinates:</b> '.$row['latitude'].', -'.$row['longitude'].'<br/><br/>'.
+                //'<b>Coordinates:</b> '.$row['latitude'].', -'.$row['longitude'].'<br/><br/>'.
                 '<b><a href="?q=bampcrud/crud/wildtrips/modify/'.$row['record_id'].'" target="_BLANK">Click here to edit</a></b> | '.
                 '<b><a href="?q=bamp-wild-fish-level-data/'.$row['trip_id'].'" target="_BLANK">View/Edit Fish Data</a></b><br/>'
             )//end array
           )//end array
         );//end array
       }//end if
+      $count++;
     }//end while
     return $markers;
   }//end getData
@@ -279,6 +291,5 @@ class dataHandler {
     }//end if
     return $result;
   }//end isWithinBoundary();
-
 }//end dataHandler class
 ?>
