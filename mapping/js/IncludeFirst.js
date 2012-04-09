@@ -55,4 +55,21 @@ Ext.onReady(function(){
         reader: 'json'
     }
   });
+
+  //Filters - Fields Model and Store
+  Ext.define('MappingInterface.models.polygons', {
+    extend: 'Ext.data.Model',
+    fields: ['id','name'],
+  });
+  Ext.create('Ext.data.Store', {
+    autoLoad: true,
+    storeId: 'polygons',
+    model: MappingInterface.models.polygons,
+    remoteFilter: true,
+    proxy: {
+        type: 'ajax',
+        url : '/bamp/sites/default/modules/mapping/dataHandler.php?type=loadSelections',
+        reader: 'json'
+    }
+  });
 });
