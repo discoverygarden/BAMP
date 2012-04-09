@@ -11,7 +11,9 @@
   padding-top: 2px;
   text-shadow: #6374AB 2px 2px 2px;
 }
-
+.filterJoin {
+  font-weight: bold;
+}
 .filterEntry > .filterDelete {
   float: right;
   width: 16px;
