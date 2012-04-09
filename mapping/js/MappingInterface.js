@@ -22,11 +22,31 @@ Ext.onReady(function(){
       var bampMap = Ext.getCmp('bampMap');
       var aFilters = Ext.JSON.encode(window.mapFilters);
 
+      //Check if polygon exists.... if so, get the points
+      if(window.shape != undefined){
+        var paths = window.shape.getPaths();
+        var polygonData = [];
+
+        //get paths
+        paths.getAt(0).forEach(function(value, index){
+          var lat = value.lat();
+          var lon = value.lng();
+          var p = {lat: lat, lng: lon};
+          polygonData.push(p);
+        });//end getPaths
+
+        polygonData = Ext.JSON.encode(polygonData);
+      }else{
+        var polygonData = {};
+      }//end if
+
+      //Send the filters to the server and refresh the map markers
       Ext.Ajax.request({
         url: '/bamp/sites/default/modules/mapping/dataHandler.php?type=customFilter',
-        params: {customFilters: aFilters},
+        params: {customFilters: aFilters, polygonPoints: polygonData},
         disableCaching: true,
         success: function(response, opts) {
+          //Decode JSON response.
           var obj = Ext.decode(response.responseText);
 
           //Generate data summary information
@@ -104,15 +124,20 @@ Ext.onReady(function(){
         filterPanel.destroy();
       }//end if
 
+      //Remove the filter from the global array
       for (var key in window.mapFilters) {
-        var ki = parseInt(key) + 1;
-        if(ki == filterId){
-          window.mapFilters.splice(key,1);
-        }//end if
+        for (var k in window.mapFilters[key]) {
+          if(window.mapFilters[key][k].id == filterId){
+            window.mapFilters[key].splice(k,1);
+          }//end if
+        }//end for
       }//end for
+
+      //Reload the map
       window.refreshMap();
     }//end filterDelete();
 
+    //Update the data summary panel
     window.updateDataSummary = function(dataSummary){
       //Get the data summary panel
       var panel = Ext.getCmp('dataSummary');
@@ -163,13 +188,72 @@ Ext.onReady(function(){
       panel.add(dsHtml);
     }//end updateDataSummary
 
+    //Save a user drawn polygon selection to the database
     window.saveSelection = function(data){
-      /////////////////////////////////////////////
-      //TODO: Save to db
-      /////////////////////////////////////////////
-      console.log(data);
-      ////////////////////////////////////////////
+      //Populate the global plygonPoints array
+      window.polygonPoints = data.points;
+
+      //Send the selection data to the server
+      Ext.Ajax.request({
+        url: '/bamp/sites/default/modules/mapping/dataHandler.php?type=saveSelection',
+        jsonData: Ext.JSON.encode(data),
+        disableCaching: true,
+        success: function(response, opts) {
+        },
+        failure: function(response, opts) {
+           alert('server-side failure with status code ' + response.status);
+        }
+      });
+      window.refreshMap();
     }//end saveSelection();
+
+    //This function grabs the points for a saved selection and displays it on the map. 
+    window.showSelection = function(polygonId){
+      //Destroy any selection which has been drawn
+      window.creator.destroy();
+
+      //Fetch the points for this polygon id
+      Ext.Ajax.request({
+        url: '/bamp/sites/default/modules/mapping/dataHandler.php?type=getSelectionPoints',
+        params: {id: polygonId},
+        disableCaching: true,
+        success: function(response,opts){
+          //Decode the JSON into an object
+          var obj = Ext.decode(response.responseText);
+
+          //Arrays to hold the polygon path points. Paths = gLatLng. Points = string
+          var paths = [];
+          window.polygonPoints = [];
+
+          //Loop over the response and create LatLng objects 
+          Ext.each(obj, function(point){
+            var point = new google.maps.LatLng(point.lat, point.lon);
+            paths.push(point);
+            window.polygonPoints.push({lat: point.lat, lon: point.lon});
+          });
+
+          //Create the polygon 
+          window.shape = new google.maps.Polygon({
+            paths: paths,
+            strokeColor: '#ff0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#ff0000',
+            fillOpacity: 0.35
+          });
+
+          //Draw the polygon on the map
+          var bampMap = Ext.getCmp('bampMap').getMap();
+          window.shape.setMap(bampMap);
+
+          //Apply the selection
+          window.refreshMap();
+        },
+        failure: function(response, opts){
+          alert('server-side failure with status code ' + response.status);
+        }
+      });
+    }//end showSelection();
 
     //Add the polygon creator plugin
     var bampMap= Ext.getCmp('bampMap');
