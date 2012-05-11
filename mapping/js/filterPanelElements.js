@@ -11,6 +11,8 @@ Ext.onReady(function(){
     queryMode: 'local',
     selectOnTab: false,
     name: 'join',
+    editable: false,
+    typeAhead: false,
   };
 
   var comboField = {
@@ -18,12 +20,14 @@ Ext.onReady(function(){
     store: 'filterFields',
     displayField: 'field',
     valueField: 'fieldId',
-    width: 400,
+    width: 600,
     fieldLabel: 'Filter Column',
     forceSelection: true,
     autoSelect: false,
     selectOnTab: false,
     name: 'column',
+    editable: false,
+    typeAhead: false,
   };
 
   var comboOperator = {
@@ -38,6 +42,8 @@ Ext.onReady(function(){
     queryMode: 'local',
     selectOnTab: false,
     name: 'operator',
+    editable: false,
+    typeAhead: false,
   };
 
   var comboValue = {
