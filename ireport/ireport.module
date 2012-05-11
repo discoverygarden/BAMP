@@ -42,26 +42,14 @@ function ireport_menu()
     'access arguments' => array('View data'),
     'weight' => '1',
   );
-  $items['ireport/bampsearch/wildsites'] = array(
-    'title' => 'Wild Sites Search',
+  $items['ireport/bampsearch/wildsamplinginstances'] = array(
+    'title' => 'Wild Sampling Instances Table',
     'page callback' => 'ireport_wild_search_page',
     'access callback' => 'user_access',
     'access arguments' => array('View data'),
   );
-  $items['ireport/bampsearch/wildtrips'] = array(
-    'title' => 'Wild Trips Search',
-    'page callback' => 'ireport_wild_search_page',
-    'access callback' => 'user_access',
-    'access arguments' => array('View data'),
-  );
-  $items['ireport/bampsearch/wildlab'] = array(
-    'title' => 'Wild Lab Results Search',
-    'page callback' => 'ireport_wild_search_page',
-    'access callback' => 'user_access',
-    'access arguments' => array('View data'),
-  );
-  $items['ireport/bampsearch/wildfish'] = array(
-    'title' => 'Wild Fish Level Search',
+  $items['ireport/bampsearch/wildfishsamples'] = array(
+    'title' => 'Wild Fish Samples Table',
     'page callback' => 'ireport_wild_search_page',
     'access callback' => 'user_access',
     'access arguments' => array('View data'),
