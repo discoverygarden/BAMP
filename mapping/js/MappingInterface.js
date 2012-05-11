@@ -42,7 +42,7 @@ Ext.onReady(function(){
 
       //Send the filters to the server and refresh the map markers
       Ext.Ajax.request({
-        url: '/bamp/sites/default/modules/mapping/dataHandler.php?type=customFilter',
+        url: window.modulePath + 'dataHandler.php?type=customFilter',
         params: {customFilters: aFilters, polygonPoints: polygonData},
         disableCaching: true,
         success: function(response, opts) {
@@ -104,7 +104,7 @@ Ext.onReady(function(){
         });//end each
         fPanel.html += '</span>';
         fPanel.html += '<span class="filterDelete">';
-        fPanel.html += '<img src="sites/default/modules/mapping/images/delete.png" onclick="javascript: window.filterDelete(\'' + filterGroup.id + '\',\'' + fpv.id + '\');"/>';
+        fPanel.html += '<img src="' + window.modulePath + 'images/delete.png" onclick="javascript: window.filterDelete(\'' + filterGroup.id + '\',\'' + fpv.id + '\');"/>';
         fPanel.html += '</span>';
         fPanel.html += '</span>';
         var fpx = fpv.add(fPanel);
@@ -195,7 +195,7 @@ Ext.onReady(function(){
 
       //Send the selection data to the server
       Ext.Ajax.request({
-        url: '/bamp/sites/default/modules/mapping/dataHandler.php?type=saveSelection',
+        url: window.modulePath + 'dataHandler.php?type=saveSelection',
         jsonData: Ext.JSON.encode(data),
         disableCaching: true,
         success: function(response, opts) {
@@ -214,7 +214,7 @@ Ext.onReady(function(){
 
       //Fetch the points for this polygon id
       Ext.Ajax.request({
-        url: '/bamp/sites/default/modules/mapping/dataHandler.php?type=getSelectionPoints',
+        url: window.modulePath + 'dataHandler.php?type=getSelectionPoints',
         params: {id: polygonId},
         disableCaching: true,
         success: function(response,opts){
