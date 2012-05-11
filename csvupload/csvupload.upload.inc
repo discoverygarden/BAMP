@@ -43,7 +43,7 @@ function csvupload_upload_form($form, &$form_state) {
       );
 
       //Get database tables
-      $tables = db_query("SHOW TABLES FROM bamp_new WHERE Tables_in_bamp_new NOT IN ('ChangeLog') AND Tables_in_bamp_new NOT LIKE '%tmp%' AND Tables_in_bamp_new NOT LIKE '%view%'", array(), array('target' => 'bamp_new'))->fetchCol();
+      $tables = db_query("SHOW TABLES FROM bamp_new WHERE Tables_in_bamp_new NOT IN ('ChangeLog','polygons','polygons_points') AND Tables_in_bamp_new NOT LIKE '%tmp%' AND Tables_in_bamp_new NOT LIKE '%view%'", array(), array('target' => 'bamp_new'))->fetchCol();
 
       //Create import_tables array to hold importable tables for dropdown
       $import_tables = array('ps' => '--Please Select--');
@@ -96,7 +96,7 @@ function csvupload_upload_form($form, &$form_state) {
 
       $aa = csvupload_csv2aa($csv_file_path, ',');
       $headers = $aa[0];
-      $table_cols = db_query("show columns from " . $form_state['values']['step1']['selectTable'], array(), array('target' => 'bamp_new'))->fetchCol();//Get database Columns 
+      $table_cols = db_query("SHOW COLUMNS FROM " . $form_state['values']['step1']['selectTable'] . " WHERE Field NOT IN ('id')", array(), array('target' => 'bamp_new'))->fetchCol();//Get database Columns 
       $cols = array('sk' => 'Skip this field');
       foreach ($table_cols as $k => $v) {
         $cols[$v] = $v;
@@ -111,7 +111,7 @@ function csvupload_upload_form($form, &$form_state) {
           '#id' => 'csv-' . $k . '-db',
           '#type' => 'select',
           '#options' => $table_cols,
-          '#default_value' => 'Skip this field',
+          '#default_value' => strtolower($v),
         );
 
         $form['step2']['map'][$k] = array(
@@ -141,27 +141,32 @@ function csvupload_upload_form($form, &$form_state) {
       }
       if (count($rows) > 0) {
         $form['step3'] = array(
-          '#type' => 'fieldset', 
+          '#type' => 'fieldset',
           '#title' => t('Step 3: Review and Commit'),
-        ); 
+        );
+
         $form['step3']['info'] = array(
-          '#markup' => '<strong>Please review the first 100 rows of your import to ensure there are no obvious problems in the data.</strong>',
+          '#markup' => '<strong>Please review import data below and fix any problems in the data file before you commit this import to the database.</strong>',
         );
-        $total_rows = count($rows);
-        $form['step3']['total'] = array(
-          '#markup' => t('There were ' . $total_rows . ' rows imported.'),
-        );
+
+        //Check for errors.
         if (!empty($form_state['storage']['import_errors'])) {
+          $errorTxt = '<br/><br/><b style="color:#FF0000;">Import Errors</b><br/><br/>';
+          foreach($form_state['storage']['import_errors'] as $line_no=>$problem){
+            $errorTxt.= '<b>Line '.($line_no + 1).':</b> '.$problem.'<br/>';
+          }//end foreach
           $form['step3']['errors'] = array(
-            '#markup' => var_export($form_state['storage']['import_errors'], TRUE),
+            '#markup' => $errorTxt,
+          );
+        }else{
+          //No errors, display sample!
+          $form['step3']['rows'] = array(
+            '#markup' => drupal_render(csvupload_array2table($rows)),
           );
         }//end if
-        $form['step3']['rows'] = array(
-          '#markup' => drupal_render(csvupload_array2table($rows)),
-        );  
       }
       else {
-        drupal_set_message(t('There was an error during import. Possible causes may include: Errors in the input file, Mismatched columns, Foreign charecters, blank fields mapped to a database field that requires input. If you require assistance, please contact DGI.'), 'error');
+        drupal_set_message(t('There was an error during import. Possible causes may include: Errors in the input file, Mismatched columns, Foreign charecters, blank fields mapped to a database field that requires input.'), 'error');
         db_query('DROP TABLE ' . $form_state['storage']['tempTable'], array(), array('target' => 'bamp_new')); 
         $error = TRUE;
       }//end if
@@ -235,7 +240,7 @@ function csvupload_upload_form_submit($form, &$form_state) {
               unset($result['id']);
             }//end if
             db_insert($form_state['storage']['destTable'], array('target' => 'bamp_new'))->fields($result)->execute();
-          }//end foreach 
+          }//end while
 
           db_query('DROP TABLE ' . $form_state['storage']['tempTable'], array(), array('target' => 'bamp_new'));
           drupal_set_message(t('Import has been completed.'));
