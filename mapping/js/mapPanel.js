@@ -15,7 +15,7 @@ Ext.onReady(function(){
       xtype: 'gmappanel',
       id: 'bampMap',
       /*height: 600,*/
-      flex: 7,
+      flex: 11,
       border: false,
       zoomLevel: 9,
       gmapTypeId: 'map',
@@ -47,16 +47,12 @@ Ext.onReady(function(){
       }//end listeners
     },{
       xtype: 'panel',
-      title: 'Legend',
+      title: 'Map Marker Legend',
       collapsible: true,
       collapseDirection: 'bottom',
-      flex: 1,
-      bodyPadding: '10',
-      html: '<img src="sites/default/modules/mapping/images/gmapicons/blue_onwhite/symbol_infinite.png"/> = Marty! ' +
-      '<img src="sites/default/modules/mapping/images/gmapicons/red_onwhite/symbol_infinite.png"/>' +
-      '<img src="sites/default/modules/mapping/images/gmapicons/purple_onwhite/symbol_infinite.png"/>' +
-      '<img src="sites/default/modules/mapping/images/gmapicons/orange_onwhite/symbol_infinite.png"/>' +
-      '<img src="sites/default/modules/mapping/images/gmapicons/green_onwhite/symbol_infinite.png"/>'
+      flex: 2,
+      border: false,
+      html: '<table style="width: 100%;"><tr><th colspan="4">Marker Shapes</th><th colspan="5">Marker Colors</th></tr><tr><th style="background-color: #FFF; text-align: center; font-weight: bold;"><img src="' + window.modulePath + 'images/gmapicons/Circles/1.png"/><br/>Marty</th><th style="background-color: #FFF; text-align: center; font-weight: bold;"><img src="' + window.modulePath + 'images/gmapicons/Squares/1.png"/><br/>DFO</th><th style="background-color: #FFF; text-align: center; font-weight: bold;"><img src="' + window.modulePath + 'images/gmapicons/Triangles/1.png"/><br/>BAMP</th><th  style="background-color: #FFF; text-align: center; font-weight: bold;"><img src="' + window.modulePath + 'images/gmapicons/farm.png"/><br/>Farm Site</th><th style="background-color: #B52C38; text-align: center; font-weight: bold;">March</th><th style="background-color: #EBD1B0; text-align: center; font-weight: bold;">April</th><th style="background-color: #536682; text-align: center; font-weight: bold;">May</th><th style="background-color: #D9964B; text-align: center; font-weight: bold;">June</th><th style="background-color: #DE6846; text-align: center; font-weight: bold;">July</th></table>'
     }]//end items
   });//end define MappingInterface.widgets.map
 });//end onReady()
