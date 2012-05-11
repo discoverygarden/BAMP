@@ -87,7 +87,10 @@ if (!function_exists('csvupload_csvimport')) {
         if ($line != 0) {
           foreach ($coldata as $k => $v) {
             if ($map[$k]['colname'] != 'sk') {
-              $row[$line][$map[$k]['colname']] =$v;
+              if($v == ''){
+                 $v = NULL;
+              }//end if
+              $row[$line][$map[$k]['colname']] = $v;
             }
           }
         }
@@ -97,7 +100,19 @@ if (!function_exists('csvupload_csvimport')) {
       foreach ($row as $line => $data1) {
         $test_type = csvupload_checkColType($tmp_table, $data1);
         if ($test_type['check'] !== FALSE) {
-          db_insert($tmp_table, array('target' => 'bamp_new'))->fields($data1)->execute();
+          $dbi = db_insert($tmp_table, array('target' => 'bamp_new'));
+          $dbi->fields($data1);
+          try {
+            $dbi->execute();
+          }catch(PDOException $pe){
+            $error[$line] = $pe->getMessage();
+            if(count($error) > 10){
+              $error_msg = 'CSV UPLOAD SCRIPT ERROR: Max error limit reached. Terminating Script. Check apache error log for more information.';
+              error_log($error_msg);
+              die($error_msg);
+            }//end if
+            error_log('CSV UPLOAD INSERT ERROR: '.$pe->getMessage());
+          }//end try
         }
         else {
           $error[$line] = $test_type;
