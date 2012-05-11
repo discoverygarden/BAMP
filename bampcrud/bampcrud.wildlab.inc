@@ -61,6 +61,7 @@ function bampcrud_wild_lab_form($form, $form_state, $operation = 'add', $record_
       'lessions',
       'comments',
       'initials',
+      'changelog',
     ))
     ->condition('id', $record_id,'=')
     ->execute()
@@ -320,6 +321,13 @@ function bampcrud_wild_lab_form($form, $form_state, $operation = 'add', $record_
     '#default_value' => isset($result['initials']) ? $result['initials'] : '',
     '#required' => FALSE,
   );  
+  # comments text field
+  $form['fieldset']['changelog'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Changelog - Enter note about why record is being added/edited'),
+    '#default_value' => isset($result['changelog']) ? $result['changelog'] : '',
+    '#required' => FALSE,
+  );
  
 
   if($operation == 'modify'){
@@ -376,6 +384,7 @@ function bampcrud_wild_lab_form_submit($form, &$form_state) {
         'lessions' => $form_state['values']['lessions'],
         'comments' => $form_state['values']['comments'],
         'initials' => $form_state['values']['initials'],
+        'changelog' => $form_state['values']['changelog'],
       );
 
       bampcrud_log('Create', 'bamp_wild_lab_results', 'New', $fields);
@@ -423,6 +432,7 @@ function bampcrud_wild_lab_form_submit($form, &$form_state) {
         'lessions' => $form_state['values']['lessions'],
         'comments' => $form_state['values']['comments'],
         'initials' => $form_state['values']['initials'],
+        'changelog' => $form_state['values']['changelog'],
       );
 
       bampcrud_log('Update', 'bamp_wild_lab_results', $form_state['values']['id'], $fields);

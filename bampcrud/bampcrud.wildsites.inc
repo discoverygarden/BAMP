@@ -36,6 +36,7 @@ function bampcrud_wild_sites_form($form, $form_state, $operation = 'add', $recor
       'zone',
       'area',
       'comment',
+      'changelog',
     ))
     ->condition('id', $record_id,'=')
     ->execute()
@@ -99,6 +100,13 @@ function bampcrud_wild_sites_form($form, $form_state, $operation = 'add', $recor
     '#default_value' => isset($result['comment']) ? $result['comment'] : '',
     '#required' => FALSE,
   );  
+  # changelog text field
+  $form['fieldset']['changelog'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Changelog - Enter note about why record is being added/edited'),
+    '#default_value' => isset($result['changelog']) ? $result['changelog'] : '',
+    '#required' => FALSE,
+  );
  
 
   if($operation == 'modify'){
@@ -128,6 +136,7 @@ function bampcrud_wild_sites_form_submit($form, &$form_state) {
         'zone' => $form_state['values']['zone'],
         'area' => $form_state['values']['area'],
         'comment' => $form_state['values']['comment'],
+        'changelog' => $form_state['values']['changelog'],
       );
       $result = db_insert('bamp_wild_sites', array('target'=>'bamp_new'))->fields($fields)->execute();
 
@@ -146,7 +155,8 @@ function bampcrud_wild_sites_form_submit($form, &$form_state) {
         'longitude' => $form_state['values']['longitude'],
         'zone' => $form_state['values']['zone'],
         'area' => $form_state['values']['area'],
-        'comment' => $form_state['values']['comment']
+        'comment' => $form_state['values']['comment'],
+        'changelog' => $form_state['values']['changelog'],
       );
 
       //Log the changes to the changelog

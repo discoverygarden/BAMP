@@ -57,6 +57,7 @@ function bampcrud_wild_fish_form($form, $form_state, $operation = 'add', $record
       'pin_belly',
       'tissue_damage',
       'comments',
+      'changelog',
     ))
     ->condition('id', $record_id,'=')
     ->execute()
@@ -281,7 +282,13 @@ function bampcrud_wild_fish_form($form, $form_state, $operation = 'add', $record
     '#default_value' => isset($result['comments']) ? $result['comments'] : '',
     '#required' => FALSE,
   );  
- 
+  # comments text field
+  $form['fieldset']['changelog'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Changelog - Enter note regarding why this record is being created/edited'),
+    '#default_value' => isset($result['changelog']) ? $result['changelog'] : '',
+    '#required' => FALSE,
+  );  
 
   if($operation == 'modify'){
     $form['fieldset']['submit'] = array(
@@ -333,6 +340,7 @@ function bampcrud_wild_fish_form_submit($form, &$form_state) {
         'pin_belly' => $form_state['values']['pin_belly'],
         'tissue_damage' => $form_state['values']['tissue_damage'],
         'comments' => $form_state['values']['comments'],
+        'changelog' => $form_state['values']['changelog'],
       );
       bampcrud_log('Create', 'bamp_wild_fish_data', 'New', $fields);
 
@@ -374,6 +382,7 @@ function bampcrud_wild_fish_form_submit($form, &$form_state) {
         'pin_belly' => $form_state['values']['pin_belly'],
         'tissue_damage' => $form_state['values']['tissue_damage'],
         'comments' => $form_state['values']['comments'],
+        'changelog' => $form_state['values']['changelog'],
       );
 
       bampcrud_log('Update', 'bamp_wild_fish_data', $form_state['values']['id'], $fields);

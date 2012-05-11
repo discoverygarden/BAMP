@@ -39,6 +39,7 @@ function bampcrud_wild_trips_form($form, $form_state, $operation = 'add', $recor
       'latitude',
       'salinity',
       'temperature',
+      'changelog',
     ))
     ->condition('id', $record_id,'=')
     ->execute()
@@ -138,6 +139,14 @@ function bampcrud_wild_trips_form($form, $form_state, $operation = 'add', $recor
     '#required' => FALSE,
   );  
 
+  # changelog text field
+  $form['fieldset']['changelog'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Changelog - Enter note about why record is being added/edited'),
+    '#default_value' => isset($result['changelog']) ? $result['changelog'] : '',
+    '#required' => FALSE,
+  );
+
   if($operation == 'modify'){
     $form['fieldset']['submit'] = array(
       '#type' => 'submit',
@@ -169,6 +178,7 @@ function bampcrud_wild_trips_form_submit($form, &$form_state) {
         'latitude' => $form_state['values']['latitude'],
         'salinity' => $form_state['values']['salinity'],
         'temperature' => $form_state['values']['temperature'],
+        'changelog' => $form_state['values']['changelog'],
       );
 
       bampcrud_log('Create', 'bamp_wild_trips', 'New', $fields);
@@ -193,6 +203,7 @@ function bampcrud_wild_trips_form_submit($form, &$form_state) {
         'latitude' => $form_state['values']['latitude'],
         'salinity' => $form_state['values']['salinity'],
         'temperature' => $form_state['values']['temperature'],
+        'changelog' => $form_state['values']['changelog'],
       );
 
       bampcrud_log('Update', 'bamp_wild_trips', $form_state['values']['id'], $fields);
