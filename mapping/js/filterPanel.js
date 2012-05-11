@@ -33,11 +33,148 @@ Ext.onReady(function(){
       xtype: 'panel',
       title: 'Data Summary',
       id: 'dataSummary',
-      flex: 2,
+      flex: 4,
       border: false,
       collapsible: true,
       collapseDirection: 'bottom',
-      layout: 'fit'
+      layout: 'fit',
+      dockedItems: [{
+        xtype: 'buttongroup',
+        title: 'Export data to CSV',
+        columns: 3,
+        flex: 2, 
+        defaults: {
+          scale: 'small',
+          border: false
+        }, 
+        items:[{
+        xtype: 'button',
+        text: 'Trip + Lice Data',
+        handler: function(){
+          alert('TODO: Integrate with new lice details view');
+          /*
+          if(window.mapFilters != undefined){
+            var mapFilters = Ext.encode(window.mapFilters);
+          }else{
+            var mapFilters = null;
+          }//end if
+          if(window.shape != undefined){
+            var mapShape = Ext.encode(window.shape);
+          }else{
+            var mapShape = null;
+          }//end if
+          Ext.DomHelper.append(
+            Ext.getBody(),{
+              tag:'form',
+              name:'transportform',
+              id:'transportform',
+              action: window.modulePath + "export.php",
+              method:"POST",
+              children:[{
+                tag: 'input',
+                type: 'hidden',
+                name: 'type',
+                value: 'exportAll'
+              },{
+                tag:'input',
+                type:'hidden',
+                name:'mapFilters',
+                value: mapFilters
+              },{
+                tag: 'input',
+                type: 'hidden',
+                name: 'polygonPoints',
+                value: mapShape
+              }]
+          }).submit();
+          */
+        }//end handler
+      },{
+        xtype: 'button',
+        text: 'Trip Data',
+        handler: function(){
+          alert('TODO: Integrate with new lice details view');
+          /*
+          if(window.mapFilters != undefined){
+            var mapFilters = Ext.encode(window.mapFilters);
+          }else{
+            var mapFilters = null;
+          }//end if
+          if(window.shape != undefined){
+            var mapShape = Ext.encode(window.shape);
+          }else{
+            var mapShape = null;
+          }//end if
+          Ext.DomHelper.append(
+            Ext.getBody(),{
+              tag:'form',
+              name:'transportform',
+              id:'transportform',
+              action: window.modulePath + "export.php",
+              method:"POST",
+              children:[{
+                tag: 'input',
+                type: 'hidden',
+                name: 'type',
+                value: 'exportAll'
+              },{
+                tag:'input',
+                type:'hidden',
+                name:'mapFilters',
+                value: mapFilters
+              },{
+                tag: 'input',
+                type: 'hidden',
+                name: 'polygonPoints',
+                value: mapShape
+              }]
+          }).submit();
+          */
+        }//end handler
+      },{
+        xtype: 'button',
+        text: 'Lice Data',
+        handler: function(){
+          alert('TODO: Integrate with new lice details view');
+          /*
+          if(window.mapFilters != undefined){
+            var mapFilters = Ext.encode(window.mapFilters);
+          }else{
+            var mapFilters = null;
+          }//end if
+          if(window.shape != undefined){
+            var mapShape = Ext.encode(window.shape);
+          }else{
+            var mapShape = null;
+          }//end if
+          Ext.DomHelper.append(
+            Ext.getBody(),{
+              tag:'form',
+              name:'transportform',
+              id:'transportform',
+              action: window.modulePath + "export.php",
+              method:"POST",
+              children:[{
+                tag: 'input',
+                type: 'hidden',
+                name: 'type',
+                value: 'exportAll'
+              },{
+                tag:'input',
+                type:'hidden',
+                name:'mapFilters',
+                value: mapFilters
+              },{
+                tag: 'input',
+                type: 'hidden',
+                name: 'polygonPoints',
+                value: mapShape
+              }]
+          }).submit();
+          */
+        }//end handler
+      }]
+      }]
     }],
     dockedItems: [{
       xtype: 'toolbar',
@@ -164,24 +301,22 @@ Ext.onReady(function(){
           handler: function() {
             Ext.create("Ext.Window",{
               id: 'loadSelWindow',
-              title: 'Load Polygon Selection',
+              title: 'Load Saved Polygon Selection',
               width: 600,
-              height: 200,
+              height: 150,
               closable: true,
               bodyPadding: '20px',
               layout: {
                 type: 'vbox',
               },
               items: [{
-                xtype: 'panel',
-                html: 'Please choose a selection from the list below.'
-              },{
                 xtype: 'combo',
                 store: 'polygons',
                 displayField: 'name',
                 valueField: 'id',
-                width: 550,
+                width: 490,
                 fieldLabel: 'Choose Polygon',
+                labelWidth: 110,
                 forceSelection: true,
                 autoSelect: false,
                 selectOnTab: false,
