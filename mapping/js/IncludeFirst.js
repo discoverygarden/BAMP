@@ -2,6 +2,8 @@ Ext.ns('MappingInterface.widgets');
 Ext.ns('MappingInterface.models');
 Ext.ns('MappingInterface.filterCombos');
 
+window.modulePath = '/bamp/sites/default/modules/mapping/';
+
 var mapFilters = [];
 
 Ext.onReady(function(){
@@ -15,29 +17,11 @@ Ext.onReady(function(){
     model: MappingInterface.models.wild_site_markers,
     proxy: {
         type: 'ajax',
-        url : '/bamp/sites/default/modules/mapping/dataHandler.php?type=wild_site_markers',
+        url : window.modulePath + 'dataHandler.php?type=customFilter',
         reader: 'json'
     },
     autoLoad: true
   });
-
-/*  //Filters - Tables Model and Store
-  Ext.define('MappingInterface.models.filterTables', {
-    extend: 'Ext.data.Model',
-    fields: ['table','tableId'],
-  });
-  Ext.create('Ext.data.ArrayStore', {
-    storeId: 'filterTables',
-    model: MappingInterface.models.filterTables,
-    data: [
-      ['View','bamp_wild_view'],
-      ['Fish Level Data', 'bamp_wild_fish_data'],
-      ['Trips','bamp_wild_trips'],
-      ['Sites','bamp_wild_sites'],
-      ['Lab Results','bamp_wild_lab_results']
-    ]
-  });
-*/
 
   //Filters - Fields Model and Store
   Ext.define('MappingInterface.models.filterFields', {
@@ -51,7 +35,7 @@ Ext.onReady(function(){
     remoteFilter: true,
     proxy: {
         type: 'ajax',
-        url : '/bamp/sites/default/modules/mapping/dataHandler.php?type=filterFields',
+        url : window.modulePath + 'dataHandler.php?type=filterFields',
         reader: 'json'
     }
   });
@@ -68,7 +52,7 @@ Ext.onReady(function(){
     remoteFilter: true,
     proxy: {
         type: 'ajax',
-        url : '/bamp/sites/default/modules/mapping/dataHandler.php?type=loadSelections',
+        url : window.modulePath + 'dataHandler.php?type=loadSelections',
         reader: 'json'
     }
   });
