@@ -51,6 +51,7 @@ function template_preprocess_mapping(array &$variables) {
   global $base_url;
 }
 
+
 /**
  * Renders the Viewer for a given pid if possible.
  *
