@@ -6,14 +6,12 @@
 require_once('dataHandler.class.php');
 
 $dbh = mysql_connect('localhost','root','q$%^az');
-switch($_POST['type']){
-  //Process custom filters and return markers
-  case 'exportAll':
-    $dh = new dataHandler();
-    $data = $dh->getCsvData(json_decode($_POST['customFilters']), json_decode($_POST['polygonPoints']));
-    csvToExcelDownloadFromResult($data);
-  break;
-}//end switch
+$dh = new dataHandler();
+$mapFilters = json_decode(urldecode($_POST['mapFilters']));
+$mapShape = json_decode(urldecode($_POST['polygonPoints']));
+$filename = 'BAMP_GeoViewer_Export_-_'.$_POST['type'].'-'.date("m-d-y").'.csv';
+$data = $dh->getCsvData($mapFilters, json_decode($_POST['polygonPoints']), $_POST['type']);
+csvToExcelDownloadFromResult($data, true, $filename);
 
 function setExcelContentType() {
     if(headers_sent())
