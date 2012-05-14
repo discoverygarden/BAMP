@@ -40,35 +40,37 @@ Ext.onReady(function(){
         var polygonData = {};
       }//end if
 
-      //Send the filters to the server and refresh the map markers
-      Ext.Ajax.request({
-        url: window.modulePath + 'dataHandler.php?type=customFilter',
-        params: {customFilters: aFilters, polygonPoints: polygonData},
-        disableCaching: true,
-        success: function(response, opts) {
-          //Decode JSON response.
-          var obj = Ext.decode(response.responseText);
+      bampMap.hideMarkers();
+      bampMap.clearMarkers();
+      if(aFilters != undefined || window.shape != undefined){
+        //Send the filters to the server and refresh the map markers
+        Ext.Ajax.request({
+          url: window.modulePath + 'dataHandler.php?type=customFilter',
+          params: {customFilters: aFilters, polygonPoints: polygonData},
+          disableCaching: true,
+          success: function(response, opts) {
+            //Decode JSON response.
+            var obj = Ext.decode(response.responseText);
 
-          //Generate data summary information
-          var dataSummary = {total_fish_count: 0, total_trips: 0};
-          for(var key in obj){
-            dataSummary.total_fish_count = dataSummary.total_fish_count + parseInt(obj[key].fish_count);
-            dataSummary.total_trips++;
-          };
+            //Generate data summary information
+            var dataSummary = {total_fish_count: 0, total_trips: 0};
+            for(var key in obj){
+              dataSummary.total_fish_count = dataSummary.total_fish_count + parseInt(obj[key].fish_count);
+              dataSummary.total_trips++;
+            };
 
-          //Update the data summary panel
-          window.updateDataSummary(dataSummary);
+            //Update the data summary panel
+            window.updateDataSummary(dataSummary);
 
-          //Show the markers
-          bampMap.hideMarkers();
-          bampMap.clearMarkers();
-          bampMap.addMarkers(obj);
-          bampMap.showMarkers();
-        },
-        failure: function(response, opts) {
-           alert('server-side failure with status code ' + response.status);
-        }
-      });
+            //Show the markers
+            bampMap.addMarkers(obj);
+            bampMap.showMarkers();
+          },
+          failure: function(response, opts) {
+             alert('server-side failure with status code ' + response.status);
+          }
+        });
+      }//end if
     }//end refreshMap();
 
     //Add filters to filter pane
