@@ -6,8 +6,11 @@ mysql_select_db('information_schema',$dbh);
 $query = "SELECT table_name ";
 $query.= "FROM `TABLES` ";
 $query.= "WHERE `TABLE_SCHEMA` = 'bamp_new' ";
-$query.= "AND `TABLE_NAME` LIKE 'bamp_wild_fish_samples'";
+$query.= "AND `TABLE_NAME` IN ('bamp_wild_fish_samples', 'bamp_wild_sampling_instances','bamp_wild_lice_details','bamp_farm_aggregate','bamp_farm_environment','bamp_farm_fish_data','bamp_farm_inventory','bamp_farm_sites')";
 $result = mysql_query($query,$dbh);
+
+echo 'function ireport_views_data(){'."\r\n\r\n";
+echo '$data = array();'."\r\n\r\n";
 
 while($row = mysql_fetch_assoc($result)){
   $query = "SELECT `column_name` as col, `data_type` as type, `character_maximum_length` as length, column_comment as comment ";
@@ -15,8 +18,15 @@ while($row = mysql_fetch_assoc($result)){
   $query.= "WHERE `table_name` = '". $row['table_name']."' ";
   $query.= "ORDER BY `ordinal_position` ASC ";
   $result2 = mysql_query($query,$dbh);
- 
-  echo '$data[\''.$row['table_name'].'\'][\'table\'] = array(\'group\' =>\'BAMP\', \'title\'=>\''.$row['table_name'].'\', \'help\' => \'\');'."\r\n\r\n";
+
+  echo "  ".'$data[\''.$row['table_name'].'\'][\'table\'] = array(\'group\' =>\'BAMP\', \'title\'=>\''.$row['table_name'].'\', \'help\' => \'\');'."\r\n\r\n";
+  echo "  ".'$data[\''.$row['table_name'].'\'][\'table\'][\'base\'] = array('."\r\n";
+  echo "    ".'\'field\' => \'id\','."\r\n";
+  echo "    ".'\'title\' => t(\''.$row['table_name'].'\'),'."\r\n";
+  echo "    ".'\'help\' => t(\''.$row['table_name'].' table\'),'."\r\n";
+  echo "    ".'\'database\' => \'bamp_new\','."\r\n";
+  echo "    ".'\'weight\' => -10,'."\r\n";
+  echo "  ".');'."\r\n\r\n";
 
   while($row2 = mysql_fetch_assoc($result2)){
     $handler = $sort = $filter = $argument = null;
@@ -65,6 +75,12 @@ while($row = mysql_fetch_assoc($result)){
     echo "  ".');'."\r\n"; 
   }//end while
 }//end while
+
+
+echo "\r\n\r\n";
+echo "  ".'return $data;'."\r\n\r\n";
+echo '}'."\r\n";
+
 
 /*
 
