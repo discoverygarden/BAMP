@@ -3405,17 +3405,1090 @@ $data = array();
     ),
   );
 
-  $data['bamp_wild_view']['table'] = array('group' =>'BAMP', 'title'=>'bamp_wild_view', 'help' => '');
+    $data['bamp_wild_view_export']['table'] = array('group' =>'BAMP', 'title'=>'bamp_wild_view_export', 'help' => '');
 
-  $data['bamp_wild_view']['table']['base'] = array(
+  $data['bamp_wild_view_export']['table']['base'] = array(
     'field' => 'id',
-    'title' => t('bamp_wild_view'),
-    'help' => t('bamp_wild_view table'),
+    'title' => t('bamp_wild_view_export'),
+    'help' => t('bamp_wild_view_export table'),
     'database' => 'bamp_new',
     'weight' => -10,
   );
 
-  $data['bamp_wild_view']['si_id'] = array(
+  $data['bamp_wild_view_export']['fs_id'] = array(
+    'title' => t('fs_id'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_fish_id'] = array(
+    'title' => t('fs_fish_id'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_trip_set_id'] = array(
+    'title' => t('fs_trip_set_id'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_trip_date'] = array(
+    'title' => t('fs_trip_date'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_trip_year'] = array(
+    'title' => t('fs_trip_year'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_trip_month'] = array(
+    'title' => t('fs_trip_month'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_trip_day'] = array(
+    'title' => t('fs_trip_day'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_fish_species_per_field'] = array(
+    'title' => t('fs_fish_species_per_field'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_fish_species_gr'] = array(
+    'title' => t('fs_fish_species_gr'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_fish_species_gr_lab'] = array(
+    'title' => t('fs_fish_species_gr_lab'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_fish_no'] = array(
+    'title' => t('fs_fish_no'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_fish_species_per_lab'] = array(
+    'title' => t('fs_fish_species_per_lab'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_length_mm'] = array(
+    'title' => t('fs_length_mm'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_height'] = array(
+    'title' => t('fs_height'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_weight_g'] = array(
+    'title' => t('fs_weight_g'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_surface_area'] = array(
+    'title' => t('fs_surface_area'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_cop'] = array(
+    'title' => t('fs_l_cop'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_c1'] = array(
+    'title' => t('fs_l_c1'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_c2'] = array(
+    'title' => t('fs_l_c2'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_c3'] = array(
+    'title' => t('fs_l_c3'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_c4'] = array(
+    'title' => t('fs_l_c4'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_nm_not_stage'] = array(
+    'title' => t('fs_l_nm_not_stage'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_pam'] = array(
+    'title' => t('fs_l_pam'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_paf'] = array(
+    'title' => t('fs_l_paf'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_pa_not_gender'] = array(
+    'title' => t('fs_l_pa_not_gender'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_am'] = array(
+    'title' => t('fs_l_am'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_af'] = array(
+    'title' => t('fs_l_af'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_gravid'] = array(
+    'title' => t('fs_l_gravid'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_adult_not_gender'] = array(
+    'title' => t('fs_l_adult_not_gender'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_l_mob_not_stage'] = array(
+    'title' => t('fs_l_mob_not_stage'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_cop'] = array(
+    'title' => t('fs_c_cop'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_c1'] = array(
+    'title' => t('fs_c_c1'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_c2'] = array(
+    'title' => t('fs_c_c2'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_c3'] = array(
+    'title' => t('fs_c_c3'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_c4'] = array(
+    'title' => t('fs_c_c4'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_nm_not_stage'] = array(
+    'title' => t('fs_c_nm_not_stage'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_pam'] = array(
+    'title' => t('fs_c_pam'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_paf'] = array(
+    'title' => t('fs_c_paf'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_am'] = array(
+    'title' => t('fs_c_am'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_af'] = array(
+    'title' => t('fs_c_af'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_mob_not_stage'] = array(
+    'title' => t('fs_c_mob_not_stage'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_c_gravid'] = array(
+    'title' => t('fs_c_gravid'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_total_chal_03'] = array(
+    'title' => t('fs_total_chal_03'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_lep_total_mob_03'] = array(
+    'title' => t('fs_lep_total_mob_03'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_lep_total'] = array(
+    'title' => t('fs_lep_total'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_cal_total_mob_03'] = array(
+    'title' => t('fs_cal_total_mob_03'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_cal_total'] = array(
+    'title' => t('fs_cal_total'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_u_cop'] = array(
+    'title' => t('fs_u_cop'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_u_chal'] = array(
+    'title' => t('fs_u_chal'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_u_chal_stages_I_and_II'] = array(
+    'title' => t('fs_u_chal_stages_I_and_II'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_u_chal_stages_III_and_IV'] = array(
+    'title' => t('fs_u_chal_stages_III_and_IV'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_u_mob'] = array(
+    'title' => t('fs_u_mob'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_lice_total'] = array(
+    'title' => t('fs_lice_total'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_lesions'] = array(
+    'title' => t('fs_lesions'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_comments'] = array(
+    'title' => t('fs_comments'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_changelog'] = array(
+    'title' => t('fs_changelog'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_trip'] = array(
+    'title' => t('fs_trip'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_gp_id'] = array(
+    'title' => t('fs_gp_id'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_lab'] = array(
+    'title' => t('fs_lab'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_date_examined'] = array(
+    'title' => t('fs_date_examined'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_examined_month'] = array(
+    'title' => t('fs_examined_month'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_examined_day'] = array(
+    'title' => t('fs_examined_day'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_examined_year'] = array(
+    'title' => t('fs_examined_year'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_initials'] = array(
+    'title' => t('fs_initials'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_scar_chal'] = array(
+    'title' => t('fs_scar_chal'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_scar_mot'] = array(
+    'title' => t('fs_scar_mot'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_pred_marks'] = array(
+    'title' => t('fs_pred_marks'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_hem'] = array(
+    'title' => t('fs_hem'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_mate_guarding'] = array(
+    'title' => t('fs_mate_guarding'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_pin_belly'] = array(
+    'title' => t('fs_pin_belly'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_lep_total_poo'] = array(
+    'title' => t('fs_lep_total_poo'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_cal_total_poo'] = array(
+    'title' => t('fs_cal_total_poo'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['fs_u_total_poo'] = array(
+    'title' => t('fs_u_total_poo'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_id'] = array(
     'title' => t('si_id'),
     'help' => t('Internal ID'),
     'field' => array(
@@ -3429,21 +4502,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_id'] = array(
-    'title' => t('bamp_wild_trips_id'),
-    'help' => t('Internal database record ID. Auto-Incrementing. Do not import to this field.'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_trip_set_id'] = array(
+  $data['bamp_wild_view_export']['si_trip_set_id'] = array(
     'title' => t('si_trip_set_id'),
     'help' => t(''),
     'field' => array(
@@ -3460,24 +4519,7 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_trip_id'] = array(
-    'title' => t('bamp_wild_trips_trip_id'),
-    'help' => t('Foreign Key to Fish Data'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['si_data_source'] = array(
+  $data['bamp_wild_view_export']['si_data_source'] = array(
     'title' => t('si_data_source'),
     'help' => t('Data Source (DFO, BAMP, MK)'),
     'field' => array(
@@ -3494,24 +4536,7 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_data_source'] = array(
-    'title' => t('bamp_wild_trips_data_source'),
-    'help' => t('Data Collector'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['si_trip_date'] = array(
+  $data['bamp_wild_view_export']['si_trip_date'] = array(
     'title' => t('si_trip_date'),
     'help' => t(''),
     'field' => array(
@@ -3528,24 +4553,7 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_year_rep_route_site'] = array(
-    'title' => t('bamp_wild_trips_year_rep_route_site'),
-    'help' => t('Internal ID'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['si_trip_year'] = array(
+  $data['bamp_wild_view_export']['si_trip_year'] = array(
     'title' => t('si_trip_year'),
     'help' => t('Trip Year'),
     'field' => array(
@@ -3559,21 +4567,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_year'] = array(
-    'title' => t('bamp_wild_trips_year'),
-    'help' => t('Trip Year'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_trip_month'] = array(
+  $data['bamp_wild_view_export']['si_trip_month'] = array(
     'title' => t('si_trip_month'),
     'help' => t('Trip Month (3-7)'),
     'field' => array(
@@ -3587,24 +4581,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_date'] = array(
-    'title' => t('bamp_wild_trips_date'),
-    'help' => t('Trip Date'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['si_trip_day'] = array(
+  $data['bamp_wild_view_export']['si_trip_day'] = array(
     'title' => t('si_trip_day'),
     'help' => t('Trip Year (1-31)'),
     'field' => array(
@@ -3618,21 +4595,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_rep'] = array(
-    'title' => t('bamp_wild_trips_rep'),
-    'help' => t('Trip Number'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_bamp_site_number'] = array(
+  $data['bamp_wild_view_export']['si_bamp_site_number'] = array(
     'title' => t('si_bamp_site_number'),
     'help' => t('BAMP Site Number'),
     'field' => array(
@@ -3646,24 +4609,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_route'] = array(
-    'title' => t('bamp_wild_trips_route'),
-    'help' => t('Trip Route'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['si_bamp_site_name'] = array(
+  $data['bamp_wild_view_export']['si_bamp_site_name'] = array(
     'title' => t('si_bamp_site_name'),
     'help' => t('BAMP Site Name'),
     'field' => array(
@@ -3680,9 +4626,9 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_site_name'] = array(
-    'title' => t('bamp_wild_trips_site_name'),
-    'help' => t('Site Name'),
+  $data['bamp_wild_view_export']['si_latitude_rec'] = array(
+    'title' => t('si_latitude_rec'),
+    'help' => t(''),
     'field' => array(
       'handler' => 'views_handler_field',
       'click sortable' => TRUE,
@@ -3697,26 +4643,9 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['si_site_name_rec'] = array(
-    'title' => t('si_site_name_rec'),
-    'help' => t('Site Name Recorded'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_trips_site_number'] = array(
-    'title' => t('bamp_wild_trips_site_number'),
-    'help' => t('Site Number'),
+  $data['bamp_wild_view_export']['si_latitude_calc'] = array(
+    'title' => t('si_latitude_calc'),
+    'help' => t(''),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -3728,66 +4657,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['si_site_number_0309'] = array(
-    'title' => t('si_site_number_0309'),
-    'help' => t('Site Number (0309)'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_trips_waypoint'] = array(
-    'title' => t('bamp_wild_trips_waypoint'),
-    'help' => t('Waypoint'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['si_site_number_mk'] = array(
-    'title' => t('si_site_number_mk'),
-    'help' => t('Site Number (Marty)'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_trips_distance'] = array(
-    'title' => t('bamp_wild_trips_distance'),
-    'help' => t('Distance'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_latitude'] = array(
+  $data['bamp_wild_view_export']['si_latitude'] = array(
     'title' => t('si_latitude'),
     'help' => t(''),
     'field' => array(
@@ -3801,9 +4671,26 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_longitude'] = array(
-    'title' => t('bamp_wild_trips_longitude'),
-    'help' => t('Longitude'),
+  $data['bamp_wild_view_export']['si_longitude_rec'] = array(
+    'title' => t('si_longitude_rec'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_longitude_calc'] = array(
+    'title' => t('si_longitude_calc'),
+    'help' => t(''),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -3815,7 +4702,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['si_longitude'] = array(
+  $data['bamp_wild_view_export']['si_longitude'] = array(
     'title' => t('si_longitude'),
     'help' => t(''),
     'field' => array(
@@ -3829,21 +4716,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_latitude'] = array(
-    'title' => t('bamp_wild_trips_latitude'),
-    'help' => t('Latitude'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_trip_rep'] = array(
+  $data['bamp_wild_view_export']['si_trip_rep'] = array(
     'title' => t('si_trip_rep'),
     'help' => t(''),
     'field' => array(
@@ -3857,49 +4730,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_trips_salinity'] = array(
-    'title' => t('bamp_wild_trips_salinity'),
-    'help' => t('Salinity'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_trip'] = array(
-    'title' => t('si_trip'),
-    'help' => t(''),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_trips_temperature'] = array(
-    'title' => t('bamp_wild_trips_temperature'),
-    'help' => t('Temperature'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_route'] = array(
+  $data['bamp_wild_view_export']['si_route'] = array(
     'title' => t('si_route'),
     'help' => t(''),
     'field' => array(
@@ -3916,21 +4747,7 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_id'] = array(
-    'title' => t('bamp_wild_fish_data_id'),
-    'help' => t('Internal database record ID. Auto-Incrementing. Do not import to this field.'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_collection_period_eer'] = array(
+  $data['bamp_wild_view_export']['si_collection_period_eer'] = array(
     'title' => t('si_collection_period_eer'),
     'help' => t('Collection Period EER'),
     'field' => array(
@@ -3947,24 +4764,7 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_trip_id'] = array(
-    'title' => t('bamp_wild_fish_data_trip_id'),
-    'help' => t(''),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['si_gear_type'] = array(
+  $data['bamp_wild_view_export']['si_gear_type'] = array(
     'title' => t('si_gear_type'),
     'help' => t('Gear Type (Beach, Purse)'),
     'field' => array(
@@ -3981,21 +4781,7 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_year'] = array(
-    'title' => t('bamp_wild_fish_data_year'),
-    'help' => t('Year recorded'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_zone'] = array(
+  $data['bamp_wild_view_export']['si_zone'] = array(
     'title' => t('si_zone'),
     'help' => t('Zone (A-K, OB)'),
     'field' => array(
@@ -4012,21 +4798,7 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_rep'] = array(
-    'title' => t('bamp_wild_fish_data_rep'),
-    'help' => t('Trip number (replicate)'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_chum_captured'] = array(
+  $data['bamp_wild_view_export']['si_chum_captured'] = array(
     'title' => t('si_chum_captured'),
     'help' => t('Chum Captured'),
     'field' => array(
@@ -4040,24 +4812,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_route'] = array(
-    'title' => t('bamp_wild_fish_data_route'),
-    'help' => t('Migration route'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['si_chum_retained'] = array(
+  $data['bamp_wild_view_export']['si_chum_retained'] = array(
     'title' => t('si_chum_retained'),
     'help' => t('Chum Retained'),
     'field' => array(
@@ -4071,21 +4826,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_site_number'] = array(
-    'title' => t('bamp_wild_fish_data_site_number'),
-    'help' => t('Site number'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_chum_examined'] = array(
+  $data['bamp_wild_view_export']['si_chum_examined'] = array(
     'title' => t('si_chum_examined'),
     'help' => t('Chum Examined'),
     'field' => array(
@@ -4099,21 +4840,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_fish'] = array(
-    'title' => t('bamp_wild_fish_data_fish'),
-    'help' => t('Fish number'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_pink_captured'] = array(
+  $data['bamp_wild_view_export']['si_pink_captured'] = array(
     'title' => t('si_pink_captured'),
     'help' => t('Pink Captured'),
     'field' => array(
@@ -4127,9 +4854,163 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_species'] = array(
-    'title' => t('bamp_wild_fish_data_species'),
-    'help' => t('Fish species (Pink, Chum)'),
+  $data['bamp_wild_view_export']['si_pink_retained'] = array(
+    'title' => t('si_pink_retained'),
+    'help' => t('Pink Retained'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_pink_examined'] = array(
+    'title' => t('si_pink_examined'),
+    'help' => t('Pink Examined'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_coho_captured'] = array(
+    'title' => t('si_coho_captured'),
+    'help' => t('Coho Captured'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_coho_retained'] = array(
+    'title' => t('si_coho_retained'),
+    'help' => t('Coho Retained'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_coho_examined'] = array(
+    'title' => t('si_coho_examined'),
+    'help' => t('Coho Examined'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_other_salmon_captured'] = array(
+    'title' => t('si_other_salmon_captured'),
+    'help' => t('Other Salmon Captured'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_other_salmon_retained'] = array(
+    'title' => t('si_other_salmon_retained'),
+    'help' => t('Other Salmon Retained'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_other_salmon_examined'] = array(
+    'title' => t('si_other_salmon_examined'),
+    'help' => t('Other Salmon Examined'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_other_species_captured'] = array(
+    'title' => t('si_other_species_captured'),
+    'help' => t('Other Species Captured'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_other_species_retained'] = array(
+    'title' => t('si_other_species_retained'),
+    'help' => t('Other Species Retained'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_other_species_examined'] = array(
+    'title' => t('si_other_species_examined'),
+    'help' => t('Other Species Examined'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_crew'] = array(
+    'title' => t('si_crew'),
+    'help' => t(''),
     'field' => array(
       'handler' => 'views_handler_field',
       'click sortable' => TRUE,
@@ -4144,315 +5025,7 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['si_pink_retained'] = array(
-    'title' => t('si_pink_retained'),
-    'help' => t('Pink Retained'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_length'] = array(
-    'title' => t('bamp_wild_fish_data_length'),
-    'help' => t('Fork length (mm)'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_pink_examined'] = array(
-    'title' => t('si_pink_examined'),
-    'help' => t('Pink Examined'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_height'] = array(
-    'title' => t('bamp_wild_fish_data_height'),
-    'help' => t('Body depth (mm)'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_coho_captured'] = array(
-    'title' => t('si_coho_captured'),
-    'help' => t('Coho Captured'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_lep_cop'] = array(
-    'title' => t('bamp_wild_fish_data_lep_cop'),
-    'help' => t('L. salmonis copepodites on fish'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_coho_retained'] = array(
-    'title' => t('si_coho_retained'),
-    'help' => t('Coho Retained'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_cal_cop'] = array(
-    'title' => t('bamp_wild_fish_data_cal_cop'),
-    'help' => t('C. clemensi copepodites on fish'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_coho_examined'] = array(
-    'title' => t('si_coho_examined'),
-    'help' => t('Coho Examined'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_cop_unid'] = array(
-    'title' => t('bamp_wild_fish_data_cop_unid'),
-    'help' => t(''),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_other_salmon_captured'] = array(
-    'title' => t('si_other_salmon_captured'),
-    'help' => t('Other Salmon Captured'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_chal_unid'] = array(
-    'title' => t('bamp_wild_fish_data_chal_unid'),
-    'help' => t(''),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_other_salmon_retained'] = array(
-    'title' => t('si_other_salmon_retained'),
-    'help' => t('Other Salmon Retained'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_chal_a'] = array(
-    'title' => t('bamp_wild_fish_data_chal_a'),
-    'help' => t('Chalimus stage 1/2 lice on a fish (Lice species unidentified)'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_other_salmon_examined'] = array(
-    'title' => t('si_other_salmon_examined'),
-    'help' => t('Other Salmon Examined'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_chal_b'] = array(
-    'title' => t('bamp_wild_fish_data_chal_b'),
-    'help' => t('Chalimus stage 3/4 lice on a fish (Lice species unidentified)'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_other_species_captured'] = array(
-    'title' => t('si_other_species_captured'),
-    'help' => t('Other Species Captured'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_mot_unid'] = array(
-    'title' => t('bamp_wild_fish_data_mot_unid'),
-    'help' => t('Unidentified motile stage lice on fish'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_other_species_retained'] = array(
-    'title' => t('si_other_species_retained'),
-    'help' => t('Other Species Retained'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_lep_pre_male'] = array(
-    'title' => t('bamp_wild_fish_data_lep_pre_male'),
-    'help' => t('L. salmonis preadult male lice on fish'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_other_species_examined'] = array(
-    'title' => t('si_other_species_examined'),
-    'help' => t('Other Species Examined'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_lep_pre_female'] = array(
-    'title' => t('bamp_wild_fish_data_lep_pre_female'),
-    'help' => t('L. salmonis preadult female lice on fish'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_tide'] = array(
+  $data['bamp_wild_view_export']['si_tide'] = array(
     'title' => t('si_tide'),
     'help' => t('Tide (High, Mid, Low)'),
     'field' => array(
@@ -4469,21 +5042,7 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_lep_pre_unid'] = array(
-    'title' => t('bamp_wild_fish_data_lep_pre_unid'),
-    'help' => t('L. salmonis preadult lice on fish (sex not identified)'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_search_time'] = array(
+  $data['bamp_wild_view_export']['si_search_time'] = array(
     'title' => t('si_search_time'),
     'help' => t(''),
     'field' => array(
@@ -4497,21 +5056,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_lep_adult_male'] = array(
-    'title' => t('bamp_wild_fish_data_lep_adult_male'),
-    'help' => t('Adult male L. salmonis on fish'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_salinity_avg'] = array(
+  $data['bamp_wild_view_export']['si_salinity_avg'] = array(
     'title' => t('si_salinity_avg'),
     'help' => t('Salinity'),
     'field' => array(
@@ -4525,9 +5070,9 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_lep_adult_female'] = array(
-    'title' => t('bamp_wild_fish_data_lep_adult_female'),
-    'help' => t('Adult female L. salmonis on fish'),
+  $data['bamp_wild_view_export']['si_salinity_0_2'] = array(
+    'title' => t('si_salinity_0_2'),
+    'help' => t(''),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -4539,7 +5084,63 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['si_temperature_avg'] = array(
+  $data['bamp_wild_view_export']['si_salinity_1'] = array(
+    'title' => t('si_salinity_1'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_salinity_5'] = array(
+    'title' => t('si_salinity_5'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_salinity_refract'] = array(
+    'title' => t('si_salinity_refract'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_salinity_depth_not_specified'] = array(
+    'title' => t('si_salinity_depth_not_specified'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_temperature_avg'] = array(
     'title' => t('si_temperature_avg'),
     'help' => t('Temperature'),
     'field' => array(
@@ -4553,9 +5154,9 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_lep_adult_unid'] = array(
-    'title' => t('bamp_wild_fish_data_lep_adult_unid'),
-    'help' => t('Adult L. salmonis on fish (sex unidentified)'),
+  $data['bamp_wild_view_export']['si_temperature_0_2'] = array(
+    'title' => t('si_temperature_0_2'),
+    'help' => t(''),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -4567,7 +5168,114 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['si_set_no'] = array(
+  $data['bamp_wild_view_export']['si_temperature_1'] = array(
+    'title' => t('si_temperature_1'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_temperature_5'] = array(
+    'title' => t('si_temperature_5'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_temperature_rec'] = array(
+    'title' => t('si_temperature_rec'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_temperature_depth_not_specified'] = array(
+    'title' => t('si_temperature_depth_not_specified'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_weather_comments'] = array(
+    'title' => t('si_weather_comments'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_comments'] = array(
+    'title' => t('si_comments'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_changelog'] = array(
+    'title' => t('si_changelog'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_set_no'] = array(
     'title' => t('si_set_no'),
     'help' => t('Set Number'),
     'field' => array(
@@ -4581,9 +5289,26 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_lep_gravid'] = array(
-    'title' => t('bamp_wild_fish_data_lep_gravid'),
-    'help' => t('Gravid female L. salmonis on the fish'),
+  $data['bamp_wild_view_export']['si_site_name_rec'] = array(
+    'title' => t('si_site_name_rec'),
+    'help' => t('Site Name Recorded'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_site_number_0309'] = array(
+    'title' => t('si_site_number_0309'),
+    'help' => t('Site Number (0309)'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -4595,7 +5320,21 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['si_waypoint'] = array(
+  $data['bamp_wild_view_export']['si_site_number_mk'] = array(
+    'title' => t('si_site_number_mk'),
+    'help' => t('Site Number (Marty)'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_waypoint'] = array(
     'title' => t('si_waypoint'),
     'help' => t(''),
     'field' => array(
@@ -4612,9 +5351,9 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_caligus'] = array(
-    'title' => t('bamp_wild_fish_data_caligus'),
-    'help' => t('Non-gravid C.clemensi motiles on fish'),
+  $data['bamp_wild_view_export']['si_distance'] = array(
+    'title' => t('si_distance'),
+    'help' => t('make sure float works for this column'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -4626,7 +5365,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['si_blind_no'] = array(
+  $data['bamp_wild_view_export']['si_blind_no'] = array(
     'title' => t('si_blind_no'),
     'help' => t('Blind Number'),
     'field' => array(
@@ -4640,21 +5379,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_caligus_gravid'] = array(
-    'title' => t('bamp_wild_fish_data_caligus_gravid'),
-    'help' => t('Gravid C. clemensi motiles on fish'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_to_lab'] = array(
+  $data['bamp_wild_view_export']['si_to_lab'] = array(
     'title' => t('si_to_lab'),
     'help' => t('Lab (CAHS, Echo)'),
     'field' => array(
@@ -4671,9 +5396,9 @@ $data = array();
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_chal_scar'] = array(
-    'title' => t('bamp_wild_fish_data_chal_scar'),
-    'help' => t('Chalimus-associated scars/lesions on fish'),
+  $data['bamp_wild_view_export']['si_trip'] = array(
+    'title' => t('si_trip'),
+    'help' => t(''),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -4685,7 +5410,24 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['si_tsb'] = array(
+  $data['bamp_wild_view_export']['si_trip_time'] = array(
+    'title' => t('si_trip_time'),
+    'help' => t(''),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['bamp_wild_view_export']['si_tsb'] = array(
     'title' => t('si_tsb'),
     'help' => t(''),
     'field' => array(
@@ -4699,21 +5441,7 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_mot_scar'] = array(
-    'title' => t('bamp_wild_fish_data_mot_scar'),
-    'help' => t('Presence/absence of motile L. salmonis associated wounds on fish'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['si_mortalities'] = array(
+  $data['bamp_wild_view_export']['si_mortalities'] = array(
     'title' => t('si_mortalities'),
     'help' => t('Mortalities'),
     'field' => array(
@@ -4727,210 +5455,6 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_wild_view']['bamp_wild_fish_data_pred_marks'] = array(
-    'title' => t('bamp_wild_fish_data_pred_marks'),
-    'help' => t('Presence or absence of predation marks on fish'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['ld_fish_id'] = array(
-    'title' => t('ld_fish_id'),
-    'help' => t(''),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_hem'] = array(
-    'title' => t('bamp_wild_fish_data_hem'),
-    'help' => t('Pressence/absence of bleeding in fins, scales, or lesions on fish'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['ld_lice_id'] = array(
-    'title' => t('ld_lice_id'),
-    'help' => t(''),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_mate_guarding'] = array(
-    'title' => t('bamp_wild_fish_data_mate_guarding'),
-    'help' => t('Pressence/absence of a male-female L. salmonis copulatory or pre-copulatory pair'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['ld_gender_label'] = array(
-    'title' => t('ld_gender_label'),
-    'help' => t('Gender (Female, Gravid, Male, Not recorded, Not used)'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_pin_belly'] = array(
-    'title' => t('bamp_wild_fish_data_pin_belly'),
-    'help' => t('Presence/absence of pinched belly'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_wild_view']['ld_species_label'] = array(
-    'title' => t('ld_species_label'),
-    'help' => t('Species (Caligus, Leps, Not Recorded)'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_tissue_damage'] = array(
-    'title' => t('bamp_wild_fish_data_tissue_damage'),
-    'help' => t('Notes on damage to surface tissues of fish'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['ld_stage_label'] = array(
-    'title' => t('ld_stage_label'),
-    'help' => t('Stage (PreAdult, Adult, Chal1, Chal1_2, Chal2, Chal3, Chal3_4, Chal4, Chal_Unid, Copepodid, Not Recorded)'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['bamp_wild_fish_data_comments'] = array(
-    'title' => t('bamp_wild_fish_data_comments'),
-    'help' => t('Additional Comments'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['ld_stage_aggr_label'] = array(
-    'title' => t('ld_stage_aggr_label'),
-    'help' => t('Stage Aggregate (Motile, Non-motile)'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_wild_view']['fs_id'] = array(
-    'title' => t('fs_id'),
-    'help' => t(''),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-
   return $data;
 
 }
