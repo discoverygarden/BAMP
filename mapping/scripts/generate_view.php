@@ -14,6 +14,6 @@ foreach($tables as $prefix=>$table){
   echo "\r\n\r\n";
 }//end foreach
 echo "FROM bamp_wild_sampling_instances si \r\n";
-echo "INNER JOIN bamp_wild_fish_samples fs ON si.trip_set_id = fs.trip_set_id ";
-echo "INNER JOIN bamp_wild_lice_details ld ON fs.fish_id = ld.fish_id ";
+echo "LEFT OUTER JOIN bamp_wild_fish_samples fs ON si.trip_set_id = fs.trip_set_id \r\n";
+echo "LEFT OUTER JOIN bamp_wild_lice_details ld ON fs.fish_id = ld.fish_id \r\n";
 ?>
