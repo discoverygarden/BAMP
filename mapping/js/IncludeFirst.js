@@ -8,7 +8,7 @@ var mapFilters = [];
 
 Ext.onReady(function(){
   //Wild Site Markers Model and Store
-  Ext.define('MappingInterface.models.wild_site_markers', {
+/*  Ext.define('MappingInterface.models.wild_site_markers', {
     extend: 'Ext.data.Model',
     fields: ['lat','lng','bamp_id','marker','fish_count','trip_id'],
   });
@@ -22,7 +22,7 @@ Ext.onReady(function(){
     },
     autoLoad: true
   });
-
+*/
   //Filters - Fields Model and Store
   Ext.define('MappingInterface.models.filterFields', {
     extend: 'Ext.data.Model',
