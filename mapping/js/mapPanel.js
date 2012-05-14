@@ -28,6 +28,7 @@ Ext.onReady(function(){
       markers: [],
       listeners: {
         mapready: function(){
+        /*
           this.hideMarkers();
           var markers = [];
           var wild_site_markers = Ext.data.StoreManager.lookup('wild_site_markers');
@@ -40,9 +41,11 @@ Ext.onReady(function(){
           });
           this.addMarkers(markers);
           this.showMarkers();
+          */
+          //window.refreshMap();
 
           //Update the data summary panel
-          window.updateDataSummary(dataSummary);
+          //window.updateDataSummary(dataSummary);
         }//end mapready()
       }//end listeners
     },{
