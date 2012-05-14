@@ -54,6 +54,42 @@ function ireport_menu()
     'access callback' => 'user_access',
     'access arguments' => array('View data'),
   );
+  $items['ireport/bampsearch/wildlicedetails'] = array(
+    'title' => 'Wild Lice Details Table',
+    'page callback' => 'ireport_wild_search_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('View data'),
+  );
+  $items['ireport/bampsearch/farmaggregate'] = array(
+    'title' => 'Farm Aggregate Table',
+    'page callback' => 'ireport_farm_search_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('View data'),
+  );
+  $items['ireport/bampsearch/farmenvironment'] = array(
+    'title' => 'Farm Environment Table',
+    'page callback' => 'ireport_farm_search_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('View data'),
+  );
+  $items['ireport/bampsearch/farminventory'] = array(
+    'title' => 'Farm Inventory Table',
+    'page callback' => 'ireport_farm_search_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('View data'),
+  );
+  $items['ireport/bampsearch/farmfishdata'] = array(
+    'title' => 'Farm Fish Data Table',
+    'page callback' => 'ireport_farm_search_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('View data'),
+  );
+  $items['ireport/bampsearch/farmsites'] = array(
+    'title' => 'Farm Sites Table',
+    'page callback' => 'ireport_farm_search_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('View data'),
+  );
 
   return $items;
 }
@@ -75,6 +111,15 @@ function ireport_wild_search_page() {
   );
   return $content;
 }
+
+function ireport_farm_search_page() {
+  drupal_set_title('Farm Data Search');
+  $content ['form'] = array(
+    '#markup' => '<p></p>',
+  );
+  return $content;
+}
+
 
 /**
  * Contains returns views api version for views integration 
