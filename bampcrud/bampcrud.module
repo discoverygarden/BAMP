@@ -1,10 +1,14 @@
 <?php
 // $Id$
 
-include 'bampcrud.wildtrip.inc';
-include 'bampcrud.wildfish.inc';
-include 'bampcrud.wildsites.inc';
-include 'bampcrud.wildlab.inc';
+include 'bampcrud.wildsamplinginstances.inc';
+include 'bampcrud.wildfishsamples.inc';
+include 'bampcrud.wildlicedetails.inc';
+include 'bampcrud.farmaggregate.inc';
+include 'bampcrud.farmenvironment.inc';
+include 'bampcrud.farminventory.inc';
+include 'bampcrud.farmfishdata.inc';
+include 'bampcrud.farmsites.inc';
 
 /**
  * @file
@@ -39,31 +43,60 @@ function bampcrud_menu() {
     'access arguments' => array('Edit data'),
     'weight' => '1',
   );
-  $items['bampcrud/crud/wildsites'] = array(
-    'title' => 'Manage Wild Sites',
+  $items['bampcrud/crud/wildsamplinginstances'] = array(
+    'title' => 'Add/Edit Wild Sampling Instances Data',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('bampcrud_wild_sites_form'),
+    'page arguments' => array('bampcrud_wild_sampling_instances_form'),
     'access callback' => 'user_access',
     'access arguments' => array('Edit data'),
   );
-  $items['bampcrud/crud/wildtrips'] = array(
-    'title' => 'Manage Wild Trips',
+  $items['bampcrud/crud/wildfishsamples'] = array(
+    'title' => 'Add/Edit Wild Fish Samples Data',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('bampcrud_wild_trips_form'),
+    'page arguments' => array('bampcrud_wild_fish_samples_form'),
     'access callback' => 'user_access',
     'access arguments' => array('Edit data'),
   );
-  $items['bampcrud/crud/wildlab'] = array(
-    'title' => 'Manage Wild Lab Results',
+  $items['bampcrud/crud/wildlicedetails'] = array(
+    'title' => 'Add/Edit Wild Lice Details Data',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('bampcrud_wild_lab_form'),
+    'page arguments' => array('bampcrud_wild_lice_details_form'),
     'access callback' => 'user_access',
     'access arguments' => array('Edit data'),
   );
-  $items['bampcrud/crud/wildfish'] = array(
-    'title' => 'Manage Wild Fish Level',
+
+  $items['bampcrud/crud/farmaggregate'] = array(
+    'title' => 'Add/Edit Farm Aggregate Data',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('bampcrud_wild_fish_form'),
+    'page arguments' => array('bampcrud_farm_aggregate_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('Edit data'),
+  );
+  $items['bampcrud/crud/farmenvironment'] = array(
+    'title' => 'Add/Edit Farm Environment Data',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bampcrud_farm_environment_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('Edit data'),
+  );
+  $items['bampcrud/crud/farmfishdata'] = array(
+    'title' => 'Add/Edit Farm Fish Data',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bampcrud_farm_fish_data_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('Edit data'),
+  );
+  $items['bampcrud/crud/farminventory'] = array(
+    'title' => 'Add/Edit Farm Inventory Data',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bampcrud_farm_inventory_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('Edit data'),
+  );
+  $items['bampcrud/crud/farmsites'] = array(
+    'title' => 'Add/Edit Farm Sites Data',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bampcrud_farm_sites_form'),
     'access callback' => 'user_access',
     'access arguments' => array('Edit data'),
   );
