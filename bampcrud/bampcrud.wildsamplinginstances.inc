@@ -118,6 +118,7 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#title' => t('Trip Set ID'),
     '#default_value' => isset($result['trip_set_id']) ? $result['trip_set_id'] : '',
     '#required' => FALSE,
+    '#disabled' => TRUE,
   );  
   # data_source text field
   $form['fieldset']['data_source'] = array(
@@ -125,6 +126,7 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#title' => t('Data Source'),
     '#default_value' => isset($result['data_source']) ? $result['data_source'] : '',
     '#required' => FALSE,
+    '#disabled' => TRUE,
   );  
   # trip_date text field
   $form['fieldset']['trip_date'] = array(
