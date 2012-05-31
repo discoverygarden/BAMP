@@ -115,47 +115,48 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
   # id text field
   $form['fieldset']['id'] = array(
     '#type' => 'textfield',
-    '#title' => t('id'),
+    '#title' => t('Internal Database ID'),
     '#default_value' => isset($result['id']) ? $result['id'] : '',
     '#required' => FALSE,
+    '#disabled' => TRUE,
   );  
   # fish_id text field
   $form['fieldset']['fish_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_id'),
+    '#title' => t('Fish ID'),
     '#default_value' => isset($result['fish_id']) ? $result['fish_id'] : '',
     '#required' => FALSE,
   );  
   # trip_set_id text field
   $form['fieldset']['trip_set_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('trip_set_id'),
+    '#title' => t('Trip Set ID'),
     '#default_value' => isset($result['trip_set_id']) ? $result['trip_set_id'] : '',
     '#required' => FALSE,
   );  
   # trip_date text field
   $form['fieldset']['trip_date'] = array(
     '#type' => 'textfield',
-    '#title' => t('trip_date'),
+    '#title' => t('Trip Date'),
     '#default_value' => isset($result['trip_date']) ? $result['trip_date'] : '',
     '#required' => FALSE,
   );  
   # trip_year text field
   $form['fieldset']['trip_year'] = array(
     '#type' => 'textfield',
-    '#title' => t('trip_year'),
+    '#title' => t('Trip Year'),
     '#default_value' => isset($result['trip_year']) ? $result['trip_year'] : '',
     '#required' => FALSE,
   );  
   # trip_month text field
   $form['fieldset']['trip_month'] = array(
     '#type' => 'textfield',
-    '#title' => t('trip_month'),
+    '#title' => t('Trip Month'),
     '#default_value' => isset($result['trip_month']) ? $result['trip_month'] : '',
     '#required' => FALSE,
   );  
   # trip_day text field
-  $form['fieldset']['trip_day'] = array(
+  $form['fieldset']['Trip Day'] = array(
     '#type' => 'textfield',
     '#title' => t('trip_day'),
     '#default_value' => isset($result['trip_day']) ? $result['trip_day'] : '',
@@ -164,63 +165,63 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
   # fish_species_per_field text field
   $form['fieldset']['fish_species_per_field'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_species_per_field'),
+    '#title' => t('Fish Species (Per field)'),
     '#default_value' => isset($result['fish_species_per_field']) ? $result['fish_species_per_field'] : '',
     '#required' => FALSE,
   );  
   # fish_species_gr text field
   $form['fieldset']['fish_species_gr'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_species_gr'),
+    '#title' => t('Fish Species Gr'),
     '#default_value' => isset($result['fish_species_gr']) ? $result['fish_species_gr'] : '',
     '#required' => FALSE,
   );  
   # fish_species_gr_lab text field
   $form['fieldset']['fish_species_gr_lab'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_species_gr_lab'),
+    '#title' => t('Fish Species Gr Lab'),
     '#default_value' => isset($result['fish_species_gr_lab']) ? $result['fish_species_gr_lab'] : '',
     '#required' => FALSE,
   );  
   # fish_no text field
   $form['fieldset']['fish_no'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_no'),
+    '#title' => t('Fish No.'),
     '#default_value' => isset($result['fish_no']) ? $result['fish_no'] : '',
     '#required' => FALSE,
   );  
   # fish_species_per_lab text field
   $form['fieldset']['fish_species_per_lab'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_species_per_lab'),
+    '#title' => t('Fish Species (Per Lab)'),
     '#default_value' => isset($result['fish_species_per_lab']) ? $result['fish_species_per_lab'] : '',
     '#required' => FALSE,
   );  
   # length_mm text field
   $form['fieldset']['length_mm'] = array(
     '#type' => 'textfield',
-    '#title' => t('length_mm'),
+    '#title' => t('Length (mm)'),
     '#default_value' => isset($result['length_mm']) ? $result['length_mm'] : '',
     '#required' => FALSE,
   );  
   # height text field
   $form['fieldset']['height'] = array(
     '#type' => 'textfield',
-    '#title' => t('height'),
+    '#title' => t('Height'),
     '#default_value' => isset($result['height']) ? $result['height'] : '',
     '#required' => FALSE,
   );  
   # weight_g text field
   $form['fieldset']['weight_g'] = array(
     '#type' => 'textfield',
-    '#title' => t('weight_g'),
+    '#title' => t('Weight (g)'),
     '#default_value' => isset($result['weight_g']) ? $result['weight_g'] : '',
     '#required' => FALSE,
   );  
   # surface_area text field
   $form['fieldset']['surface_area'] = array(
     '#type' => 'textfield',
-    '#title' => t('surface_area'),
+    '#title' => t('Surface Area'),
     '#default_value' => isset($result['surface_area']) ? $result['surface_area'] : '',
     '#required' => FALSE,
   );  
@@ -479,61 +480,61 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
   # lice_total text field
   $form['fieldset']['lice_total'] = array(
     '#type' => 'textfield',
-    '#title' => t('lice_total'),
+    '#title' => t('Lice Total'),
     '#default_value' => isset($result['lice_total']) ? $result['lice_total'] : '',
     '#required' => FALSE,
   );  
   # lesions text field
   $form['fieldset']['lesions'] = array(
     '#type' => 'textfield',
-    '#title' => t('lesions'),
+    '#title' => t('Lesions'),
     '#default_value' => isset($result['lesions']) ? $result['lesions'] : '',
     '#required' => FALSE,
   );  
   # comments text field
   $form['fieldset']['comments'] = array(
     '#type' => 'textfield',
-    '#title' => t('comments'),
+    '#title' => t('Comments'),
     '#default_value' => isset($result['comments']) ? $result['comments'] : '',
     '#required' => FALSE,
   );  
   # changelog text field
   $form['fieldset']['changelog'] = array(
     '#type' => 'textfield',
-    '#title' => t('changelog'),
+    '#title' => t('Change Log'),
     '#default_value' => isset($result['changelog']) ? $result['changelog'] : '',
     '#required' => FALSE,
   );  
   # trip text field
   $form['fieldset']['trip'] = array(
     '#type' => 'textfield',
-    '#title' => t('trip'),
+    '#title' => t('Trip'),
     '#default_value' => isset($result['trip']) ? $result['trip'] : '',
     '#required' => FALSE,
   );  
   # gp_id text field
   $form['fieldset']['gp_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('gp_id'),
+    '#title' => t('Group ID'),
     '#default_value' => isset($result['gp_id']) ? $result['gp_id'] : '',
     '#required' => FALSE,
   );  
   # lab text field
   $form['fieldset']['lab'] = array(
     '#type' => 'textfield',
-    '#title' => t('lab'),
+    '#title' => t('Lab'),
     '#default_value' => isset($result['lab']) ? $result['lab'] : '',
     '#required' => FALSE,
   );  
   # date_examined text field
   $form['fieldset']['date_examined'] = array(
     '#type' => 'textfield',
-    '#title' => t('date_examined'),
+    '#title' => t('Date Examined'),
     '#default_value' => isset($result['date_examined']) ? $result['date_examined'] : '',
     '#required' => FALSE,
   );  
   # examined_month text field
-  $form['fieldset']['examined_month'] = array(
+  $form['fieldset']['Examined Month'] = array(
     '#type' => 'textfield',
     '#title' => t('examined_month'),
     '#default_value' => isset($result['examined_month']) ? $result['examined_month'] : '',
@@ -542,21 +543,21 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
   # examined_day text field
   $form['fieldset']['examined_day'] = array(
     '#type' => 'textfield',
-    '#title' => t('examined_day'),
+    '#title' => t('Examined Day'),
     '#default_value' => isset($result['examined_day']) ? $result['examined_day'] : '',
     '#required' => FALSE,
   );  
   # examined_year text field
   $form['fieldset']['examined_year'] = array(
     '#type' => 'textfield',
-    '#title' => t('examined_year'),
+    '#title' => t('Examined Year'),
     '#default_value' => isset($result['examined_year']) ? $result['examined_year'] : '',
     '#required' => FALSE,
   );  
   # initials text field
   $form['fieldset']['initials'] = array(
     '#type' => 'textfield',
-    '#title' => t('initials'),
+    '#title' => t('Initials'),
     '#default_value' => isset($result['initials']) ? $result['initials'] : '',
     '#required' => FALSE,
   );  
@@ -577,42 +578,42 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
   # pred_marks text field
   $form['fieldset']['pred_marks'] = array(
     '#type' => 'textfield',
-    '#title' => t('pred_marks'),
+    '#title' => t('Predator Marks'),
     '#default_value' => isset($result['pred_marks']) ? $result['pred_marks'] : '',
     '#required' => FALSE,
   );  
   # hem text field
   $form['fieldset']['hem'] = array(
     '#type' => 'textfield',
-    '#title' => t('hem'),
+    '#title' => t('Hem'),
     '#default_value' => isset($result['hem']) ? $result['hem'] : '',
     '#required' => FALSE,
   );  
   # mate_guarding text field
   $form['fieldset']['mate_guarding'] = array(
     '#type' => 'textfield',
-    '#title' => t('mate_guarding'),
+    '#title' => t('Mate Guarding'),
     '#default_value' => isset($result['mate_guarding']) ? $result['mate_guarding'] : '',
     '#required' => FALSE,
   );  
   # pin_belly text field
   $form['fieldset']['pin_belly'] = array(
     '#type' => 'textfield',
-    '#title' => t('pin_belly'),
+    '#title' => t('Pin Belly'),
     '#default_value' => isset($result['pin_belly']) ? $result['pin_belly'] : '',
     '#required' => FALSE,
   );  
   # lep_total_poo text field
   $form['fieldset']['lep_total_poo'] = array(
     '#type' => 'textfield',
-    '#title' => t('lep_total_poo'),
+    '#title' => t('Lep Total (Calulated by Poo)'),
     '#default_value' => isset($result['lep_total_poo']) ? $result['lep_total_poo'] : '',
     '#required' => FALSE,
   );  
   # cal_total_poo text field
   $form['fieldset']['cal_total_poo'] = array(
     '#type' => 'textfield',
-    '#title' => t('cal_total_poo'),
+    '#title' => t('Cal Total (Calculated by Poo)'),
     '#default_value' => isset($result['cal_total_poo']) ? $result['cal_total_poo'] : '',
     '#required' => FALSE,
   );  
@@ -622,8 +623,7 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
     '#title' => t('u_total_poo'),
     '#default_value' => isset($result['u_total_poo']) ? $result['u_total_poo'] : '',
     '#required' => FALSE,
-  );  
- 
+  );
 
   if($operation == 'modify'){
     $form['fieldset']['submit'] = array(
@@ -646,7 +646,6 @@ function bampcrud_wild_fish_samples_form_submit($form, &$form_state) {
       //Add db insert 
       $result = db_insert('bamp_wild_fish_samples', array('target'=>'bamp_new'))
       ->fields(array(
-        'id' => $form_state['values']['id'],
         'fish_id' => $form_state['values']['fish_id'],
         'trip_set_id' => $form_state['values']['trip_set_id'],
         'trip_date' => $form_state['values']['trip_date'],
@@ -723,14 +722,13 @@ function bampcrud_wild_fish_samples_form_submit($form, &$form_state) {
       ->execute();
     
       //drupal_goto('test/multi_step_form', array('query' => array('sort' => 'desc', 'order' => 'Id')));
-      drupal_set_message('adddddddd');
+      drupal_set_message('Wild Fish Sample Added.');
       break;
     case 'Save Change' :
       //Add db update code
 
       $num_updated = db_update('bamp_wild_fish_samples', array('target'=>'bamp_new'))
       ->fields(array(
-        'id' => $form_state['values']['id'],
         'fish_id' => $form_state['values']['fish_id'],
         'trip_set_id' => $form_state['values']['trip_set_id'],
         'trip_date' => $form_state['values']['trip_date'],
@@ -808,7 +806,7 @@ function bampcrud_wild_fish_samples_form_submit($form, &$form_state) {
       ->execute();
 
       //drupal_goto('test/multi_step_form');
-      drupal_set_message('updatttteeeee');
+      drupal_set_message('Wild Fish Sample Updated');
       break;
   }//end switch
 }//end addedit_form_submit

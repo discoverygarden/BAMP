@@ -63,147 +63,148 @@ function bampcrud_farm_fish_data_form($form, $form_state, $operation = 'add', $r
   # id text field
   $form['fieldset']['id'] = array(
     '#type' => 'textfield',
-    '#title' => t('id'),
+    '#title' => t('Internal Database ID'),
     '#default_value' => isset($result['id']) ? $result['id'] : '',
     '#required' => FALSE,
+    '#disabled' => TRUE,
   );  
   # bamp_farm_id text field
   $form['fieldset']['bamp_farm_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('bamp_farm_id'),
+    '#title' => t('BAMP Farm ID'),
     '#default_value' => isset($result['bamp_farm_id']) ? $result['bamp_farm_id'] : '',
     '#required' => FALSE,
   );  
   # site_name text field
   $form['fieldset']['site_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('site_name'),
+    '#title' => t('Site Name'),
     '#default_value' => isset($result['site_name']) ? $result['site_name'] : '',
     '#required' => FALSE,
   );  
   # date text field
   $form['fieldset']['date'] = array(
     '#type' => 'textfield',
-    '#title' => t('date'),
+    '#title' => t('Date'),
     '#default_value' => isset($result['date']) ? $result['date'] : '',
     '#required' => FALSE,
   );  
   # month text field
   $form['fieldset']['month'] = array(
     '#type' => 'textfield',
-    '#title' => t('month'),
+    '#title' => t('Month'),
     '#default_value' => isset($result['month']) ? $result['month'] : '',
     '#required' => FALSE,
   );  
   # day text field
   $form['fieldset']['day'] = array(
     '#type' => 'textfield',
-    '#title' => t('day'),
+    '#title' => t('Day'),
     '#default_value' => isset($result['day']) ? $result['day'] : '',
     '#required' => FALSE,
   );  
   # year text field
   $form['fieldset']['year'] = array(
     '#type' => 'textfield',
-    '#title' => t('year'),
+    '#title' => t('Year'),
     '#default_value' => isset($result['year']) ? $result['year'] : '',
     '#required' => FALSE,
   );  
   # counted by text field
   $form['fieldset']['counted by'] = array(
     '#type' => 'textfield',
-    '#title' => t('counted by'),
+    '#title' => t('Counted by'),
     '#default_value' => isset($result['countedby']) ? $result['countedby'] : '',
     '#required' => FALSE,
   );  
   # fish_sampled text field
   $form['fieldset']['fish_sampled'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_sampled'),
+    '#title' => t('Fish Sampled'),
     '#default_value' => isset($result['fish_sampled']) ? $result['fish_sampled'] : '',
     '#required' => FALSE,
   );  
   # sample_method text field
   $form['fieldset']['sample_method'] = array(
     '#type' => 'textfield',
-    '#title' => t('sample_method'),
+    '#title' => t('Sample Method'),
     '#default_value' => isset($result['sample_method']) ? $result['sample_method'] : '',
     '#required' => FALSE,
   );  
   # pen text field
   $form['fieldset']['pen'] = array(
     '#type' => 'textfield',
-    '#title' => t('pen'),
+    '#title' => t('Pen'),
     '#default_value' => isset($result['pen']) ? $result['pen'] : '',
     '#required' => FALSE,
   );  
   # fish_number text field
   $form['fieldset']['fish_number'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_number'),
+    '#title' => t('Fish Number'),
     '#default_value' => isset($result['fish_number']) ? $result['fish_number'] : '',
     '#required' => FALSE,
   );  
   # size text field
   $form['fieldset']['size'] = array(
     '#type' => 'textfield',
-    '#title' => t('size'),
+    '#title' => t('Size'),
     '#default_value' => isset($result['size']) ? $result['size'] : '',
     '#required' => FALSE,
   );  
   # chalimus text field
   $form['fieldset']['chalimus'] = array(
     '#type' => 'textfield',
-    '#title' => t('chalimus'),
+    '#title' => t('Chalimus'),
     '#default_value' => isset($result['chalimus']) ? $result['chalimus'] : '',
     '#required' => FALSE,
   );  
   # pre-adult text field
   $form['fieldset']['pre-adult'] = array(
     '#type' => 'textfield',
-    '#title' => t('pre-adult'),
+    '#title' => t('Pre Adult'),
     '#default_value' => isset($result['preadult']) ? $result['preadult'] : '',
     '#required' => FALSE,
   );  
   # male text field
   $form['fieldset']['male'] = array(
     '#type' => 'textfield',
-    '#title' => t('male'),
+    '#title' => t('Male'),
     '#default_value' => isset($result['male']) ? $result['male'] : '',
     '#required' => FALSE,
   );  
   # female text field
   $form['fieldset']['female'] = array(
     '#type' => 'textfield',
-    '#title' => t('female'),
+    '#title' => t('Female'),
     '#default_value' => isset($result['female']) ? $result['female'] : '',
     '#required' => FALSE,
   );  
   # gravid text field
   $form['fieldset']['gravid'] = array(
     '#type' => 'textfield',
-    '#title' => t('gravid'),
+    '#title' => t('Gravid'),
     '#default_value' => isset($result['gravid']) ? $result['gravid'] : '',
     '#required' => FALSE,
   );  
   # caligus text field
   $form['fieldset']['caligus'] = array(
     '#type' => 'textfield',
-    '#title' => t('caligus'),
+    '#title' => t('Caligus'),
     '#default_value' => isset($result['caligus']) ? $result['caligus'] : '',
     '#required' => FALSE,
   );  
   # total_motile text field
   $form['fieldset']['total_motile'] = array(
     '#type' => 'textfield',
-    '#title' => t('total_motile'),
+    '#title' => t('Total Motile'),
     '#default_value' => isset($result['total_motile']) ? $result['total_motile'] : '',
     '#required' => FALSE,
   );  
   # comments text field
   $form['fieldset']['comments'] = array(
     '#type' => 'textfield',
-    '#title' => t('comments'),
+    '#title' => t('Comments'),
     '#default_value' => isset($result['comments']) ? $result['comments'] : '',
     '#required' => FALSE,
   );  
@@ -230,7 +231,6 @@ function bampcrud_farm_fish_data_form_submit($form, &$form_state) {
       //Add db insert 
       $result = db_insert('bamp_farm_fish_data', array('target'=>'bamp_new'))
       ->fields(array(
-        'id' => $form_state['values']['id'],
         'bamp_farm_id' => $form_state['values']['bamp_farm_id'],
         'site_name' => $form_state['values']['site_name'],
         'date' => $form_state['values']['date'],
@@ -255,14 +255,13 @@ function bampcrud_farm_fish_data_form_submit($form, &$form_state) {
       ->execute();
     
       //drupal_goto('test/multi_step_form', array('query' => array('sort' => 'desc', 'order' => 'Id')));
-      drupal_set_message('adddddddd');
+      drupal_set_message('Farm Fish Data Record Added.');
       break;
     case 'Save Change' :
       //Add db update code
 
       $num_updated = db_update('bamp_farm_fish_data', array('target'=>'bamp_new'))
       ->fields(array(
-        'id' => $form_state['values']['id'],
         'bamp_farm_id' => $form_state['values']['bamp_farm_id'],
         'site_name' => $form_state['values']['site_name'],
         'date' => $form_state['values']['date'],
@@ -288,7 +287,7 @@ function bampcrud_farm_fish_data_form_submit($form, &$form_state) {
       ->execute();
 
       //drupal_goto('test/multi_step_form');
-      drupal_set_message('updatttteeeee');
+      drupal_set_message('Farm Fish Data Record Updated.');
       break;
   }//end switch
 }//end addedit_form_submit

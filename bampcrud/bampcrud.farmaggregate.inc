@@ -60,126 +60,127 @@ function bampcrud_farm_aggregate_form($form, $form_state, $operation = 'add', $r
   # id text field
   $form['fieldset']['id'] = array(
     '#type' => 'textfield',
-    '#title' => t('id'),
+    '#title' => t('Internal Database ID'),
     '#default_value' => isset($result['id']) ? $result['id'] : '',
     '#required' => FALSE,
+    '#disabled' => TRUE, 
   );  
   # bamp_farm_id text field
   $form['fieldset']['bamp_farm_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('bamp_farm_id'),
+    '#title' => t('BAMP Farm ID'),
     '#default_value' => isset($result['bamp_farm_id']) ? $result['bamp_farm_id'] : '',
     '#required' => FALSE,
   );  
   # year text field
   $form['fieldset']['year'] = array(
     '#type' => 'textfield',
-    '#title' => t('year'),
+    '#title' => t('Year'),
     '#default_value' => isset($result['year']) ? $result['year'] : '',
     '#required' => FALSE,
   );  
   # month text field
   $form['fieldset']['month'] = array(
     '#type' => 'textfield',
-    '#title' => t('month'),
+    '#title' => t('Month'),
     '#default_value' => isset($result['month']) ? $result['month'] : '',
     '#required' => FALSE,
   );  
   # dfo_zone text field
   $form['fieldset']['dfo_zone'] = array(
     '#type' => 'textfield',
-    '#title' => t('dfo_zone'),
+    '#title' => t('DFO Zone'),
     '#default_value' => isset($result['dfo_zone']) ? $result['dfo_zone'] : '',
     '#required' => FALSE,
   );  
   # dfo_subzone text field
   $form['fieldset']['dfo_subzone'] = array(
     '#type' => 'textfield',
-    '#title' => t('dfo_subzone'),
+    '#title' => t('DFO Subzone'),
     '#default_value' => isset($result['dfo_subzone']) ? $result['dfo_subzone'] : '',
     '#required' => FALSE,
   );  
   # site_name text field
   $form['fieldset']['site_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('site_name'),
+    '#title' => t('Site Name'),
     '#default_value' => isset($result['site_name']) ? $result['site_name'] : '',
     '#required' => FALSE,
   );  
   # no_counts_reason text field
   $form['fieldset']['no_counts_reason'] = array(
     '#type' => 'textfield',
-    '#title' => t('no_counts_reason'),
+    '#title' => t('No Counts Reason'),
     '#default_value' => isset($result['no_counts_reason']) ? $result['no_counts_reason'] : '',
     '#required' => FALSE,
   );  
   # date_sampled text field
   $form['fieldset']['date_sampled'] = array(
     '#type' => 'textfield',
-    '#title' => t('date_sampled'),
+    '#title' => t('Date Sampled'),
     '#default_value' => isset($result['date_sampled']) ? $result['date_sampled'] : '',
     '#required' => FALSE,
   );  
   # pen text field
   $form['fieldset']['pen'] = array(
     '#type' => 'textfield',
-    '#title' => t('pen'),
+    '#title' => t('Pen'),
     '#default_value' => isset($result['pen']) ? $result['pen'] : '',
     '#required' => FALSE,
   );  
   # sample_method text field
   $form['fieldset']['sample_method'] = array(
     '#type' => 'textfield',
-    '#title' => t('sample_method'),
+    '#title' => t('Sample Method'),
     '#default_value' => isset($result['sample_method']) ? $result['sample_method'] : '',
     '#required' => FALSE,
   );  
   # number_sampled text field
   $form['fieldset']['number_sampled'] = array(
     '#type' => 'textfield',
-    '#title' => t('number_sampled'),
+    '#title' => t('Number Sampled'),
     '#default_value' => isset($result['number_sampled']) ? $result['number_sampled'] : '',
     '#required' => FALSE,
   );  
   # adult_females text field
   $form['fieldset']['adult_females'] = array(
     '#type' => 'textfield',
-    '#title' => t('adult_females'),
+    '#title' => t('Adult Females'),
     '#default_value' => isset($result['adult_females']) ? $result['adult_females'] : '',
     '#required' => FALSE,
   );  
   # motile text field
   $form['fieldset']['motile'] = array(
     '#type' => 'textfield',
-    '#title' => t('motile'),
+    '#title' => t('Motile'),
     '#default_value' => isset($result['motile']) ? $result['motile'] : '',
     '#required' => FALSE,
   );  
   # chalimus text field
   $form['fieldset']['chalimus'] = array(
     '#type' => 'textfield',
-    '#title' => t('chalimus'),
+    '#title' => t('Chalimus'),
     '#default_value' => isset($result['chalimus']) ? $result['chalimus'] : '',
     '#required' => FALSE,
   );  
   # caligus text field
   $form['fieldset']['caligus'] = array(
     '#type' => 'textfield',
-    '#title' => t('caligus'),
+    '#title' => t('Caligus'),
     '#default_value' => isset($result['caligus']) ? $result['caligus'] : '',
     '#required' => FALSE,
   );  
   # action_taken text field
   $form['fieldset']['action_taken'] = array(
     '#type' => 'textfield',
-    '#title' => t('action_taken'),
+    '#title' => t('Action Taken'),
     '#default_value' => isset($result['action_taken']) ? $result['action_taken'] : '',
     '#required' => FALSE,
   );  
   # changelog text field
   $form['fieldset']['changelog'] = array(
     '#type' => 'textfield',
-    '#title' => t('changelog'),
+    '#title' => t('Change Log'),
     '#default_value' => isset($result['changelog']) ? $result['changelog'] : '',
     '#required' => FALSE,
   );  
@@ -206,7 +207,6 @@ function bampcrud_farm_aggregate_form_submit($form, &$form_state) {
       //Add db insert 
       $result = db_insert('bamp_farm_aggregate', array('target'=>'bamp_new'))
       ->fields(array(
-        'id' => $form_state['values']['id'],
         'bamp_farm_id' => $form_state['values']['bamp_farm_id'],
         'year' => $form_state['values']['year'],
         'month' => $form_state['values']['month'],
@@ -228,14 +228,13 @@ function bampcrud_farm_aggregate_form_submit($form, &$form_state) {
       ->execute();
     
       //drupal_goto('test/multi_step_form', array('query' => array('sort' => 'desc', 'order' => 'Id')));
-      drupal_set_message('adddddddd');
+      drupal_set_message('Farm Aggregate Record Added.');
       break;
     case 'Save Change' :
       //Add db update code
 
       $num_updated = db_update('bamp_farm_aggregate', array('target'=>'bamp_new'))
       ->fields(array(
-        'id' => $form_state['values']['id'],
         'bamp_farm_id' => $form_state['values']['bamp_farm_id'],
         'year' => $form_state['values']['year'],
         'month' => $form_state['values']['month'],
@@ -258,7 +257,7 @@ function bampcrud_farm_aggregate_form_submit($form, &$form_state) {
       ->execute();
 
       //drupal_goto('test/multi_step_form');
-      drupal_set_message('updatttteeeee');
+      drupal_set_message('Farm Aggregate Record Updated.');
       break;
   }//end switch
 }//end addedit_form_submit

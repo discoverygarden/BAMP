@@ -58,112 +58,113 @@ function bampcrud_farm_inventory_form($form, $form_state, $operation = 'add', $r
   # id text field
   $form['fieldset']['id'] = array(
     '#type' => 'textfield',
-    '#title' => t('id'),
+    '#title' => t('Internal Database ID'),
     '#default_value' => isset($result['id']) ? $result['id'] : '',
     '#required' => FALSE,
+    '#disabled' => TRUE,
   );  
   # bamp_farm_id text field
   $form['fieldset']['bamp_farm_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('bamp_farm_id'),
+    '#title' => t('BAMP Farm ID'),
     '#default_value' => isset($result['bamp_farm_id']) ? $result['bamp_farm_id'] : '',
     '#required' => FALSE,
   );  
   # year text field
   $form['fieldset']['year'] = array(
     '#type' => 'textfield',
-    '#title' => t('year'),
+    '#title' => t('Year'),
     '#default_value' => isset($result['year']) ? $result['year'] : '',
     '#required' => FALSE,
   );  
   # quarter text field
   $form['fieldset']['quarter'] = array(
     '#type' => 'textfield',
-    '#title' => t('quarter'),
+    '#title' => t('Quarter'),
     '#default_value' => isset($result['quarter']) ? $result['quarter'] : '',
     '#required' => FALSE,
   );  
   # month text field
   $form['fieldset']['month'] = array(
     '#type' => 'textfield',
-    '#title' => t('month'),
+    '#title' => t('Month'),
     '#default_value' => isset($result['month']) ? $result['month'] : '',
     '#required' => FALSE,
   );  
   # dfo_zone text field
   $form['fieldset']['dfo_zone'] = array(
     '#type' => 'textfield',
-    '#title' => t('dfo_zone'),
+    '#title' => t('DFO Zone'),
     '#default_value' => isset($result['dfo_zone']) ? $result['dfo_zone'] : '',
     '#required' => FALSE,
   );  
   # dfo_subzone text field
   $form['fieldset']['dfo_subzone'] = array(
     '#type' => 'textfield',
-    '#title' => t('dfo_subzone'),
+    '#title' => t('DFO Subzone'),
     '#default_value' => isset($result['dfo_subzone']) ? $result['dfo_subzone'] : '',
     '#required' => FALSE,
   );  
   # site_name text field
   $form['fieldset']['site_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('site_name'),
+    '#title' => t('Site Name'),
     '#default_value' => isset($result['site_name']) ? $result['site_name'] : '',
     '#required' => FALSE,
   );  
   # fish_group_name text field
   $form['fieldset']['fish_group_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_group_name'),
+    '#title' => t('Fish Group Name'),
     '#default_value' => isset($result['fish_group_name']) ? $result['fish_group_name'] : '',
     '#required' => FALSE,
   );  
   # fish_group_id text field
   $form['fieldset']['fish_group_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_group_id'),
+    '#title' => t('Fish Group ID'),
     '#default_value' => isset($result['fish_group_id']) ? $result['fish_group_id'] : '',
     '#required' => FALSE,
   );  
   # inventory_balance_fish_in text field
   $form['fieldset']['inventory_balance_fish_in'] = array(
     '#type' => 'textfield',
-    '#title' => t('inventory_balance_fish_in'),
+    '#title' => t('Inventory Balance Fish In'),
     '#default_value' => isset($result['inventory_balance_fish_in']) ? $result['inventory_balance_fish_in'] : '',
     '#required' => FALSE,
   );  
   # inventory_balance_inventory_start text field
   $form['fieldset']['inventory_balance_inventory_start'] = array(
     '#type' => 'textfield',
-    '#title' => t('inventory_balance_inventory_start'),
+    '#title' => t('Inventory Balance Inventory Start'),
     '#default_value' => isset($result['inventory_balance_inventory_start']) ? $result['inventory_balance_inventory_start'] : '',
     '#required' => FALSE,
   );  
   # species text field
   $form['fieldset']['species'] = array(
     '#type' => 'textfield',
-    '#title' => t('species'),
+    '#title' => t('Species'),
     '#default_value' => isset($result['species']) ? $result['species'] : '',
     '#required' => FALSE,
   );  
   # species_group_name text field
   $form['fieldset']['species_group_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('species_group_name'),
+    '#title' => t('Species Group Name'),
     '#default_value' => isset($result['species_group_name']) ? $result['species_group_name'] : '',
     '#required' => FALSE,
   );  
   # freshwater_yearclass text field
   $form['fieldset']['freshwater_yearclass'] = array(
     '#type' => 'textfield',
-    '#title' => t('freshwater_yearclass'),
+    '#title' => t('Freshwater Yearclass'),
     '#default_value' => isset($result['freshwater_yearclass']) ? $result['freshwater_yearclass'] : '',
     '#required' => FALSE,
   );  
   # fish_group_sw_entry_date text field
   $form['fieldset']['fish_group_sw_entry_date'] = array(
     '#type' => 'textfield',
-    '#title' => t('fish_group_sw_entry_date'),
+    '#title' => t('Fish Group Software Entry Date'),
     '#default_value' => isset($result['fish_group_sw_entry_date']) ? $result['fish_group_sw_entry_date'] : '',
     '#required' => FALSE,
   );  
@@ -190,7 +191,6 @@ function bampcrud_farm_inventory_form_submit($form, &$form_state) {
       //Add db insert 
       $result = db_insert('bamp_farm_inventory', array('target'=>'bamp_new'))
       ->fields(array(
-        'id' => $form_state['values']['id'],
         'bamp_farm_id' => $form_state['values']['bamp_farm_id'],
         'year' => $form_state['values']['year'],
         'quarter' => $form_state['values']['quarter'],
@@ -210,14 +210,13 @@ function bampcrud_farm_inventory_form_submit($form, &$form_state) {
       ->execute();
     
       //drupal_goto('test/multi_step_form', array('query' => array('sort' => 'desc', 'order' => 'Id')));
-      drupal_set_message('adddddddd');
+      drupal_set_message('Farm Inventory Record Added.');
       break;
     case 'Save Change' :
       //Add db update code
 
       $num_updated = db_update('bamp_farm_inventory', array('target'=>'bamp_new'))
       ->fields(array(
-        'id' => $form_state['values']['id'],
         'bamp_farm_id' => $form_state['values']['bamp_farm_id'],
         'year' => $form_state['values']['year'],
         'quarter' => $form_state['values']['quarter'],
@@ -238,7 +237,7 @@ function bampcrud_farm_inventory_form_submit($form, &$form_state) {
       ->execute();
 
       //drupal_goto('test/multi_step_form');
-      drupal_set_message('updatttteeeee');
+      drupal_set_message('Farm Inventory Record Updated.');
       break;
   }//end switch
 }//end addedit_form_submit

@@ -49,49 +49,50 @@ function bampcrud_farm_sites_form($form, $form_state, $operation = 'add', $recor
   # id text field
   $form['fieldset']['id'] = array(
     '#type' => 'textfield',
-    '#title' => t('id'),
+    '#title' => t('Internal Database ID'),
     '#default_value' => isset($result['id']) ? $result['id'] : '',
     '#required' => FALSE,
+    '#disabled' => TRUE,
   );  
   # bamp_farm_id text field
   $form['fieldset']['bamp_farm_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('bamp_farm_id'),
+    '#title' => t('BAMP Farm ID'),
     '#default_value' => isset($result['bamp_farm_id']) ? $result['bamp_farm_id'] : '',
     '#required' => FALSE,
   );  
   # site_name text field
   $form['fieldset']['site_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('site_name'),
+    '#title' => t('Site Name'),
     '#default_value' => isset($result['site_name']) ? $result['site_name'] : '',
     '#required' => FALSE,
   );  
   # company text field
   $form['fieldset']['company'] = array(
     '#type' => 'textfield',
-    '#title' => t('company'),
+    '#title' => t('Company'),
     '#default_value' => isset($result['company']) ? $result['company'] : '',
     '#required' => FALSE,
   );  
   # latitude text field
   $form['fieldset']['latitude'] = array(
     '#type' => 'textfield',
-    '#title' => t('latitude'),
+    '#title' => t('Latitude'),
     '#default_value' => isset($result['latitude']) ? $result['latitude'] : '',
     '#required' => FALSE,
   );  
   # longitude text field
   $form['fieldset']['longitude'] = array(
     '#type' => 'textfield',
-    '#title' => t('longitude'),
+    '#title' => t('Longitude'),
     '#default_value' => isset($result['longitude']) ? $result['longitude'] : '',
     '#required' => FALSE,
   );  
   # management_sub_area text field
   $form['fieldset']['management_sub_area'] = array(
     '#type' => 'textfield',
-    '#title' => t('management_sub_area'),
+    '#title' => t('Management Sub Area'),
     '#default_value' => isset($result['management_sub_area']) ? $result['management_sub_area'] : '',
     '#required' => FALSE,
   );  
@@ -118,7 +119,6 @@ function bampcrud_farm_sites_form_submit($form, &$form_state) {
       //Add db insert 
       $result = db_insert('bamp_farm_sites', array('target'=>'bamp_new'))
       ->fields(array(
-        'id' => $form_state['values']['id'],
         'bamp_farm_id' => $form_state['values']['bamp_farm_id'],
         'site_name' => $form_state['values']['site_name'],
         'company' => $form_state['values']['company'],
@@ -129,14 +129,13 @@ function bampcrud_farm_sites_form_submit($form, &$form_state) {
       ->execute();
     
       //drupal_goto('test/multi_step_form', array('query' => array('sort' => 'desc', 'order' => 'Id')));
-      drupal_set_message('adddddddd');
+      drupal_set_message('Site has been added');
       break;
     case 'Save Change' :
       //Add db update code
 
       $num_updated = db_update('bamp_farm_sites', array('target'=>'bamp_new'))
       ->fields(array(
-        'id' => $form_state['values']['id'],
         'bamp_farm_id' => $form_state['values']['bamp_farm_id'],
         'site_name' => $form_state['values']['site_name'],
         'company' => $form_state['values']['company'],
@@ -148,7 +147,7 @@ function bampcrud_farm_sites_form_submit($form, &$form_state) {
       ->execute();
 
       //drupal_goto('test/multi_step_form');
-      drupal_set_message('updatttteeeee');
+      drupal_set_message('Site has been Updated');
       break;
   }//end switch
 }//end addedit_form_submit
