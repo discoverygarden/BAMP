@@ -71,6 +71,7 @@ function bampcrud_farm_aggregate_form($form, $form_state, $operation = 'add', $r
     '#title' => t('BAMP Farm ID'),
     '#default_value' => isset($result['bamp_farm_id']) ? $result['bamp_farm_id'] : '',
     '#required' => FALSE,
+    '#disabled' => TRUE,
   );  
   # year text field
   $form['fieldset']['year'] = array(
