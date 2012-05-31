@@ -66,7 +66,7 @@ function bampcrud_farm_environment_form($form, $form_state, $operation = 'add', 
   # bamp_farm_id text field
   $form['fieldset']['bamp_farm_id'] = array(
     '#type' => 'textfield',
-    '#title' => t('Bamp Farm ID'),
+    '#title' => t('BAMP Farm ID'),
     '#default_value' => isset($result['bamp_farm_id']) ? $result['bamp_farm_id'] : '',
     '#required' => FALSE,
     '#disabled' => TRUE,
