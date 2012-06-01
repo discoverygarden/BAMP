@@ -6,7 +6,8 @@ mysql_select_db('information_schema',$dbh);
 $query = "SELECT table_name ";
 $query.= "FROM `TABLES` ";
 $query.= "WHERE `TABLE_SCHEMA` = 'bamp_new' ";
-$query.= "AND `TABLE_NAME` IN ('bamp_wild_fish_samples', 'bamp_wild_sampling_instances','bamp_wild_lice_details','bamp_farm_aggregate','bamp_farm_environment','bamp_farm_fish_data','bamp_farm_inventory','bamp_farm_sites')";
+//$query.= "AND `TABLE_NAME` IN ('bamp_wild_fish_samples', 'bamp_wild_sampling_instances','bamp_wild_lice_details','bamp_farm_aggregate','bamp_farm_environment','bamp_farm_fish_data','bamp_farm_inventory','bamp_farm_sites')";
+$query.= "AND TABLE_NAME IN ('bamp_wild_view_export')";
 $result = mysql_query($query,$dbh);
 
 echo 'function ireport_views_data(){'."\r\n\r\n";
