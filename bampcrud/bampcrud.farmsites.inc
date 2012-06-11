@@ -6,6 +6,7 @@ function bampcrud_farm_sites_form($form, $form_state, $operation = 'add', $recor
     '#value' => $operation,
   );
 
+  $disableEdit = FALSE;
 
   $form['fieldset'] = array(
     '#type' => 'fieldset',
@@ -42,6 +43,8 @@ function bampcrud_farm_sites_form($form, $form_state, $operation = 'add', $recor
       '#type' => 'hidden',
       '#value' => $record_id,
     );
+
+    $disableEdit = TRUE;
   }//end if
 
 
@@ -59,7 +62,7 @@ function bampcrud_farm_sites_form($form, $form_state, $operation = 'add', $recor
     '#type' => 'textfield',
     '#title' => t('BAMP Farm ID'),
     '#default_value' => isset($result['bamp_farm_id']) ? $result['bamp_farm_id'] : '',
-    '#required' => FALSE,
+    '#required' => $disableEdit,
   );  
   # site_name text field
   $form['fieldset']['site_name'] = array(

@@ -6,6 +6,7 @@ function bampcrud_farm_environment_form($form, $form_state, $operation = 'add', 
     '#value' => $operation,
   );
 
+  $disableEdit = FALSE;
 
   $form['fieldset'] = array(
     '#type' => 'fieldset',
@@ -51,6 +52,8 @@ function bampcrud_farm_environment_form($form, $form_state, $operation = 'add', 
       '#type' => 'hidden',
       '#value' => $record_id,
     );
+
+    $disableEdit = TRUE;
   }//end if
 
 
@@ -69,7 +72,7 @@ function bampcrud_farm_environment_form($form, $form_state, $operation = 'add', 
     '#title' => t('BAMP Farm ID'),
     '#default_value' => isset($result['bamp_farm_id']) ? $result['bamp_farm_id'] : '',
     '#required' => FALSE,
-    '#disabled' => TRUE,
+    '#disabled' => $disableEdit,
   );  
   # year text field
   $form['fieldset']['year'] = array(

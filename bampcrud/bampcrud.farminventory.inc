@@ -6,6 +6,8 @@ function bampcrud_farm_inventory_form($form, $form_state, $operation = 'add', $r
     '#value' => $operation,
   );
 
+  $disableEdit = FALSE;
+
 
   $form['fieldset'] = array(
     '#type' => 'fieldset',
@@ -51,6 +53,8 @@ function bampcrud_farm_inventory_form($form, $form_state, $operation = 'add', $r
       '#type' => 'hidden',
       '#value' => $record_id,
     );
+
+    $disableEdit = TRUE;
   }//end if
 
 
@@ -69,7 +73,7 @@ function bampcrud_farm_inventory_form($form, $form_state, $operation = 'add', $r
     '#title' => t('BAMP Farm ID'),
     '#default_value' => isset($result['bamp_farm_id']) ? $result['bamp_farm_id'] : '',
     '#required' => FALSE,
-    '#disabled' => TRUE,
+    '#disabled' => $disableEdit,
   );  
   # year text field
   $form['fieldset']['year'] = array(
