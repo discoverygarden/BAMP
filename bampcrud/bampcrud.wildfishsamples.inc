@@ -6,6 +6,7 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
     '#value' => $operation,
   );
 
+  $disableEdit = false;
 
   $form['fieldset'] = array(
     '#type' => 'fieldset',
@@ -108,6 +109,8 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
       '#type' => 'hidden',
       '#value' => $record_id,
     );
+
+    $disableEdit = TRUE;
   }//end if
 
 
@@ -126,7 +129,7 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
     '#title' => t('Fish ID'),
     '#default_value' => isset($result['fish_id']) ? $result['fish_id'] : '',
     '#required' => FALSE,
-    '#disabled' => TRUE,
+    '#disabled' => $disableEdit,
   );  
   # trip_set_id text field
   $form['fieldset']['trip_set_id'] = array(
@@ -134,7 +137,7 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
     '#title' => t('Trip Set ID'),
     '#default_value' => isset($result['trip_set_id']) ? $result['trip_set_id'] : '',
     '#required' => FALSE,
-    '#disabled' => TRUE,
+    '#disabled' => $disableEdit,
   );  
   # trip_date text field
   $form['fieldset']['trip_date'] = array(
