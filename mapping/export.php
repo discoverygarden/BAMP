@@ -1,17 +1,27 @@
 <?php
-/***********************************************************************
-*Temporary file to return data from the server. This should be integrated
-*into the .module file and use the drupal mysql functions.
-************************************************************************/
 require_once('dataHandler.class.php');
+require('config.php');
 
-$dbh = mysql_connect('localhost','root','q$%^az');
+//Connect to db
+$dbh = mysql_connect($config['db']['host'],$config['db']['user'],$config['db']['pass']);
+
+//Instantiate data handler class
 $dh = new dataHandler();
-$mapFilters = json_decode(urldecode($_POST['mapFilters']));
-$mapShape = json_decode(urldecode($_POST['polygonPoints']));
+
+//Set the filename
 $filename = 'BAMP_GeoViewer_Export_-_'.$_POST['type'].'-'.date("m-d-y").'.csv';
-$data = $dh->getCsvData($mapFilters, json_decode($_POST['polygonPoints']), $_POST['type']);
+
+//Get the data
+$data = $dh->getCsvData(json_decode(urldecode($_POST['mapFilters'])), json_decode(urldecode($_POST['polygonPoints'])), $_POST['type']);
+
+//run CSV to Excel (true = show column headers)
 csvToExcelDownloadFromResult($data, true, $filename);
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//CSV to Excel Start - Do not change below this line//
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 function setExcelContentType() {
     if(headers_sent())
