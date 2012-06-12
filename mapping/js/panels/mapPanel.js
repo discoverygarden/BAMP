@@ -14,9 +14,9 @@ Ext.onReady(function(){
     items: [{
       xtype: 'gmappanel',
       id: 'bampMap',
-      flex: 11,
+      flex: 15,
       border: false,
-      zoomLevel: 8,
+      zoomLevel: 9,
       gmapTypeId: 'map',
       mapConfOpts: ['enableDoubleClickZoom','enableDragging'],
       mapControls: ['GSmallMapControl','GMapTypeControl'],
@@ -31,7 +31,7 @@ Ext.onReady(function(){
         }//end mapready()
       }//end listeners
     },{
-      xtype: 'panel',
+      xtype: 'container',
       title: 'Map Marker Legend',
       collapsible: true,
       collapseDirection: 'bottom',
