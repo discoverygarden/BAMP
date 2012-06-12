@@ -9,13 +9,22 @@ class dataHandler {
   private $vertices = array();
   private $points_polygon = 0; // number vertices
   private $points = array();//All points contained here.
+  private $crudUrl = '';//Url to crud forms
+  private $fishSamplesUrl = '';//Wild Fish Samples View Report URL
+  private $markerImagesUrl = '';//Marker images URL
+  private $dbName = '';
 
   public function __construct(){
-    $this->dbh = mysql_connect('localhost','root','q$%^az');
+    require('config.php');
+    $this->dbh = mysql_connect($config['db']['host'],$config['db']['user'],$config['db']['pass']);
+    $this->dbName = $config['db']['name'];
+    $this->crudUrl = $config['paths']['crudUrl'];
+    $this->fishSamplesUrl = $config['paths']['fishSamplesUrl'];
+    $this->markerImagesUrl = $config['paths']['markerImagesUrl'];
   }//end construct()
 
   public function getFarmSites(){
-    $query = "SELECT id, site_name, company, latitude, longitude FROM bamp_new.bamp_farm_sites";
+    $query = "SELECT id, site_name, company, latitude, longitude FROM ".$this->dbName.".bamp_farm_sites";
     $result = mysql_query($query,$this->dbh) or die(mysql_error($this->dbh));
 
     $markers = array();
@@ -27,7 +36,7 @@ class dataHandler {
           'lng' => '-'.abs($row['longitude']),
           'site_id' => $row['id'],
           'marker' => array(
-            'icon'=>'sites/default/modules/mapping/images/gmapicons/farm.png',
+            'icon'=>$this->markerImagesUrl.'/farm.png',
             'title'=>ucwords($row['site_name']),
             'infoWindow'=>array(
               'content'=>$markerContent
@@ -48,8 +57,15 @@ class dataHandler {
     }//end if
     $query = $this->buildQuery();
     $result = mysql_query($query,$this->dbh) or die(mysql_error($this->dbh));
-    $count = 1;
+
+    //Initialize variables
+    $markers = array();
+    $farmSites = array();
+    $counts = array('totalFish'=>0, 'totalTrips'=>0);
+
+    //Loop through records
     while($row = mysql_fetch_assoc($result)){
+      //Check to see if coordinates are already present. If they are, slightly offset so the markers don't touch.
       $latitude = $row['latitude'];
       $longitude = $row['longitude'];
       if(in_array(array($row['latitude'], $row['longitude']), $this->points)){
@@ -58,8 +74,8 @@ class dataHandler {
       }//
       $this->points[] = array($row['latitude'], $row['longitude']);
 
+      //Check to see if the marker is inside the polygon selection if it's defined
       $isInside = false;
-      //if the selection isn't empty, check if the point is inside. Otherwise exlude it from the results
       if(!empty($selection)){
         $longitude = -1 * abs($row['longitude']);
         $latitude = 1 * abs($row['latitude']);
@@ -68,6 +84,7 @@ class dataHandler {
         $isInside = true;
       }//end if
 
+      //Set the marker color (represents month)
       if($isInside){
         $month = date('m', strtotime($row['date']));
         switch($month){
@@ -92,6 +109,8 @@ class dataHandler {
             $icon = '5';
           break;
         }//end switch
+        
+        //Set the marker shape (represents group);
         switch($row['data_source']){
           case 'MK':
             $shape = 'Circles';
@@ -104,10 +123,12 @@ class dataHandler {
           break;
         }//end switch
 
-      $fish_count = $row['si_pink_captured'] + $row['si_chum_captured'];
-      //$markerContent = '<h2> '.ucwords($row['site_name']).'</h2><br/>';
-      //$markerContent.= '<b>Trip Id Number</b> '.$row['trip_id'].'<br/>';
-      //$markerContent.= '<b>Trip Date:</b> '.date('n/j/Y',strtotime($row['date'])).'<br/>';
+      //Counters
+      $fishCount = (int)$row['si_pink_captured'] + (int)$row['si_chum_captured'];
+      $counts['totalFish'] += $fishCount;
+      $counts['totalTrips']++; 
+      
+      //Create the content for the marker tooltip
       $markerContent = '<table cellpadding="2" cellspacing="1">';
       $markerContent.= '<tr><th>Site Name</th><td colspan="2">'.ucwords($row['site_name']).'</td></tr>';
       $markerContent.= '<tr><th>Trip Date</th><td colspan="2">'.date('n/j/Y',strtotime($row['date'])).'</td></tr>';
@@ -116,16 +137,18 @@ class dataHandler {
       $markerContent.= '<tr><td>Pink</td><td>'.$row['si_pink_captured'].'</td><td>'.$row['si_pink_retained'].'</td></tr>';
       $markerContent.= '<tr><td>Chum</td><td>'.$row['si_chum_captured'].'</td><td>'.$row['si_chum_retained'].'</td></tr>';
       $markerContent.= '<tr><th colspan="3"></th></tr>';
-      $markerContent.= '<tr><td colspan="2"><a href="?q=bampcrud/crud/wildsamplinginstances/modify/'.$row['record_id'].'" target="_BLANK">Edit Sampling Instance</a></td>';
-      $markerContent.= '<td><a href="?q=wild-fish-samples/'.$row['trip_id'].'" target="_BLANK">View Fish Samples</a></td></tr>';
+      $markerContent.= '<tr><td colspan="2"><a href="'.$this->crudUrl.'/wildsamplinginstances/modify/'.$row['record_id'].'" target="_BLANK">Edit Sampling Instance</a></td>';
+      $markerContent.= '<td><a href="'.$this->fishSamplesUrl.'/'.$row['trip_id'].'" target="_BLANK">View Fish Samples</a></td></tr>';
       $markerContent.= '</table>';
+
+      //Create the marker definition
       $markers[] = array(
           'lat' => $row['latitude'],
           'lng' => '-'.abs($row['longitude']),
           'bamp_id' => $row['bamp_id'],
-          'fish_count' => $fish_count,
+          'fish_count' => $fishCount,
           'marker' => array(
-            'icon'=>'sites/default/modules/mapping/images/gmapicons/'.$shape.'/'.$icon.'.png',
+            'icon'=>$this->markerImagesUrl.'/'.$shape.'/'.$icon.'.png',
             'title'=>ucwords($row['site_name']),
             'infoWindow'=>array(
               'content'=>$markerContent
@@ -133,14 +156,16 @@ class dataHandler {
           )//end array
         );//end array
       }//end if
-      $count++;
     }//end while
 
     //Include the farm sites
-    $farm_sites = $this->getFarmSites();
-    $markers = array_merge($markers,$farm_sites);
+    $farmSites = $this->getFarmSites();
 
-    return $markers;
+    //Combine data into data array
+    $data = array('counts'=>$counts, 'markers'=>$markers, 'farms'=>$farmSites);
+
+    //Return the data
+    return $data;
   }//end getData
 
   private function parseFilters($filters){
@@ -208,7 +233,7 @@ class dataHandler {
     $query.= "si_bamp_site_name AS site_name, si_latitude AS latitude, si_longitude AS longitude,  si_data_source as data_source, ";
     $query.= "si_pink_captured, si_pink_retained, si_chum_captured, si_chum_retained, ";
     $query.= "COUNT(fs_id) AS fish_count ";
-    $query.= "FROM bamp_new.bamp_wild_view ";
+    $query.= "FROM ".$this->dbName.".bamp_wild_view ";
     $query.= "WHERE si_id != '' ";
     if(!empty($this->filters)){
       foreach($this->filters as $value){
@@ -223,35 +248,50 @@ class dataHandler {
     switch($type){
       case 'exportAll':
         $query = "SELECT * ";
+        $query.= "FROM ".$this->dbName.".bamp_wild_view_export ";
+        $query.= "WHERE 1=1 ";
+        if(!empty($this->filters)){
+          foreach($this->filters as $value){
+            $query.= $value . " ";
+          }//end foreach
+        }//end if
+        $query.= "GROUP BY si_trip_set_id ";
       break;
       case 'exportFishSamples':
         $query = "SELECT si_trip_set_id, fs_id, fs_fish_id, fs_trip_set_id, fs_trip_date, fs_trip_year, fs_trip_month, fs_trip_day, fs_fish_species_per_field, fs_fish_species_gr, fs_fish_species_gr_lab, fs_fish_no, fs_fish_species_per_lab, fs_length_mm, fs_height, fs_weight_g, fs_surface_area, fs_l_cop, fs_l_c1, fs_l_c2, fs_l_c3, fs_l_c4, fs_l_nm_not_stage, fs_l_pam, fs_l_paf, fs_l_pa_not_gender, fs_l_am, fs_l_af, fs_l_gravid, fs_l_adult_not_gender, fs_l_mob_not_stage, fs_c_cop, fs_c_c1, fs_c_c2, fs_c_c3, fs_c_c4, fs_c_nm_not_stage, fs_c_pam, fs_c_paf, fs_c_am, fs_c_af, fs_c_mob_not_stage, fs_c_gravid, fs_total_chal_03, fs_lep_total_mob_03, fs_lep_total, fs_cal_total_mob_03, fs_cal_total, fs_u_cop, fs_u_chal, fs_u_chal_stages_I_and_II, fs_u_chal_stages_III_and_IV, fs_u_mob, fs_lice_total, fs_lesions, fs_comments, fs_changelog, fs_trip, fs_gp_id, fs_lab, fs_date_examined, fs_examined_month, fs_examined_day, fs_examined_year, fs_initials, fs_scar_chal, fs_scar_mot, fs_pred_marks, fs_hem, fs_mate_guarding, fs_pin_belly, fs_lep_total_poo, fs_cal_total_poo, fs_u_total_poo ";
+        $query.= "FROM ".$this->dbName.".bamp_wild_view_export ";
+        $query.= "WHERE 1=1 ";
+        if(!empty($this->filters)){
+          foreach($this->filters as $value){
+            $query.= $value . " ";
+          }//end foreach
+        }//end if
+        $query.= "GROUP BY si_trip_set_id ";
       break;
       case 'exportSamplingInstances':
-        //$query = "SELECT si.id as si_id, si.trip_set_id as si_trip_set_id, si.data_source as si_data_source, si.trip_date as si_trip_date, si.trip_year as si_trip_year, si.trip_month as si_trip_month, si.trip_day as si_trip_day, si.bamp_site_number as si_bamp_site_number, si.bamp_site_name as si_bamp_site_name, si.latitude_rec as si_latitude_rec, si.latitude_calc as si_latitude_calc, si.latitude as si_latitude, si.longitude_rec as si_longitude_rec, si.longitude_calc as si_longitude_calc, si.longitude as si_longitude, si.trip_rep as si_trip_rep, si.route as si_route, si.collection_period_eer as si_collection_period_eer, si.gear_type as si_gear_type, si.zone as si_zone, si.chum_captured as si_chum_captured, si.chum_retained as si_chum_retained, si.chum_examined as si_chum_examined, si.pink_captured as si_pink_captured, si.pink_retained as si_pink_retained, si.pink_examined as si_pink_examined, si.coho_captured as si_coho_captured, si.coho_retained as si_coho_retained, si.coho_examined as si_coho_examined, si.other_salmon_captured as si_other_salmon_captured, si.other_salmon_retained as si_other_salmon_retained, si.other_salmon_examined as si_other_salmon_examined, si.other_species_captured as si_other_species_captured, si.other_species_retained as si_other_species_retained, si.other_species_examined as si_other_species_examined, si.crew as si_crew, si.tide as si_tide, si.search_time as si_search_time, si.salinity_avg as si_salinity_avg, si.salinity_0_2 as si_salinity_0_2, si.salinity_1 as si_salinity_1, si.salinity_5 as si_salinity_5, si.salinity_refract as si_salinity_refract, si.salinity_depth_not_specified as si_salinity_depth_not_specified, si.temperature_avg as si_temperature_avg, si.temperature_0_2 as si_temperature_0_2, si.temperature_1 as si_temperature_1, si.temperature_5 as si_temperature_5, si.temperature_rec as si_temperature_rec, si.temperature_depth_not_specified as si_temperature_depth_not_specified, si.weather_comments as si_weather_comments, si.comments as si_comments, si.changelog as si_changelog, si.set_no as si_set_no, si.site_name_rec as si_site_name_rec, si.site_number_0309 as si_site_number_0309, si.site_number_mk as si_site_number_mk, si.waypoint as si_waypoint, si.distance as si_distance, si.blind_no as si_blind_no, si.to_lab as si_to_lab, si.trip as si_trip, si.trip_time as si_trip_time, si.tsb as si_tsb, si.mortalities as si_mortalities, fs.id as fs_id ";
         $query = "SELECT si_id, si_trip_set_id, si_data_source, si_trip_date, si_trip_year, si_trip_month, si_trip_day, si_bamp_site_number, si_bamp_site_name, si_latitude_rec, si_latitude_calc, si_latitude, si_longitude_rec, si_longitude_calc, si_longitude, si_trip_rep, si_route, si_collection_period_eer, si_gear_type, si_zone, si_chum_captured, si_chum_retained, si_chum_examined, si_pink_captured, si_pink_retained, si_pink_examined, si_coho_captured, si_coho_retained, si_coho_examined, si_other_salmon_captured, si_other_salmon_retained, si_other_salmon_examined, si_other_species_captured, si_other_species_retained, si_other_species_examined, si_crew, si_tide, si_search_time, si_salinity_avg, si_salinity_0_2, si_salinity_1, si_salinity_5, si_salinity_refract, si_salinity_depth_not_specified, si_temperature_avg, si_temperature_0_2, si_temperature_1, si_temperature_5, si_temperature_rec, si_temperature_depth_not_specified, si_weather_comments, si_comments, si_changelog, si_set_no, si_site_name_rec, si_site_number_0309, si_site_number_mk, si_waypoint, si_distance, si_blind_no, si_to_lab, si_trip, si_trip_time, si_tsb, si_mortalities ";
+        $query.= "FROM ".$this->dbName.".bamp_wild_view_export ";
+        $query.= "WHERE 1=1 ";
+        if(!empty($this->filters)){
+          foreach($this->filters as $value){
+            $query.= $value . " ";
+          }//end foreach
+        }//end if
+        $query.= "GROUP BY si_trip_set_id ";
       break;
     }//end switch();
-    $query.= "FROM bamp_new.bamp_wild_view_export ";
-    $query.= "WHERE 1=1 ";
-    if(!empty($this->filters)){
-      foreach($this->filters as $value){
-        $query.= $value . " ";
-      }//end foreach
-    }//end if
-    $query.= "GROUP BY si_trip_set_id ";
     return $query;
   }//end buildCsvQuery();
 
   public function savePolygonSelection($data){
     $data = json_decode($data);
-    $query = "INSERT INTO bamp_new.polygons (name) VALUES('".mysql_real_escape_string($data->name,$this->dbh)."')";
+    $query = "INSERT INTO ".$this->dbName.".polygons (name) VALUES('".mysql_real_escape_string($data->name,$this->dbh)."')";
     $result = mysql_query($query,$this->dbh) or die(mysql_error($this->dbh));
     $polygonId = mysql_insert_id ($this->dbh);
 
     $pointCount = 1;
     foreach($data->points as $k=>$v){
-      $query = "INSERT INTO bamp_new.polygons_points(polygon_id,point_id, lat, lon) VALUES(".$polygonId.",".$pointCount.",".$v->lat.",".$v->lng.")";
+      $query = "INSERT INTO ".$this->dbName.".polygons_points(polygon_id,point_id, lat, lon) VALUES(".$polygonId.",".$pointCount.",".$v->lat.",".$v->lng.")";
       $result = mysql_query($query,$this->dbh) or die(mysql_error($this->dbh));
       $pointCount++;
     }//end foreach
@@ -259,11 +299,11 @@ class dataHandler {
 
   public function getSelections(){
     $query = "SELECT id, name, date ";
-    $query.= "FROM bamp_new.polygons";
+    $query.= "FROM ".$this->dbName.".polygons";
     $result = mysql_query($query,$this->dbh) or die(mysql_error($this->dbh));
     $selections = array();
     while($row = mysql_fetch_assoc($result)){
-      $query = "SELECT count(*) FROM bamp_new.polygons_points WHERE polygon_id = ".$row['id'];
+      $query = "SELECT count(*) FROM ".$this->dbName.".polygons_points WHERE polygon_id = ".$row['id'];
       $result2 = mysql_query($query,$this->dbh) or die(mysql_error($this->dbh));
       $countRow = mysql_fetch_row($result2);
       if($countRow[0] > 0){
@@ -274,7 +314,7 @@ class dataHandler {
   }//end getSelections();
 
   public function getSelectionPoints($id){
-    $query = "SELECT lat, lon FROM bamp_new.polygons_points WHERE polygon_id = $id ORDER BY point_id ASC";
+    $query = "SELECT lat, lon FROM ".$this->dbName.".polygons_points WHERE polygon_id = $id ORDER BY point_id ASC";
     $result = mysql_query($query,$this->dbh) or die(mysql_error($this->dbh));
     $points = array();
     while($row = mysql_fetch_assoc($result)){
