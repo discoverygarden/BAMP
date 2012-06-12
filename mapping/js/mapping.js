@@ -57,18 +57,18 @@ Ext.onReady(function(){
             var obj = Ext.decode(response.responseText);
 
             //Generate data summary information
-            var dataSummary = {total_fish_count: 0, total_trips: 0};
+            /*var dataSummary = {total_fish_count: 0, total_trips: 0};
             for(var key in obj){
-              console.log(obj);
               dataSummary.total_fish_count = dataSummary.total_fish_count + parseInt(obj[key].fish_count);
               dataSummary.total_trips++;
-            };
+            };*/
 
             //Update the data summary panel
-            window.updateDataSummary(dataSummary);
+            window.updateDataSummary(obj.counts);
 
             //Show the markers
-            bampMap.addMarkers(obj);
+            bampMap.addMarkers(obj.markers);
+            bampMap.addMarkers(obj.farms);
             bampMap.showMarkers();
             bampLoadingMask.hide();
           },
@@ -159,9 +159,9 @@ Ext.onReady(function(){
       //Create a store for the data summary grid data
       var store = Ext.create('Ext.data.Store', {
         storeId: 'dataSummary',
-        fields: ['total_fish_count','total_trips'],
+        fields: ['totalFish','totalTrips'],
         data: {'items': [
-          {'total_fish_count': dataSummary.total_fish_count, 'total_trips': dataSummary.total_trips}
+          {'totalFish': dataSummary.totalFish, 'totalTrips': dataSummary.totalTrips}
         ]},
         proxy: {
           type: 'memory',
@@ -188,8 +188,8 @@ Ext.onReady(function(){
         scroll: false,
         forceFit: true,
         columns: [
-          {header: 'Total Trips Displayed', dataIndex: 'total_trips' },
-          {header: 'Total Fish Represented', dataIndex: 'total_fish_count'}
+          {header: 'Total Trips Displayed', dataIndex: 'totalTrips' },
+          {header: 'Total Fish Represented', dataIndex: 'totalFish'}
         ]
       };//end grid 
 
