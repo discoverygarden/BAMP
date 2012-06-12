@@ -1,12 +1,6 @@
 <?php
-/**
- * Constants
- */
 define("PERM_MAPPING_VIEW_OBJECTS", 'View Mapping Interface');
 
-/**
- * Implements Menu Hook. Registers Menus.
- */
 function mapping_menu() {
   $items['mapping'] = array(
     'title' => t('Mapping'),
@@ -18,11 +12,6 @@ function mapping_menu() {
   return $items;
 }
 
-/**
- * Implements hook_permission. Register permissions.
- *
- * @return array
- */
 function mapping_permission() {
   return array(
     PERM_MAPPING_VIEW_OBJECTS  => array(
@@ -33,11 +22,6 @@ function mapping_permission() {
   );
 }
 
-/**
- * Implements Hook Theme. Registers themes.
- *
- * @return array
- */
 function mapping_theme() {
   return array(
     'mapping' => array(
@@ -51,29 +35,28 @@ function template_preprocess_mapping(array &$variables) {
   global $base_url;
 }
 
-
-/**
- * Renders the Viewer for a given pid if possible.
- *
- * @param string $pid
- */
 function mapping($pid = NULL) {
-    /* Load ExtJS */
+    //Get the path to this module
     $path = drupal_get_path('module', 'mapping');
+
+    //Path of javascript files
     $js_path = $path . '/js';
+
+    //Path of ExtJS Library
     $ext_path = $path . '/lib/ext';
-    //drupal_add_js($ext_path . '/ext-all.js');
-    drupal_add_js('http://maps.google.com/maps/api/js?sensor=false');
-    drupal_add_js($ext_path . '/ext-all-debug-w-comments.js');
-    drupal_add_css($path . '/css/Clear.css');
-    drupal_add_css($ext_path . '/resources/css/ext-all-gray.css', 'theme', 'all');
-    drupal_add_js($js_path . '/IncludeFirst.js');
-    drupal_add_js($js_path . '/GMapPanel3.js');
-    drupal_add_js($js_path . '/polygonCreator/v1/polygon.js');
-    drupal_add_js($js_path . '/mapPanel.js');
-    drupal_add_js($js_path . '/filterPanelElements.js');
-    drupal_add_js($js_path . '/filterPanel.js');
-    drupal_add_js($js_path . '/MappingInterface.js');
+
+    //Add Javascript and CSS files
+    drupal_add_js('http://maps.google.com/maps/api/js?sensor=false');//Google Maps API
+    drupal_add_js($ext_path . '/ext-all-debug-w-comments.js');//ExtJS Library
+    drupal_add_css($path . '/css/Clear.css');//Clears browser styles
+    drupal_add_css($ext_path . '/resources/css/ext-all-gray.css', 'theme', 'all');//EXT Theme CSS
+    drupal_add_js($js_path . '/init.js');//Defines stores and module paths
+    drupal_add_js($js_path . '/lib/GMapPanel3.js');//EXT GMapPanel class
+    drupal_add_js($js_path . '/lib/polygonCreator/v1/polygon.js');//Polygon creator class
+    drupal_add_js($js_path . '/panels/mapPanel.js');//Map and Legend Panel
+    drupal_add_js($js_path . '/panels/filterPanelElements.js');//Form elements for filters
+    drupal_add_js($js_path . '/panels/filterPanel.js');//Right Hand filter panel
+    drupal_add_js($js_path . '/mapping.js');
     drupal_add_css($path . '/css/mapping.css');
     return theme('mapping', $pid);
 }
