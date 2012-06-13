@@ -39,19 +39,14 @@ function setDownloadAsHeader($filename) {
 
 function csvFromResult($stream, $result, $showColumnHeaders = true) {
     if($showColumnHeaders) {
-        $columnHeaders = array();
-        $nfields = mysql_num_fields($result);
-        for($i = 0; $i < $nfields; $i++) {
-            $field = mysql_fetch_field($result, $i);
-            $columnHeaders[] = $field->name;
-        }
-        fputcsv($stream, $columnHeaders);
-    }
+      foreach($result[0] as $k=>$v){
+        $columnHeaders[] = $k;
+      }//end foreach
+      fputcsv($stream,$columnHeaders);
+    }//end if
 
-    $nrows = 0;
-    while($row = mysql_fetch_row($result)) {
-        fputcsv($stream, $row);
-        $nrows++;
+    foreach($result as $k=>$row) {
+      fputcsv($stream, $row);
     }
 
     return $nrows;
