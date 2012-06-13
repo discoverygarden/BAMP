@@ -51,10 +51,21 @@ Ext.onReady(function(){
               var mapFilters = null;
             }//end if
             if(window.shape != undefined){
-              var mapShape = Ext.encode(window.shape);
-              var mapShape = encodeURIComponent(mapShape);
+              var paths = window.shape.getPaths();
+              var polygonData = []; 
+
+              //get paths
+              paths.getAt(0).forEach(function(value, index){
+                var lat = value.lat();
+                var lon = value.lng();
+                var p = {lat: lat, lng: lon};
+                polygonData.push(p);
+              });//end getPaths
+
+              polygonData = Ext.JSON.encode(polygonData);
+              var mapShape = encodeURIComponent(polygonData);
             }else{
-              var mapShape = null;
+              var mapShape = {};
             }//end if
             Ext.DomHelper.append(
               Ext.getBody(),{
@@ -96,10 +107,21 @@ Ext.onReady(function(){
               var mapFilters = null;
             }//end if
             if(window.shape != undefined){
-              var mapShape = Ext.encode(window.shape);
-              var mapShape = encodeURIComponent(mapShape);
+              var paths = window.shape.getPaths();
+              var polygonData = [];-
+
+              //get paths
+              paths.getAt(0).forEach(function(value, index){
+                var lat = value.lat();
+                var lon = value.lng();
+                var p = {lat: lat, lng: lon};
+                polygonData.push(p);
+              });//end getPaths
+
+              polygonData = Ext.JSON.encode(polygonData);
+              var mapShape = encodeURIComponent(polygonData);
             }else{
-              var mapShape = null;
+              var mapShape = {};
             }//end if
             Ext.DomHelper.append(
               Ext.getBody(),{
@@ -141,10 +163,21 @@ Ext.onReady(function(){
               var mapFilters = null;
             }//end if
             if(window.shape != undefined){
-              var mapShape = Ext.encode(window.shape);
-              var mapShape = encodeURIComponent(mapShape);
+              var paths = window.shape.getPaths();
+              var polygonData = [];-
+
+              //get paths
+              paths.getAt(0).forEach(function(value, index){
+                var lat = value.lat();
+                var lon = value.lng();
+                var p = {lat: lat, lng: lon};
+                polygonData.push(p);
+              });//end getPaths
+
+              polygonData = Ext.JSON.encode(polygonData);
+              var mapShape = encodeURIComponent(polygonData);
             }else{
-              var mapShape = null;
+              var mapShape = {};
             }//end if
 
             Ext.DomHelper.append(
