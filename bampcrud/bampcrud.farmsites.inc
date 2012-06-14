@@ -10,16 +10,30 @@ function bampcrud_farm_sites_form($form, $form_state, $operation = 'add', $recor
 
   $form['fieldset'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Data Entry Form'),
+    '#title' => t('Data Form'),
     '#collapsible' => TRUE, 
   );  
 
   if($operation == 'delete') {
-    $num_deleted = db_delete('bamp_farm_sites', array('target'=>'bamp_new'))
-    ->condition('id',$record_id)
-    ->execute();
+    //store the id
+    $form['id'] = array(
+      '#type' => 'hidden',
+      '#value' => $record_id,
+    );
+    //Confirmation Message
+    $form['fieldset']['confirm'] = array(
+      '#markup' => '<strong>Are you sure you want to delete this record?</strong><br/><br/>',
+    );
+    $form['fieldset']['actions'] = array('#type' => 'actions');
+    $form['fieldset']['actions']['delete'] = array(
+      '#type' => 'submit',
+      '#value' => t('Delete Record'),
+    );
+    $form['fieldset']['actions']['cancel'] = array(
+      '#markup' => l(t('Cancel'), 'farm-sites'),
+    );
 
-    drupal_set_message($num_deleted . t(' record has been deleted.'));
+    return $form;
   }//end if
 
   //if the operation is modify, grab the record from the database.
@@ -151,6 +165,14 @@ function bampcrud_farm_sites_form_submit($form, &$form_state) {
 
       //drupal_goto('test/multi_step_form');
       drupal_set_message('Site has been Updated');
+      break;
+      case 'Delete Record':
+        $num_deleted = db_delete('bamp_farm_sites', array('target'=>'bamp_new'))
+        ->condition('id',$form_state['values']['id'])
+        ->execute();
+
+        drupal_goto('farm-sites');
+        drupal_set_message($num_deleted . t(' record has been deleted.'));
       break;
   }//end switch
 }//end addedit_form_submit

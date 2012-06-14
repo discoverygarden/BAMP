@@ -10,16 +10,30 @@ function bampcrud_farm_aggregate_form($form, $form_state, $operation = 'add', $r
 
   $form['fieldset'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Data Entry Form'),
+    '#title' => t('Data Form'),
     '#collapsible' => TRUE, 
   );  
 
   if($operation == 'delete') {
-    $num_deleted = db_delete('bamp_farm_aggregate', array('target'=>'bamp_new'))
-    ->condition('id',$record_id)
-    ->execute();
+    //store the id
+    $form['id'] = array(
+      '#type' => 'hidden',
+      '#value' => $record_id,
+    );
+    //Confirmation Message
+    $form['fieldset']['confirm'] = array(
+      '#markup' => '<strong>Are you sure you want to delete this record?</strong><br/><br/>',
+    );
+    $form['fieldset']['actions'] = array('#type' => 'actions');
+    $form['fieldset']['actions']['delete'] = array(
+      '#type' => 'submit',
+      '#value' => t('Delete Record'),
+    );
+    $form['fieldset']['actions']['cancel'] = array(
+      '#markup' => l(t('Cancel'), 'farm-aggregate'),
+    );
 
-    drupal_set_message($num_deleted . t(' record has been deleted.'));
+    return $form;
   }//end if
 
   //if the operation is modify, grab the record from the database.
@@ -262,6 +276,14 @@ function bampcrud_farm_aggregate_form_submit($form, &$form_state) {
 
       //drupal_goto('test/multi_step_form');
       drupal_set_message('Farm Aggregate Record Updated.');
+      break;
+      case 'Delete Record':
+        $num_deleted = db_delete('bamp_farm_aggregate', array('target'=>'bamp_new'))
+        ->condition('id',$form_state['values']['id'])
+        ->execute();
+
+        drupal_goto('farm-aggregate');
+        drupal_set_message($num_deleted . t(' record has been deleted.'));
       break;
   }//end switch
 }//end addedit_form_submit
