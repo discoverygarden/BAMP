@@ -134,15 +134,15 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#type' => 'textfield',
     '#title' => t('Trip Set ID'),
     '#default_value' => isset($result['trip_set_id']) ? $result['trip_set_id'] : '',
-    '#required' => FALSE,
+    '#required' => TRUE,
     '#disabled' => $disableEdit,
   );  
   # data_source text field
   $form['fieldset']['data_source'] = array(
     '#type' => 'textfield',
-    '#title' => t('Data Source'),
+    '#title' => t('Data Source (BAMP, MK, DFO)'),
     '#default_value' => isset($result['data_source']) ? $result['data_source'] : '',
-    '#required' => FALSE,
+    '#required' => TRUE,
     '#disabled' => $disableEdit,
   );  
   # trip_date text field
@@ -157,14 +157,14 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#type' => 'textfield',
     '#title' => t('Trip Year'),
     '#default_value' => isset($result['trip_year']) ? $result['trip_year'] : '',
-    '#required' => FALSE,
+    '#required' => TRUE,
   );  
   # trip_month text field
   $form['fieldset']['trip_month'] = array(
     '#type' => 'textfield',
     '#title' => t('Trip Month'),
     '#default_value' => isset($result['trip_month']) ? $result['trip_month'] : '',
-    '#required' => FALSE,
+    '#required' => TRUE,
   );  
   # trip_day text field
   $form['fieldset']['trip_day'] = array(
@@ -206,7 +206,7 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#type' => 'textfield',
     '#title' => t('Latitude'),
     '#default_value' => isset($result['latitude']) ? $result['latitude'] : '',
-    '#required' => FALSE,
+    '#required' => TRUE,
   );  
   # longitude_rec text field
   $form['fieldset']['longitude_rec'] = array(
@@ -227,7 +227,7 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#type' => 'textfield',
     '#title' => t('Longitude'),
     '#default_value' => isset($result['longitude']) ? $result['longitude'] : '',
-    '#required' => FALSE,
+    '#required' => TRUE,
   );  
   # trip_rep text field
   $form['fieldset']['trip_rep'] = array(
@@ -491,9 +491,9 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
   # changelog text field
   $form['fieldset']['changelog'] = array(
     '#type' => 'textfield',
-    '#title' => t('Change Log'),
+    '#title' => t('Change Log (Describe Change/Addition)'),
     '#default_value' => isset($result['changelog']) ? $result['changelog'] : '',
-    '#required' => FALSE,
+    '#required' => TRUE,
   );  
   # set_no text field
   $form['fieldset']['set_no'] = array(
