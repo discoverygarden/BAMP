@@ -125,7 +125,7 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
   $form['fieldset']['id'] = array(
     '#type' => 'textfield',
     '#title' => t('id'),
-    '#default_value' => isset($result['id']) ? $result['id'] : '',
+    '#default_value' => isset($result['id']) ? $result['id'] : null,
     '#required' => FALSE,
     '#disabled' => TRUE,
   );  
@@ -133,7 +133,7 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
   $form['fieldset']['trip_set_id'] = array(
     '#type' => 'textfield',
     '#title' => t('Trip Set ID'),
-    '#default_value' => isset($result['trip_set_id']) ? $result['trip_set_id'] : '',
+    '#default_value' => isset($result['trip_set_id']) ? $result['trip_set_id'] : null,
     '#required' => TRUE,
     '#disabled' => $disableEdit,
   );  
@@ -141,7 +141,7 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
   $form['fieldset']['data_source'] = array(
     '#type' => 'textfield',
     '#title' => t('Data Source (BAMP, MK, DFO)'),
-    '#default_value' => isset($result['data_source']) ? $result['data_source'] : '',
+    '#default_value' => isset($result['data_source']) ? $result['data_source'] : null,
     '#required' => TRUE,
     '#disabled' => $disableEdit,
   );  
@@ -149,434 +149,434 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
   $form['fieldset']['trip_date'] = array(
     '#type' => 'textfield',
     '#title' => t('Trip Date'),
-    '#default_value' => isset($result['trip_date']) ? $result['trip_date'] : '',
+    '#default_value' => isset($result['trip_date']) ? $result['trip_date'] : null,
     '#required' => FALSE,
   );  
   # trip_year text field
   $form['fieldset']['trip_year'] = array(
     '#type' => 'textfield',
     '#title' => t('Trip Year'),
-    '#default_value' => isset($result['trip_year']) ? $result['trip_year'] : '',
+    '#default_value' => isset($result['trip_year']) ? $result['trip_year'] : null,
     '#required' => TRUE,
   );  
   # trip_month text field
   $form['fieldset']['trip_month'] = array(
     '#type' => 'textfield',
     '#title' => t('Trip Month'),
-    '#default_value' => isset($result['trip_month']) ? $result['trip_month'] : '',
+    '#default_value' => isset($result['trip_month']) ? $result['trip_month'] : null,
     '#required' => TRUE,
   );  
   # trip_day text field
   $form['fieldset']['trip_day'] = array(
     '#type' => 'textfield',
     '#title' => t('Trip Day'),
-    '#default_value' => isset($result['trip_day']) ? $result['trip_day'] : '',
+    '#default_value' => isset($result['trip_day']) ? $result['trip_day'] : null,
     '#required' => FALSE,
   );  
   # bamp_site_number text field
   $form['fieldset']['bamp_site_number'] = array(
     '#type' => 'textfield',
     '#title' => t('BAMP Site Number'),
-    '#default_value' => isset($result['bamp_site_number']) ? $result['bamp_site_number'] : '',
+    '#default_value' => isset($result['bamp_site_number']) ? $result['bamp_site_number'] : null,
     '#required' => FALSE,
   );  
   # bamp_site_name text field
   $form['fieldset']['bamp_site_name'] = array(
     '#type' => 'textfield',
     '#title' => t('BAMP Site Name'),
-    '#default_value' => isset($result['bamp_site_name']) ? $result['bamp_site_name'] : '',
+    '#default_value' => isset($result['bamp_site_name']) ? $result['bamp_site_name'] : null,
     '#required' => FALSE,
   );  
   # latitude_rec text field
   $form['fieldset']['latitude_rec'] = array(
     '#type' => 'textfield',
     '#title' => t('Latitude (As Recorded)'),
-    '#default_value' => isset($result['latitude_rec']) ? $result['latitude_rec'] : '',
+    '#default_value' => isset($result['latitude_rec']) ? $result['latitude_rec'] : null,
     '#required' => FALSE,
   );  
   # latitude_calc text field
   $form['fieldset']['latitude_calc'] = array(
     '#type' => 'textfield',
     '#title' => t('Latitude (Calculated)'),
-    '#default_value' => isset($result['latitude_calc']) ? $result['latitude_calc'] : '',
+    '#default_value' => isset($result['latitude_calc']) ? $result['latitude_calc'] : null,
     '#required' => FALSE,
   );  
   # latitude text field
   $form['fieldset']['latitude'] = array(
     '#type' => 'textfield',
     '#title' => t('Latitude'),
-    '#default_value' => isset($result['latitude']) ? $result['latitude'] : '',
+    '#default_value' => isset($result['latitude']) ? $result['latitude'] : null,
     '#required' => TRUE,
   );  
   # longitude_rec text field
   $form['fieldset']['longitude_rec'] = array(
     '#type' => 'textfield',
     '#title' => t('Longitude (As Recorded)'),
-    '#default_value' => isset($result['longitude_rec']) ? $result['longitude_rec'] : '',
+    '#default_value' => isset($result['longitude_rec']) ? $result['longitude_rec'] : null,
     '#required' => FALSE,
   );  
   # longitude_calc text field
   $form['fieldset']['longitude_calc'] = array(
     '#type' => 'textfield',
     '#title' => t('Longitude (Calculated)'),
-    '#default_value' => isset($result['longitude_calc']) ? $result['longitude_calc'] : '',
+    '#default_value' => isset($result['longitude_calc']) ? $result['longitude_calc'] : null,
     '#required' => FALSE,
   );  
   # longitude text field
   $form['fieldset']['longitude'] = array(
     '#type' => 'textfield',
     '#title' => t('Longitude'),
-    '#default_value' => isset($result['longitude']) ? $result['longitude'] : '',
+    '#default_value' => isset($result['longitude']) ? $result['longitude'] : null,
     '#required' => TRUE,
   );  
   # trip_rep text field
   $form['fieldset']['trip_rep'] = array(
     '#type' => 'textfield',
     '#title' => t('Trip Rep'),
-    '#default_value' => isset($result['trip_rep']) ? $result['trip_rep'] : '',
+    '#default_value' => isset($result['trip_rep']) ? $result['trip_rep'] : null,
     '#required' => FALSE,
   );  
   # route text field
   $form['fieldset']['route'] = array(
     '#type' => 'textfield',
     '#title' => t('Route'),
-    '#default_value' => isset($result['route']) ? $result['route'] : '',
+    '#default_value' => isset($result['route']) ? $result['route'] : null,
     '#required' => FALSE,
   );  
   # collection_period_eer text field
   $form['fieldset']['collection_period_eer'] = array(
     '#type' => 'textfield',
     '#title' => t('collection_period_eer'),
-    '#default_value' => isset($result['collection_period_eer']) ? $result['collection_period_eer'] : '',
+    '#default_value' => isset($result['collection_period_eer']) ? $result['collection_period_eer'] : null,
     '#required' => FALSE,
   );  
   # gear_type text field
   $form['fieldset']['gear_type'] = array(
     '#type' => 'textfield',
     '#title' => t('Gear Type'),
-    '#default_value' => isset($result['gear_type']) ? $result['gear_type'] : '',
+    '#default_value' => isset($result['gear_type']) ? $result['gear_type'] : null,
     '#required' => FALSE,
   );  
   # zone text field
   $form['fieldset']['zone'] = array(
     '#type' => 'textfield',
     '#title' => t('Zone'),
-    '#default_value' => isset($result['zone']) ? $result['zone'] : '',
+    '#default_value' => isset($result['zone']) ? $result['zone'] : null,
     '#required' => FALSE,
   );  
   # chum_captured text field
   $form['fieldset']['chum_captured'] = array(
     '#type' => 'textfield',
     '#title' => t('Chum Captured'),
-    '#default_value' => isset($result['chum_captured']) ? $result['chum_captured'] : '',
+    '#default_value' => isset($result['chum_captured']) ? $result['chum_captured'] : null,
     '#required' => FALSE,
   );  
   # chum_retained text field
   $form['fieldset']['chum_retained'] = array(
     '#type' => 'textfield',
     '#title' => t('Chum Retained'),
-    '#default_value' => isset($result['chum_retained']) ? $result['chum_retained'] : '',
+    '#default_value' => isset($result['chum_retained']) ? $result['chum_retained'] : null,
     '#required' => FALSE,
   );  
   # chum_examined text field
   $form['fieldset']['chum_examined'] = array(
     '#type' => 'textfield',
     '#title' => t('Chum Examined'),
-    '#default_value' => isset($result['chum_examined']) ? $result['chum_examined'] : '',
+    '#default_value' => isset($result['chum_examined']) ? $result['chum_examined'] : null,
     '#required' => FALSE,
   );  
   # pink_captured text field
   $form['fieldset']['pink_captured'] = array(
     '#type' => 'textfield',
     '#title' => t('Pink Captured'),
-    '#default_value' => isset($result['pink_captured']) ? $result['pink_captured'] : '',
+    '#default_value' => isset($result['pink_captured']) ? $result['pink_captured'] : null,
     '#required' => FALSE,
   );  
   # pink_retained text field
   $form['fieldset']['pink_retained'] = array(
     '#type' => 'textfield',
     '#title' => t('Pink Retained'),
-    '#default_value' => isset($result['pink_retained']) ? $result['pink_retained'] : '',
+    '#default_value' => isset($result['pink_retained']) ? $result['pink_retained'] : null,
     '#required' => FALSE,
   );  
   # pink_examined text field
   $form['fieldset']['pink_examined'] = array(
     '#type' => 'textfield',
     '#title' => t('Pink Examined'),
-    '#default_value' => isset($result['pink_examined']) ? $result['pink_examined'] : '',
+    '#default_value' => isset($result['pink_examined']) ? $result['pink_examined'] : null,
     '#required' => FALSE,
   );  
   # coho_captured text field
   $form['fieldset']['coho_captured'] = array(
     '#type' => 'textfield',
     '#title' => t('Coho Captured'),
-    '#default_value' => isset($result['coho_captured']) ? $result['coho_captured'] : '',
+    '#default_value' => isset($result['coho_captured']) ? $result['coho_captured'] : null,
     '#required' => FALSE,
   );  
   # coho_retained text field
   $form['fieldset']['coho_retained'] = array(
     '#type' => 'textfield',
     '#title' => t('Coho Retained'),
-    '#default_value' => isset($result['coho_retained']) ? $result['coho_retained'] : '',
+    '#default_value' => isset($result['coho_retained']) ? $result['coho_retained'] : null,
     '#required' => FALSE,
   );  
   # coho_examined text field
   $form['fieldset']['coho_examined'] = array(
     '#type' => 'textfield',
     '#title' => t('Coho Examined'),
-    '#default_value' => isset($result['coho_examined']) ? $result['coho_examined'] : '',
+    '#default_value' => isset($result['coho_examined']) ? $result['coho_examined'] : null,
     '#required' => FALSE,
   );  
   # other_salmon_captured text field
   $form['fieldset']['other_salmon_captured'] = array(
     '#type' => 'textfield',
     '#title' => t('Other Salmon Captured'),
-    '#default_value' => isset($result['other_salmon_captured']) ? $result['other_salmon_captured'] : '',
+    '#default_value' => isset($result['other_salmon_captured']) ? $result['other_salmon_captured'] : null,
     '#required' => FALSE,
   );  
   # other_salmon_retained text field
   $form['fieldset']['other_salmon_retained'] = array(
     '#type' => 'textfield',
     '#title' => t('Other Salmon Retained'),
-    '#default_value' => isset($result['other_salmon_retained']) ? $result['other_salmon_retained'] : '',
+    '#default_value' => isset($result['other_salmon_retained']) ? $result['other_salmon_retained'] : null,
     '#required' => FALSE,
   );  
   # other_salmon_examined text field
   $form['fieldset']['other_salmon_examined'] = array(
     '#type' => 'textfield',
     '#title' => t('Other Salmon Examined'),
-    '#default_value' => isset($result['other_salmon_examined']) ? $result['other_salmon_examined'] : '',
+    '#default_value' => isset($result['other_salmon_examined']) ? $result['other_salmon_examined'] : null,
     '#required' => FALSE,
   );  
   # other_species_captured text field
   $form['fieldset']['other_species_captured'] = array(
     '#type' => 'textfield',
     '#title' => t('Other Species Captured'),
-    '#default_value' => isset($result['other_species_captured']) ? $result['other_species_captured'] : '',
+    '#default_value' => isset($result['other_species_captured']) ? $result['other_species_captured'] : null,
     '#required' => FALSE,
   );  
   # other_species_retained text field
   $form['fieldset']['other_species_retained'] = array(
     '#type' => 'textfield',
     '#title' => t('Other Species Retained'),
-    '#default_value' => isset($result['other_species_retained']) ? $result['other_species_retained'] : '',
+    '#default_value' => isset($result['other_species_retained']) ? $result['other_species_retained'] : null,
     '#required' => FALSE,
   );  
   # other_species_examined text field
   $form['fieldset']['other_species_examined'] = array(
     '#type' => 'textfield',
     '#title' => t('Other Species Examined'),
-    '#default_value' => isset($result['other_species_examined']) ? $result['other_species_examined'] : '',
+    '#default_value' => isset($result['other_species_examined']) ? $result['other_species_examined'] : null,
     '#required' => FALSE,
   );  
   # crew text field
   $form['fieldset']['crew'] = array(
     '#type' => 'textfield',
     '#title' => t('Crew'),
-    '#default_value' => isset($result['crew']) ? $result['crew'] : '',
+    '#default_value' => isset($result['crew']) ? $result['crew'] : null,
     '#required' => FALSE,
   );  
   # tide text field
   $form['fieldset']['tide'] = array(
     '#type' => 'textfield',
     '#title' => t('Tide'),
-    '#default_value' => isset($result['tide']) ? $result['tide'] : '',
+    '#default_value' => isset($result['tide']) ? $result['tide'] : null,
     '#required' => FALSE,
   );  
   # search_time text field
   $form['fieldset']['search_time'] = array(
     '#type' => 'textfield',
     '#title' => t('Search Time'),
-    '#default_value' => isset($result['search_time']) ? $result['search_time'] : '',
+    '#default_value' => isset($result['search_time']) ? $result['search_time'] : null,
     '#required' => FALSE,
   );  
   # salinity_avg text field
   $form['fieldset']['salinity_avg'] = array(
     '#type' => 'textfield',
     '#title' => t('Salinity (Average)'),
-    '#default_value' => isset($result['salinity_avg']) ? $result['salinity_avg'] : '',
+    '#default_value' => isset($result['salinity_avg']) ? $result['salinity_avg'] : null,
     '#required' => FALSE,
   );  
   # salinity_0_2 text field
   $form['fieldset']['salinity_0_2'] = array(
     '#type' => 'textfield',
     '#title' => t('Salinity (0-2m)'),
-    '#default_value' => isset($result['salinity_0_2']) ? $result['salinity_0_2'] : '',
+    '#default_value' => isset($result['salinity_0_2']) ? $result['salinity_0_2'] : null,
     '#required' => FALSE,
   );  
   # salinity_1 text field
   $form['fieldset']['salinity_1'] = array(
     '#type' => 'textfield',
     '#title' => t('Salinity (1m)'),
-    '#default_value' => isset($result['salinity_1']) ? $result['salinity_1'] : '',
+    '#default_value' => isset($result['salinity_1']) ? $result['salinity_1'] : null,
     '#required' => FALSE,
   );  
   # salinity_5 text field
   $form['fieldset']['salinity_5'] = array(
     '#type' => 'textfield',
     '#title' => t('Salinity (5m)'),
-    '#default_value' => isset($result['salinity_5']) ? $result['salinity_5'] : '',
+    '#default_value' => isset($result['salinity_5']) ? $result['salinity_5'] : null,
     '#required' => FALSE,
   );  
   # salinity_refract text field
   $form['fieldset']['salinity_refract'] = array(
     '#type' => 'textfield',
     '#title' => t('Salinity (Refract)'),
-    '#default_value' => isset($result['salinity_refract']) ? $result['salinity_refract'] : '',
+    '#default_value' => isset($result['salinity_refract']) ? $result['salinity_refract'] : null,
     '#required' => FALSE,
   );  
   # salinity_depth_not_specified text field
   $form['fieldset']['salinity_depth_not_specified'] = array(
     '#type' => 'textfield',
     '#title' => t('Salinity (Depth not specified)'),
-    '#default_value' => isset($result['salinity_depth_not_specified']) ? $result['salinity_depth_not_specified'] : '',
+    '#default_value' => isset($result['salinity_depth_not_specified']) ? $result['salinity_depth_not_specified'] : null,
     '#required' => FALSE,
   );  
   # temperature_avg text field
   $form['fieldset']['temperature_avg'] = array(
     '#type' => 'textfield',
     '#title' => t('Temperature (Average)'),
-    '#default_value' => isset($result['temperature_avg']) ? $result['temperature_avg'] : '',
+    '#default_value' => isset($result['temperature_avg']) ? $result['temperature_avg'] : null,
     '#required' => FALSE,
   );  
   # temperature_0_2 text field
   $form['fieldset']['temperature_0_2'] = array(
     '#type' => 'textfield',
     '#title' => t('Temperature (0-2m)'),
-    '#default_value' => isset($result['temperature_0_2']) ? $result['temperature_0_2'] : '',
+    '#default_value' => isset($result['temperature_0_2']) ? $result['temperature_0_2'] : null,
     '#required' => FALSE,
   );  
   # temperature_1 text field
   $form['fieldset']['temperature_1'] = array(
     '#type' => 'textfield',
     '#title' => t('Temperature (1m)'),
-    '#default_value' => isset($result['temperature_1']) ? $result['temperature_1'] : '',
+    '#default_value' => isset($result['temperature_1']) ? $result['temperature_1'] : null,
     '#required' => FALSE,
   );  
   # temperature_5 text field
   $form['fieldset']['temperature_5'] = array(
     '#type' => 'textfield',
     '#title' => t('Temperature (5m)'),
-    '#default_value' => isset($result['temperature_5']) ? $result['temperature_5'] : '',
+    '#default_value' => isset($result['temperature_5']) ? $result['temperature_5'] : null,
     '#required' => FALSE,
   );  
   # temperature_rec text field
   $form['fieldset']['temperature_rec'] = array(
     '#type' => 'textfield',
     '#title' => t('Temperature (As Recorded)'),
-    '#default_value' => isset($result['temperature_rec']) ? $result['temperature_rec'] : '',
+    '#default_value' => isset($result['temperature_rec']) ? $result['temperature_rec'] : null,
     '#required' => FALSE,
   );  
   # temperature_depth_not_specified text field
   $form['fieldset']['temperature_depth_not_specified'] = array(
     '#type' => 'textfield',
     '#title' => t('Temperature (Depth not specified)'),
-    '#default_value' => isset($result['temperature_depth_not_specified']) ? $result['temperature_depth_not_specified'] : '',
+    '#default_value' => isset($result['temperature_depth_not_specified']) ? $result['temperature_depth_not_specified'] : null,
     '#required' => FALSE,
   );  
   # weather_comments text field
   $form['fieldset']['weather_comments'] = array(
     '#type' => 'textfield',
     '#title' => t('Weather Comments'),
-    '#default_value' => isset($result['weather_comments']) ? $result['weather_comments'] : '',
+    '#default_value' => isset($result['weather_comments']) ? $result['weather_comments'] : null,
     '#required' => FALSE,
   );  
   # comments text field
   $form['fieldset']['comments'] = array(
     '#type' => 'textfield',
     '#title' => t('Comments'),
-    '#default_value' => isset($result['comments']) ? $result['comments'] : '',
+    '#default_value' => isset($result['comments']) ? $result['comments'] : null,
     '#required' => FALSE,
   );  
   # changelog text field
   $form['fieldset']['changelog'] = array(
     '#type' => 'textfield',
     '#title' => t('Change Log (Describe Change/Addition)'),
-    '#default_value' => isset($result['changelog']) ? $result['changelog'] : '',
+    '#default_value' => isset($result['changelog']) ? $result['changelog'] : null,
     '#required' => TRUE,
   );  
   # set_no text field
   $form['fieldset']['set_no'] = array(
     '#type' => 'textfield',
     '#title' => t('Set No'),
-    '#default_value' => isset($result['set_no']) ? $result['set_no'] : '',
+    '#default_value' => isset($result['set_no']) ? $result['set_no'] : null,
     '#required' => FALSE,
   );  
   # site_name_rec text field
   $form['fieldset']['site_name_rec'] = array(
     '#type' => 'textfield',
     '#title' => t('Site Name (As Recorded)'),
-    '#default_value' => isset($result['site_name_rec']) ? $result['site_name_rec'] : '',
+    '#default_value' => isset($result['site_name_rec']) ? $result['site_name_rec'] : null,
     '#required' => FALSE,
   );  
   # site_number_0309 text field
   $form['fieldset']['site_number_0309'] = array(
     '#type' => 'textfield',
     '#title' => t('Site Number (0309)'),
-    '#default_value' => isset($result['site_number_0309']) ? $result['site_number_0309'] : '',
+    '#default_value' => isset($result['site_number_0309']) ? $result['site_number_0309'] : null,
     '#required' => FALSE,
   );  
   # site_number_mk text field
   $form['fieldset']['site_number_mk'] = array(
     '#type' => 'textfield',
     '#title' => t('Site Number (MK)'),
-    '#default_value' => isset($result['site_number_mk']) ? $result['site_number_mk'] : '',
+    '#default_value' => isset($result['site_number_mk']) ? $result['site_number_mk'] : null,
     '#required' => FALSE,
   );  
   # waypoint text field
   $form['fieldset']['waypoint'] = array(
     '#type' => 'textfield',
     '#title' => t('Waypoint'),
-    '#default_value' => isset($result['waypoint']) ? $result['waypoint'] : '',
+    '#default_value' => isset($result['waypoint']) ? $result['waypoint'] : null,
     '#required' => FALSE,
   );  
   # distance text field
   $form['fieldset']['distance'] = array(
     '#type' => 'textfield',
     '#title' => t('Distance'),
-    '#default_value' => isset($result['distance']) ? $result['distance'] : '',
+    '#default_value' => isset($result['distance']) ? $result['distance'] : null,
     '#required' => FALSE,
   );  
   # blind_no text field
   $form['fieldset']['blind_no'] = array(
     '#type' => 'textfield',
     '#title' => t('Blind No.'),
-    '#default_value' => isset($result['blind_no']) ? $result['blind_no'] : '',
+    '#default_value' => isset($result['blind_no']) ? $result['blind_no'] : null,
     '#required' => FALSE,
   );  
   # to_lab text field
   $form['fieldset']['to_lab'] = array(
     '#type' => 'textfield',
     '#title' => t('To Lab'),
-    '#default_value' => isset($result['to_lab']) ? $result['to_lab'] : '',
+    '#default_value' => isset($result['to_lab']) ? $result['to_lab'] : null,
     '#required' => FALSE,
   );  
   # trip text field
   $form['fieldset']['trip'] = array(
     '#type' => 'textfield',
     '#title' => t('Trip'),
-    '#default_value' => isset($result['trip']) ? $result['trip'] : '',
+    '#default_value' => isset($result['trip']) ? $result['trip'] : null,
     '#required' => FALSE,
   );  
   # trip_time text field
   $form['fieldset']['trip_time'] = array(
     '#type' => 'textfield',
     '#title' => t('Trip Time'),
-    '#default_value' => isset($result['trip_time']) ? $result['trip_time'] : '',
+    '#default_value' => isset($result['trip_time']) ? $result['trip_time'] : null,
     '#required' => FALSE,
   );  
   # tsb text field
   $form['fieldset']['tsb'] = array(
     '#type' => 'textfield',
     '#title' => t('TSB'),
-    '#default_value' => isset($result['tsb']) ? $result['tsb'] : '',
+    '#default_value' => isset($result['tsb']) ? $result['tsb'] : null,
     '#required' => FALSE,
   );  
   # mortalities text field
   $form['fieldset']['mortalities'] = array(
     '#type' => 'textfield',
     '#title' => t('Mortalities'),
-    '#default_value' => isset($result['mortalities']) ? $result['mortalities'] : '',
+    '#default_value' => isset($result['mortalities']) ? $result['mortalities'] : null,
     '#required' => FALSE,
   );  
  
