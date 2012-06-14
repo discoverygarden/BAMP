@@ -10,16 +10,31 @@ function bampcrud_wild_fish_samples_form($form, $form_state, $operation = 'add',
 
   $form['fieldset'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Data Entry Form'),
+    '#title' => t('Data Form'),
     '#collapsible' => TRUE, 
-  );  
+  );
 
   if($operation == 'delete') {
-    $num_deleted = db_delete('bamp_wild_fish_samples', array('target'=>'bamp_new'))
-    ->condition('id',$record_id)
-    ->execute();
+    //store the id
+    $form['id'] = array(
+      '#type' => 'hidden',
+      '#value' => $record_id,
+    );
 
-    drupal_set_message($num_deleted . t(' record has been deleted.'));
+    //Confirmation Message
+    $form['fieldset']['confirm'] = array(
+      '#markup' => '<strong>Are you sure you want to delete this record?</strong><br/><br/>',
+    );
+    $form['fieldset']['actions'] = array('#type' => 'actions');
+    $form['fieldset']['actions']['delete'] = array(
+      '#type' => 'submit',
+      '#value' => t('Delete Record'),
+    );
+    $form['fieldset']['actions']['cancel'] = array(
+      '#markup' => l(t('Cancel'), 'wild-fish-samples'),
+    );
+
+    return $form;
   }//end if
 
   //if the operation is modify, grab the record from the database.
@@ -812,6 +827,15 @@ function bampcrud_wild_fish_samples_form_submit($form, &$form_state) {
 
       //drupal_goto('test/multi_step_form');
       drupal_set_message('Wild Fish Sample Updated');
+      break;
+
+      case 'Delete Record':
+        $num_deleted = db_delete('bamp_wild_fish_samples', array('target'=>'bamp_new'))
+        ->condition('id',$form_state['values']['id'])
+        ->execute();
+
+        drupal_goto('wild-fish-samples');
+        drupal_set_message($num_deleted . t(' record has been deleted.'));
       break;
   }//end switch
 }//end addedit_form_submit
