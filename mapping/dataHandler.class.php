@@ -130,16 +130,14 @@ class dataHandler {
       $counts['totalTrips']++; 
       
       //Create the content for the marker tooltip
-      $markerContent = '<table cellpadding="2" cellspacing="1">';
-      $markerContent.= '<tr><th>Site Name</th><td colspan="2">'.ucwords($row['site_name']).'</td></tr>';
-      $markerContent.= '<tr><th>Trip Date</th><td colspan="2">'.date('n/j/Y',strtotime($row['date'])).'</td></tr>';
-      $markerContent.= '<tr><th colspan="3"></th></tr>';
-      $markerContent.= '<tr><th>Fish Counts</th><th>Captured</th><th>Retained</th></tr>';
+      $markerContent = '<table>';
+      $markerContent.= '<tr><th>Site&nbsp;Name</th><td colspan="2">'.ucwords($row['site_name']).'</td></tr>';
+      $markerContent.= '<tr><th>Trip&nbsp;Date</th><td colspan="2">'.date('n/j/Y',strtotime($row['date'])).'</td></tr>';
+      $markerContent.= '<tr><th>Fish</th><th>Captured</th><th>Retained</th></tr>';
       $markerContent.= '<tr><td>Pink</td><td>'.$row['si_pink_captured'].'</td><td>'.$row['si_pink_retained'].'</td></tr>';
       $markerContent.= '<tr><td>Chum</td><td>'.$row['si_chum_captured'].'</td><td>'.$row['si_chum_retained'].'</td></tr>';
-      $markerContent.= '<tr><th colspan="3"></th></tr>';
-      $markerContent.= '<tr><td colspan="2"><a href="'.$this->crudUrl.'/wildsamplinginstances/modify/'.$row['record_id'].'" target="_BLANK">Edit Sampling Instance</a></td>';
-      $markerContent.= '<td><a href="'.$this->fishSamplesUrl.'/'.$row['trip_id'].'" target="_BLANK">View Fish Samples</a></td></tr>';
+      $markerContent.= '<tr><th colspan="2"><a href="'.$this->crudUrl.'/wildsamplinginstances/modify/'.$row['record_id'].'" target="_BLANK">Edit Sampling Instance</a></th>';
+      $markerContent.= '<th><a href="'.$this->fishSamplesUrl.'/'.$row['trip_id'].'" target="_BLANK">View Fish Samples</a></th></tr>';
       $markerContent.= '</table>';
 
       //Create the marker definition
