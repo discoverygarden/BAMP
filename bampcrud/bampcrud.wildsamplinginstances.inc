@@ -47,63 +47,59 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
       'trip_year',
       'trip_month',
       'trip_day',
-      'bamp_site_number',
-      'bamp_site_name',
-      'latitude_rec',
-      'latitude_calc',
+      'wild_site_number',
+      'wild_site_name',
+      'latitude_as_recorded',
+      'latitude_as_calculated',
       'latitude',
-      'longitude_rec',
-      'longitude_calc',
+      'longitude_as_recorded',
+      'longitude_as_calculated',
       'longitude',
-      'trip_rep',
+      'trip_replicate',
       'route',
-      'collection_period_eer',
       'gear_type',
       'zone',
       'chum_captured',
       'chum_retained',
-      'chum_examined',
+      'chum_assessed',
       'pink_captured',
       'pink_retained',
-      'pink_examined',
+      'pink_assessed',
       'coho_captured',
       'coho_retained',
-      'coho_examined',
+      'coho_assessed',
       'other_salmon_captured',
       'other_salmon_retained',
-      'other_salmon_examined',
+      'other_salmon_assessed',
       'other_species_captured',
       'other_species_retained',
-      'other_species_examined',
+      'other_species_assessed',
+      'other_fish_assessed',
       'crew',
       'tide',
       'search_time',
-      'salinity_avg',
-      'salinity_0_2',
-      'salinity_1',
-      'salinity_5',
+      'salinity',
+      'salinity_surface',
+      'salinity_1m',
+      'salinity_5m',
       'salinity_refract',
       'salinity_depth_not_specified',
-      'temperature_avg',
-      'temperature_0_2',
-      'temperature_1',
-      'temperature_5',
-      'temperature_rec',
+      'temperature',
+      'temperature_surface',
+      'temperature_1m',
+      'temperature_5m',
+      'temperature_dfo_surface',
       'temperature_depth_not_specified',
       'weather_comments',
       'comments',
-      'changelog',
+      'change_log',
       'set_no',
       'site_name_rec',
-      'site_number_0309',
-      'site_number_mk',
-      'waypoint',
-      'distance',
       'blind_no',
       'to_lab',
       'trip',
       'trip_time',
-      'tsb',
+      'three_spine_stickleback',
       'mortalities',
     ))
     ->condition('id', $record_id,'=')
@@ -174,31 +170,31 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # bamp_site_number text field
-  $form['fieldset']['bamp_site_number'] = array(
+  $form['fieldset']['wild_site_number'] = array(
     '#type' => 'textfield',
-    '#title' => t('BAMP Site Number'),
-    '#default_value' => isset($result['bamp_site_number']) ? $result['bamp_site_number'] : null,
+    '#title' => t('Wild Site Number'),
+    '#default_value' => isset($result['wild_site_number']) ? $result['wild_site_number'] : null,
     '#required' => FALSE,
   );  
   # bamp_site_name text field
-  $form['fieldset']['bamp_site_name'] = array(
+  $form['fieldset']['wild_site_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('BAMP Site Name'),
-    '#default_value' => isset($result['bamp_site_name']) ? $result['bamp_site_name'] : null,
+    '#title' => t('Wild Site Name'),
+    '#default_value' => isset($result['wild_site_name']) ? $result['wild_site_name'] : null,
     '#required' => FALSE,
   );  
   # latitude_rec text field
-  $form['fieldset']['latitude_rec'] = array(
+  $form['fieldset']['latitude_as_recorded'] = array(
     '#type' => 'textfield',
     '#title' => t('Latitude (As Recorded)'),
-    '#default_value' => isset($result['latitude_rec']) ? $result['latitude_rec'] : null,
+    '#default_value' => isset($result['latitude_as_recorded']) ? $result['latitude_as_recorded'] : null,
     '#required' => FALSE,
   );  
   # latitude_calc text field
-  $form['fieldset']['latitude_calc'] = array(
+  $form['fieldset']['latitude_as_calculated'] = array(
     '#type' => 'textfield',
     '#title' => t('Latitude (Calculated)'),
-    '#default_value' => isset($result['latitude_calc']) ? $result['latitude_calc'] : null,
+    '#default_value' => isset($result['latitude_as_calculated']) ? $result['latitude_as_calculated'] : null,
     '#required' => FALSE,
   );  
   # latitude text field
@@ -209,17 +205,17 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => TRUE,
   );  
   # longitude_rec text field
-  $form['fieldset']['longitude_rec'] = array(
+  $form['fieldset']['longitude_as_recorded'] = array(
     '#type' => 'textfield',
     '#title' => t('Longitude (As Recorded)'),
-    '#default_value' => isset($result['longitude_rec']) ? $result['longitude_rec'] : null,
+    '#default_value' => isset($result['longitude_as_recorded']) ? $result['longitude_as_recorded'] : null,
     '#required' => FALSE,
   );  
   # longitude_calc text field
-  $form['fieldset']['longitude_calc'] = array(
+  $form['fieldset']['longitude_as_calculated'] = array(
     '#type' => 'textfield',
     '#title' => t('Longitude (Calculated)'),
-    '#default_value' => isset($result['longitude_calc']) ? $result['longitude_calc'] : null,
+    '#default_value' => isset($result['longitude_as_calculated']) ? $result['longitude_as_calculated'] : null,
     '#required' => FALSE,
   );  
   # longitude text field
@@ -230,10 +226,10 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => TRUE,
   );  
   # trip_rep text field
-  $form['fieldset']['trip_rep'] = array(
+  $form['fieldset']['trip_replicate'] = array(
     '#type' => 'textfield',
-    '#title' => t('Trip Rep'),
-    '#default_value' => isset($result['trip_rep']) ? $result['trip_rep'] : null,
+    '#title' => t('Trip Replicate'),
+    '#default_value' => isset($result['trip_replicate']) ? $result['trip_replicate'] : null,
     '#required' => FALSE,
   );  
   # route text field
@@ -241,13 +237,6 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#type' => 'textfield',
     '#title' => t('Route'),
     '#default_value' => isset($result['route']) ? $result['route'] : null,
-    '#required' => FALSE,
-  );  
-  # collection_period_eer text field
-  $form['fieldset']['collection_period_eer'] = array(
-    '#type' => 'textfield',
-    '#title' => t('collection_period_eer'),
-    '#default_value' => isset($result['collection_period_eer']) ? $result['collection_period_eer'] : null,
     '#required' => FALSE,
   );  
   # gear_type text field
@@ -279,10 +268,10 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # chum_examined text field
-  $form['fieldset']['chum_examined'] = array(
+  $form['fieldset']['chum_assessed'] = array(
     '#type' => 'textfield',
-    '#title' => t('Chum Examined'),
-    '#default_value' => isset($result['chum_examined']) ? $result['chum_examined'] : null,
+    '#title' => t('Chum Assessed'),
+    '#default_value' => isset($result['chum_assessed']) ? $result['chum_assessed'] : null,
     '#required' => FALSE,
   );  
   # pink_captured text field
@@ -300,10 +289,10 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # pink_examined text field
-  $form['fieldset']['pink_examined'] = array(
+  $form['fieldset']['pink_assessed'] = array(
     '#type' => 'textfield',
-    '#title' => t('Pink Examined'),
-    '#default_value' => isset($result['pink_examined']) ? $result['pink_examined'] : null,
+    '#title' => t('Pink Assessed'),
+    '#default_value' => isset($result['pink_assessed']) ? $result['pink_assessed'] : null,
     '#required' => FALSE,
   );  
   # coho_captured text field
@@ -321,10 +310,10 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # coho_examined text field
-  $form['fieldset']['coho_examined'] = array(
+  $form['fieldset']['coho_assessed'] = array(
     '#type' => 'textfield',
-    '#title' => t('Coho Examined'),
-    '#default_value' => isset($result['coho_examined']) ? $result['coho_examined'] : null,
+    '#title' => t('Coho Assessed'),
+    '#default_value' => isset($result['coho_assessed']) ? $result['coho_assessed'] : null,
     '#required' => FALSE,
   );  
   # other_salmon_captured text field
@@ -342,10 +331,10 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # other_salmon_examined text field
-  $form['fieldset']['other_salmon_examined'] = array(
+  $form['fieldset']['other_salmon_assessed'] = array(
     '#type' => 'textfield',
-    '#title' => t('Other Salmon Examined'),
-    '#default_value' => isset($result['other_salmon_examined']) ? $result['other_salmon_examined'] : null,
+    '#title' => t('Other Salmon Assessed'),
+    '#default_value' => isset($result['other_salmon_assessed']) ? $result['other_salmon_assessed'] : null,
     '#required' => FALSE,
   );  
   # other_species_captured text field
@@ -363,12 +352,19 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # other_species_examined text field
-  $form['fieldset']['other_species_examined'] = array(
+  $form['fieldset']['other_species_assessed'] = array(
     '#type' => 'textfield',
-    '#title' => t('Other Species Examined'),
-    '#default_value' => isset($result['other_species_examined']) ? $result['other_species_examined'] : null,
+    '#title' => t('Other Species Assessed'),
+    '#default_value' => isset($result['other_species_assessed']) ? $result['other_species_assessed'] : null,
     '#required' => FALSE,
   );  
+  # other_species_examined text field
+  $form['fieldset']['other_fish_assessed'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Other Fish Assessed'),
+    '#default_value' => isset($result['other_fish_assessed']) ? $result['other_fish_assessed'] : null,
+    '#required' => FALSE,
+  );
   # crew text field
   $form['fieldset']['crew'] = array(
     '#type' => 'textfield',
@@ -391,31 +387,31 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # salinity_avg text field
-  $form['fieldset']['salinity_avg'] = array(
+  $form['fieldset']['salinity'] = array(
     '#type' => 'textfield',
-    '#title' => t('Salinity (Average)'),
-    '#default_value' => isset($result['salinity_avg']) ? $result['salinity_avg'] : null,
+    '#title' => t('Salinity'),
+    '#default_value' => isset($result['salinity']) ? $result['salinity'] : null,
     '#required' => FALSE,
   );  
   # salinity_0_2 text field
-  $form['fieldset']['salinity_0_2'] = array(
+  $form['fieldset']['salinity_surface'] = array(
     '#type' => 'textfield',
-    '#title' => t('Salinity (0-2m)'),
-    '#default_value' => isset($result['salinity_0_2']) ? $result['salinity_0_2'] : null,
+    '#title' => t('Salinity (Surface)'),
+    '#default_value' => isset($result['salinity_surface']) ? $result['salinity_surface'] : null,
     '#required' => FALSE,
   );  
   # salinity_1 text field
-  $form['fieldset']['salinity_1'] = array(
+  $form['fieldset']['salinity_1m'] = array(
     '#type' => 'textfield',
     '#title' => t('Salinity (1m)'),
-    '#default_value' => isset($result['salinity_1']) ? $result['salinity_1'] : null,
+    '#default_value' => isset($result['salinity_1m']) ? $result['salinity_1m'] : null,
     '#required' => FALSE,
   );  
   # salinity_5 text field
-  $form['fieldset']['salinity_5'] = array(
+  $form['fieldset']['salinity_5m'] = array(
     '#type' => 'textfield',
     '#title' => t('Salinity (5m)'),
-    '#default_value' => isset($result['salinity_5']) ? $result['salinity_5'] : null,
+    '#default_value' => isset($result['salinity_5m']) ? $result['salinity_5m'] : null,
     '#required' => FALSE,
   );  
   # salinity_refract text field
@@ -433,38 +429,38 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # temperature_avg text field
-  $form['fieldset']['temperature_avg'] = array(
+  $form['fieldset']['temperature'] = array(
     '#type' => 'textfield',
-    '#title' => t('Temperature (Average)'),
-    '#default_value' => isset($result['temperature_avg']) ? $result['temperature_avg'] : null,
+    '#title' => t('Temperature'),
+    '#default_value' => isset($result['temperature']) ? $result['temperature'] : null,
     '#required' => FALSE,
   );  
   # temperature_0_2 text field
-  $form['fieldset']['temperature_0_2'] = array(
+  $form['fieldset']['temperature_surface'] = array(
     '#type' => 'textfield',
-    '#title' => t('Temperature (0-2m)'),
-    '#default_value' => isset($result['temperature_0_2']) ? $result['temperature_0_2'] : null,
+    '#title' => t('Temperature (Surface)'),
+    '#default_value' => isset($result['temperature_surface']) ? $result['temperature_surface'] : null,
     '#required' => FALSE,
   );  
   # temperature_1 text field
-  $form['fieldset']['temperature_1'] = array(
+  $form['fieldset']['temperature_1m'] = array(
     '#type' => 'textfield',
     '#title' => t('Temperature (1m)'),
-    '#default_value' => isset($result['temperature_1']) ? $result['temperature_1'] : null,
+    '#default_value' => isset($result['temperature_1m']) ? $result['temperature_1m'] : null,
     '#required' => FALSE,
   );  
   # temperature_5 text field
-  $form['fieldset']['temperature_5'] = array(
+  $form['fieldset']['temperature_5m'] = array(
     '#type' => 'textfield',
     '#title' => t('Temperature (5m)'),
-    '#default_value' => isset($result['temperature_5']) ? $result['temperature_5'] : null,
+    '#default_value' => isset($result['temperature_5m']) ? $result['temperature_5m'] : null,
     '#required' => FALSE,
   );  
   # temperature_rec text field
-  $form['fieldset']['temperature_rec'] = array(
+  $form['fieldset']['temperature_dfo_surface'] = array(
     '#type' => 'textfield',
-    '#title' => t('Temperature (As Recorded)'),
-    '#default_value' => isset($result['temperature_rec']) ? $result['temperature_rec'] : null,
+    '#title' => t('Temperature (DFO, Surface)'),
+    '#default_value' => isset($result['temperature_dfo_surface']) ? $result['temperature_dfo_surface'] : null,
     '#required' => FALSE,
   );  
   # temperature_depth_not_specified text field
@@ -489,10 +485,10 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # changelog text field
-  $form['fieldset']['changelog'] = array(
+  $form['fieldset']['change_log'] = array(
     '#type' => 'textfield',
     '#title' => t('Change Log (Describe Change/Addition)'),
-    '#default_value' => isset($result['changelog']) ? $result['changelog'] : null,
+    '#default_value' => isset($result['change_log']) ? $result['change_log'] : null,
     '#required' => TRUE,
   );  
   # set_no text field
@@ -503,38 +499,10 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # site_name_rec text field
-  $form['fieldset']['site_name_rec'] = array(
+  $form['fieldset']['site_name_as_recorded'] = array(
     '#type' => 'textfield',
     '#title' => t('Site Name (As Recorded)'),
-    '#default_value' => isset($result['site_name_rec']) ? $result['site_name_rec'] : null,
-    '#required' => FALSE,
-  );  
-  # site_number_0309 text field
-  $form['fieldset']['site_number_0309'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Site Number (0309)'),
-    '#default_value' => isset($result['site_number_0309']) ? $result['site_number_0309'] : null,
-    '#required' => FALSE,
-  );  
-  # site_number_mk text field
-  $form['fieldset']['site_number_mk'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Site Number (MK)'),
-    '#default_value' => isset($result['site_number_mk']) ? $result['site_number_mk'] : null,
-    '#required' => FALSE,
-  );  
-  # waypoint text field
-  $form['fieldset']['waypoint'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Waypoint'),
-    '#default_value' => isset($result['waypoint']) ? $result['waypoint'] : null,
-    '#required' => FALSE,
-  );  
-  # distance text field
-  $form['fieldset']['distance'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Distance'),
-    '#default_value' => isset($result['distance']) ? $result['distance'] : null,
+    '#default_value' => isset($result['site_name_as_recorded']) ? $result['site_name_as_recorded'] : null,
     '#required' => FALSE,
   );  
   # blind_no text field
@@ -551,13 +519,6 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#default_value' => isset($result['to_lab']) ? $result['to_lab'] : null,
     '#required' => FALSE,
   );  
-  # trip text field
-  $form['fieldset']['trip'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Trip'),
-    '#default_value' => isset($result['trip']) ? $result['trip'] : null,
-    '#required' => FALSE,
-  );  
   # trip_time text field
   $form['fieldset']['trip_time'] = array(
     '#type' => 'textfield',
@@ -566,10 +527,10 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
     '#required' => FALSE,
   );  
   # tsb text field
-  $form['fieldset']['tsb'] = array(
+  $form['fieldset']['three_spine_stickleback'] = array(
     '#type' => 'textfield',
     '#title' => t('TSB'),
-    '#default_value' => isset($result['tsb']) ? $result['tsb'] : null,
+    '#default_value' => isset($result['three_spine_stickleback']) ? $result['three_spine_stickleback'] : null,
     '#required' => FALSE,
   );  
   # mortalities text field
@@ -608,63 +569,58 @@ function bampcrud_wild_sampling_instances_form_submit($form, &$form_state) {
         'trip_year' => $form_state['values']['trip_year'],
         'trip_month' => $form_state['values']['trip_month'],
         'trip_day' => $form_state['values']['trip_day'],
-        'bamp_site_number' => $form_state['values']['bamp_site_number'],
-        'bamp_site_name' => $form_state['values']['bamp_site_name'],
-        'latitude_rec' => $form_state['values']['latitude_rec'],
-        'latitude_calc' => $form_state['values']['latitude_calc'],
+        'wild_site_number' => $form_state['values']['wild_site_number'],
+        'wild_site_name' => $form_state['values']['wild_site_name'],
+        'latitude_as_recorded' => $form_state['values']['latitude_as_recorded'],
+        'latitude_as_calculated' => $form_state['values']['latitude_as_calculated'],
         'latitude' => $form_state['values']['latitude'],
-        'longitude_rec' => $form_state['values']['longitude_rec'],
-        'longitude_calc' => $form_state['values']['longitude_calc'],
+        'longitude_as_recorded' => $form_state['values']['longitude_as_recorded'],
+        'longitude_as_calculated' => $form_state['values']['longitude_as_calculated'],
         'longitude' => $form_state['values']['longitude'],
-        'trip_rep' => $form_state['values']['trip_rep'],
+        'trip_replicate' => $form_state['values']['trip_replicate'],
         'route' => $form_state['values']['route'],
-        'collection_period_eer' => $form_state['values']['collection_period_eer'],
         'gear_type' => $form_state['values']['gear_type'],
         'zone' => $form_state['values']['zone'],
         'chum_captured' => $form_state['values']['chum_captured'],
         'chum_retained' => $form_state['values']['chum_retained'],
-        'chum_examined' => $form_state['values']['chum_examined'],
+        'chum_assessed' => $form_state['values']['chum_assessed'],
         'pink_captured' => $form_state['values']['pink_captured'],
         'pink_retained' => $form_state['values']['pink_retained'],
-        'pink_examined' => $form_state['values']['pink_examined'],
+        'pink_assessed' => $form_state['values']['pink_assessed'],
         'coho_captured' => $form_state['values']['coho_captured'],
         'coho_retained' => $form_state['values']['coho_retained'],
-        'coho_examined' => $form_state['values']['coho_examined'],
+        'coho_assessed' => $form_state['values']['coho_assessed'],
         'other_salmon_captured' => $form_state['values']['other_salmon_captured'],
         'other_salmon_retained' => $form_state['values']['other_salmon_retained'],
-        'other_salmon_examined' => $form_state['values']['other_salmon_examined'],
+        'other_salmon_assessed' => $form_state['values']['other_salmon_assessed'],
         'other_species_captured' => $form_state['values']['other_species_captured'],
         'other_species_retained' => $form_state['values']['other_species_retained'],
-        'other_species_examined' => $form_state['values']['other_species_examined'],
+        'other_species_assessed' => $form_state['values']['other_species_assessed'],
+        'other_fish_assessed' => $form_state['values']['other_fish_assessed'],
         'crew' => $form_state['values']['crew'],
         'tide' => $form_state['values']['tide'],
         'search_time' => $form_state['values']['search_time'],
-        'salinity_avg' => $form_state['values']['salinity_avg'],
-        'salinity_0_2' => $form_state['values']['salinity_0_2'],
-        'salinity_1' => $form_state['values']['salinity_1'],
-        'salinity_5' => $form_state['values']['salinity_5'],
+        'salinity' => $form_state['values']['salinity'],
+        'salinity_surface' => $form_state['values']['salinity_surface'],
+        'salinity_1m' => $form_state['values']['salinity_1m'],
+        'salinity_5m' => $form_state['values']['salinity_5m'],
         'salinity_refract' => $form_state['values']['salinity_refract'],
         'salinity_depth_not_specified' => $form_state['values']['salinity_depth_not_specified'],
-        'temperature_avg' => $form_state['values']['temperature_avg'],
-        'temperature_0_2' => $form_state['values']['temperature_0_2'],
-        'temperature_1' => $form_state['values']['temperature_1'],
-        'temperature_5' => $form_state['values']['temperature_5'],
-        'temperature_rec' => $form_state['values']['temperature_rec'],
+        'temperature' => $form_state['values']['temperature'],
+        'temperature_surface' => $form_state['values']['temperature_surface'],
+        'temperature_1m' => $form_state['values']['temperature_1m'],
+        'temperature_5m' => $form_state['values']['temperature_5m'],
+        'temperature_dfo_surface' => $form_state['values']['temperature_dfo_surface'],
         'temperature_depth_not_specified' => $form_state['values']['temperature_depth_not_specified'],
         'weather_comments' => $form_state['values']['weather_comments'],
         'comments' => $form_state['values']['comments'],
-        'changelog' => $form_state['values']['changelog'],
+        'change_log' => $form_state['values']['change_log'],
         'set_no' => $form_state['values']['set_no'],
-        'site_name_rec' => $form_state['values']['site_name_rec'],
-        'site_number_0309' => $form_state['values']['site_number_0309'],
-        'site_number_mk' => $form_state['values']['site_number_mk'],
-        'waypoint' => $form_state['values']['waypoint'],
-        'distance' => $form_state['values']['distance'],
+        'site_name_as_recorded' => $form_state['values']['site_name_as_recorded'],
         'blind_no' => $form_state['values']['blind_no'],
         'to_lab' => $form_state['values']['to_lab'],
-        'trip' => $form_state['values']['trip'],
         'trip_time' => $form_state['values']['trip_time'],
-        'tsb' => $form_state['values']['tsb'],
+        'three_spine_stickleback' => $form_state['values']['three_spine_stickleback'],
         'mortalities' => $form_state['values']['mortalities'],
       ))
       ->execute();
@@ -683,63 +639,58 @@ function bampcrud_wild_sampling_instances_form_submit($form, &$form_state) {
         'trip_year' => $form_state['values']['trip_year'],
         'trip_month' => $form_state['values']['trip_month'],
         'trip_day' => $form_state['values']['trip_day'],
-        'bamp_site_number' => $form_state['values']['bamp_site_number'],
-        'bamp_site_name' => $form_state['values']['bamp_site_name'],
-        'latitude_rec' => $form_state['values']['latitude_rec'],
-        'latitude_calc' => $form_state['values']['latitude_calc'],
+        'wild_site_number' => $form_state['values']['wild_site_number'],
+        'wild_site_name' => $form_state['values']['wild_site_name'],
+        'latitude_as_recorded' => $form_state['values']['latitude_as_recorded'],
+        'latitude_as_calculated' => $form_state['values']['latitude_as_calculated'],
         'latitude' => $form_state['values']['latitude'],
-        'longitude_rec' => $form_state['values']['longitude_rec'],
-        'longitude_calc' => $form_state['values']['longitude_calc'],
+        'longitude_as_recorded' => $form_state['values']['longitude_as_recorded'],
+        'longitude_as_calculated' => $form_state['values']['longitude_as_calculated'],
         'longitude' => $form_state['values']['longitude'],
-        'trip_rep' => $form_state['values']['trip_rep'],
+        'trip_replicate' => $form_state['values']['trip_replicate'],
         'route' => $form_state['values']['route'],
-        'collection_period_eer' => $form_state['values']['collection_period_eer'],
         'gear_type' => $form_state['values']['gear_type'],
         'zone' => $form_state['values']['zone'],
         'chum_captured' => $form_state['values']['chum_captured'],
         'chum_retained' => $form_state['values']['chum_retained'],
-        'chum_examined' => $form_state['values']['chum_examined'],
+        'chum_assessed' => $form_state['values']['chum_assessed'],
         'pink_captured' => $form_state['values']['pink_captured'],
         'pink_retained' => $form_state['values']['pink_retained'],
-        'pink_examined' => $form_state['values']['pink_examined'],
+        'pink_assessed' => $form_state['values']['pink_assessed'],
         'coho_captured' => $form_state['values']['coho_captured'],
         'coho_retained' => $form_state['values']['coho_retained'],
-        'coho_examined' => $form_state['values']['coho_examined'],
+        'coho_assessed' => $form_state['values']['coho_assessed'],
         'other_salmon_captured' => $form_state['values']['other_salmon_captured'],
         'other_salmon_retained' => $form_state['values']['other_salmon_retained'],
-        'other_salmon_examined' => $form_state['values']['other_salmon_examined'],
+        'other_salmon_assessed' => $form_state['values']['other_salmon_assessed'],
         'other_species_captured' => $form_state['values']['other_species_captured'],
         'other_species_retained' => $form_state['values']['other_species_retained'],
-        'other_species_examined' => $form_state['values']['other_species_examined'],
+        'other_species_assessed' => $form_state['values']['other_species_assessed'],
+        'other_fish_assessed' => $form_state['values']['other_fish_assessed'],
         'crew' => $form_state['values']['crew'],
         'tide' => $form_state['values']['tide'],
         'search_time' => $form_state['values']['search_time'],
-        'salinity_avg' => $form_state['values']['salinity_avg'],
-        'salinity_0_2' => $form_state['values']['salinity_0_2'],
-        'salinity_1' => $form_state['values']['salinity_1'],
-        'salinity_5' => $form_state['values']['salinity_5'],
+        'salinity' => $form_state['values']['salinity'],
+        'salinity_surface' => $form_state['values']['salinity_surface'],
+        'salinity_1m' => $form_state['values']['salinity_1m'],
+        'salinity_5m' => $form_state['values']['salinity_5m'],
         'salinity_refract' => $form_state['values']['salinity_refract'],
         'salinity_depth_not_specified' => $form_state['values']['salinity_depth_not_specified'],
-        'temperature_avg' => $form_state['values']['temperature_avg'],
-        'temperature_0_2' => $form_state['values']['temperature_0_2'],
-        'temperature_1' => $form_state['values']['temperature_1'],
-        'temperature_5' => $form_state['values']['temperature_5'],
-        'temperature_rec' => $form_state['values']['temperature_rec'],
+        'temperature' => $form_state['values']['temperature'],
+        'temperature_surface' => $form_state['values']['temperature_surface'],
+        'temperature_1m' => $form_state['values']['temperature_1m'],
+        'temperature_5m' => $form_state['values']['temperature_5m'],
+        'temperature_dfo_surface' => $form_state['values']['temperature_dfo_surface'],
         'temperature_depth_not_specified' => $form_state['values']['temperature_depth_not_specified'],
         'weather_comments' => $form_state['values']['weather_comments'],
         'comments' => $form_state['values']['comments'],
-        'changelog' => $form_state['values']['changelog'],
+        'change_log' => $form_state['values']['change_log'],
         'set_no' => $form_state['values']['set_no'],
-        'site_name_rec' => $form_state['values']['site_name_rec'],
-        'site_number_0309' => $form_state['values']['site_number_0309'],
-        'site_number_mk' => $form_state['values']['site_number_mk'],
-        'waypoint' => $form_state['values']['waypoint'],
-        'distance' => $form_state['values']['distance'],
+        'site_name_as_recorded' => $form_state['values']['site_name_as_recorded'],
         'blind_no' => $form_state['values']['blind_no'],
         'to_lab' => $form_state['values']['to_lab'],
-        'trip' => $form_state['values']['trip'],
         'trip_time' => $form_state['values']['trip_time'],
-        'tsb' => $form_state['values']['tsb'],
+        'three_spine_stickleback' => $form_state['values']['three_spine_stickleback'],
         'mortalities' => $form_state['values']['mortalities'],
       ))
       ->condition('id', $form_state['values']['id'],'=')
