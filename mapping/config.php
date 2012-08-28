@@ -1,9 +1,11 @@
 <?php
+$config = array();
+
 //Database
-$config['db']['host'] = '';
-$config['db']['name'] = '';
-$config['db']['user'] = '';
-$config['db']['pass'] = '';
+$config['db']['host'] = 'localhost';
+$config['db']['name'] = 'bamp_new';
+$config['db']['user'] = 'root';
+$config['db']['pass'] = 'q$%^az';
 
 //Application paths
 $config['paths']['crudUrl'] = '?q=bampcrud/crud';//Url to crud forms
