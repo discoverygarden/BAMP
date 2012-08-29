@@ -22,7 +22,7 @@ switch($_REQUEST['type']){
       //The two tables that make up our view
       $query.= "WHERE table_name IN ('bamp_wild_sampling_instances','bamp_wild_lice_details') ";
       //Fields to exclude as filters
-      $query.= "AND column_name NOT IN ('id','changelog','trip_id','year_rep_route_site','comments','site_number','fish','route','tissue_damage', 'latitude','longitude', 'date', 'waypoint', 'trip_date','latitude_rec','latitude_calc','longitude_rec','longitude_calc', 'fish_id','lice_id','crew','search_time', 'salinity_0_2','salinity_1','salinity_5','salinity_refract','salinity_depth_not_specified','temperature_0_2','temperature_1','temperature_5','temperature_rec','temperature_depth_not_specified','weather_comments', 'distance','trip','trip_time','tsb','trip_set_id')";
+      $query.= "AND column_name NOT IN ('id','change_log','trip_id','year_rep_route_site','comments','site_number','fish','route','tissue_damage', 'latitude','longitude', 'date', 'trip_date','latitude_as_recorded','latitude_as_calculated','longitude_as_recorded','longitude_as_calculated', 'fish_id','lice_id','crew','search_time', 'weather_comments', 'distance','trip_time','trip_set_id')";
       $result = mysql_query($query, $dbh) or die(mysql_error($dbh));
 
       while($row = mysql_fetch_assoc($result)){
