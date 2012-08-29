@@ -94,7 +94,7 @@ function bampcrud_wild_sampling_instances_form($form, $form_state, $operation = 
       'comments',
       'change_log',
       'set_no',
-      'site_name_rec',
+      'site_name_as_recorded',
       'blind_no',
       'to_lab',
       'trip',
