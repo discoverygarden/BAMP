@@ -12,6 +12,7 @@ class dataHandler {
   private $crudUrl = '';//Url to crud forms
   private $fishSamplesUrl = '';//Wild Fish Samples View Report URL
   private $markerImagesUrl = '';//Marker images URL
+  private $farmInventoryUrl = '';//Farm Inventory View URL
   private $dbName = '';
 
   public function __construct(){
@@ -21,6 +22,7 @@ class dataHandler {
     $this->crudUrl = $config['paths']['crudUrl'];
     $this->fishSamplesUrl = $config['paths']['fishSamplesUrl'];
     $this->markerImagesUrl = $config['paths']['markerImagesUrl'];
+    $this->farmInventoryUrl = $config['paths']['farmInventoryUrl'];
   }//end construct()
 
   public function getFarmSites(){
@@ -29,8 +31,12 @@ class dataHandler {
 
     $markers = array();
     while($row = mysql_fetch_assoc($result)){
-      $markerContent = '<h2> '.ucwords($row['site_name']).' Fish Farm</h2><br/>';
-      $markerContent.= '<em>Operated by '.ucwords($row['company']).'</em>';
+      $markerContent = '<table>';
+      $markerContent.= '<tr><th colspan="2"><h2> '.ucwords($row['site_name']).' Fish Farm</h2></th></tr>';
+      $markerContent.= '<tr><th>Operated by</th><td>'.ucwords($row['company']).'</td></tr>';
+      $markerContent.= '<tr><th><a href="'.$this->crudUrl.'/farmsites/modify/'.$row['id'].'" target="_BLANK">Edit Farm Site</a></th>';
+      $markerContent.= '<th><a href="'.$this->farmInventoryUrl.'/'.$row['site_name'].'" target="_BLANK">View Inventory</a></th></tr>';
+      $markerContent.= '</table>';
       $markers[] = array(
           'lat' => $row['latitude'],
           'lng' => '-'.abs($row['longitude']),
@@ -125,7 +131,7 @@ class dataHandler {
         }//end switch
 
       //Counters
-      $fishCount = (int)$row['si_pink_captured'] + (int)$row['si_chum_captured'];
+      $fishCount = (int)$row['si_pink_assessed'] + (int)$row['si_chum_assessed'];
       $counts['totalFish'] += $fishCount;
       $counts['totalTrips']++; 
       
@@ -133,9 +139,9 @@ class dataHandler {
       $markerContent = '<table>';
       $markerContent.= '<tr><th>Site&nbsp;Name</th><td colspan="2">'.ucwords($row['site_name']).'</td></tr>';
       $markerContent.= '<tr><th>Trip&nbsp;Date</th><td colspan="2">'.date('n/j/Y',strtotime($row['date'])).'</td></tr>';
-      $markerContent.= '<tr><th>Fish</th><th>Captured</th><th>Retained</th></tr>';
-      $markerContent.= '<tr><td>Pink</td><td>'.$row['si_pink_captured'].'</td><td>'.$row['si_pink_retained'].'</td></tr>';
-      $markerContent.= '<tr><td>Chum</td><td>'.$row['si_chum_captured'].'</td><td>'.$row['si_chum_retained'].'</td></tr>';
+      $markerContent.= '<tr><th>Fish</th><th>Captured</th><th>Assessed</th></tr>';
+      $markerContent.= '<tr><td>Pink</td><td>'.$row['si_pink_captured'].'</td><td>'.$row['si_pink_assessed'].'</td></tr>';
+      $markerContent.= '<tr><td>Chum</td><td>'.$row['si_chum_captured'].'</td><td>'.$row['si_chum_assessed'].'</td></tr>';
       $markerContent.= '<tr><th colspan="2"><a href="'.$this->crudUrl.'/wildsamplinginstances/modify/'.$row['record_id'].'" target="_BLANK">Edit Sampling Instance</a></th>';
       $markerContent.= '<th><a href="'.$this->fishSamplesUrl.'/'.$row['trip_id'].'" target="_BLANK">View Fish Samples</a></th></tr>';
       $markerContent.= '</table>';
@@ -245,7 +251,7 @@ class dataHandler {
   private function buildQuery(){
     $query = "SELECT si_trip_set_id AS trip_id, si_id AS record_id, si_id as bamp_id, si_trip_date as date, ";
     $query.= "si_wild_site_name AS site_name, si_latitude AS latitude, si_longitude AS longitude,  si_data_source as data_source, ";
-    $query.= "si_pink_captured, si_pink_retained, si_chum_captured, si_chum_retained, ";
+    $query.= "si_pink_captured, si_pink_assessed, si_chum_captured, si_chum_assessed, ";
     $query.= "COUNT(fs_id) AS fish_count ";
     $query.= "FROM ".$this->dbName.".bamp_wild_view ";
     $query.= "WHERE si_id != '' ";
@@ -381,3 +387,5 @@ class dataHandler {
   }//end isWithinBoundary();
 }//end dataHandler class
 ?>
+
+
