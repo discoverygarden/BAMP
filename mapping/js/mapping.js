@@ -189,7 +189,7 @@ Ext.onReady(function(){
         forceFit: true,
         columns: [
           {header: 'Total Trips Displayed', dataIndex: 'totalTrips' },
-          {header: 'Total Fish Represented', dataIndex: 'totalFish'}
+          {header: 'Total Fish Assessed', dataIndex: 'totalFish'}
         ]
       };//end grid 
 
