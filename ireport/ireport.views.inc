@@ -72,34 +72,6 @@ $data = array();
       'handler' => 'views_handler_filter_numeric',
     ),
   );
-  $data['bamp_farm_aggregate']['dfo_zone'] = array(
-    'title' => t('dfo_zone'),
-    'help' => t('DFO Zone'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_farm_aggregate']['dfo_subzone'] = array(
-    'title' => t('dfo_subzone'),
-    'help' => t('DFO SubZone'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
   $data['bamp_farm_aggregate']['site_name'] = array(
     'title' => t('site_name'),
     'help' => t('Site Name'),
@@ -347,34 +319,6 @@ $data = array();
   $data['bamp_farm_environment']['month'] = array(
     'title' => t('month'),
     'help' => t('Month of collection'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_farm_environment']['dfo_zone'] = array(
-    'title' => t('dfo_zone'),
-    'help' => t('DFO Zone'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_farm_environment']['dfo_subzone'] = array(
-    'title' => t('dfo_subzone'),
-    'help' => t('DFO SubZone'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -941,34 +885,6 @@ $data = array();
     ),
     'argument' => array(
       'handler' => 'views_handler_argument_string',
-    ),
-  );
-  $data['bamp_farm_inventory']['dfo_zone'] = array(
-    'title' => t('dfo_zone'),
-    'help' => t('DFO Zone'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-    ),
-  );
-  $data['bamp_farm_inventory']['dfo_subzone'] = array(
-    'title' => t('dfo_subzone'),
-    'help' => t('DFO SubZone'),
-    'field' => array(
-      'handler' => 'views_handler_field_numeric',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
     ),
   );
   $data['bamp_farm_inventory']['site_name'] = array(
