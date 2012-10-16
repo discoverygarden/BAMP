@@ -46,8 +46,6 @@ function bampcrud_farm_inventory_form($form, $form_state, $operation = 'add', $r
       'year',
       'quarter',
       'month',
-      'dfo_zone',
-      'dfo_subzone',
       'site_name',
       'fish_group_name',
       'fish_group_id',
@@ -108,20 +106,6 @@ function bampcrud_farm_inventory_form($form, $form_state, $operation = 'add', $r
     '#type' => 'textfield',
     '#title' => t('Month'),
     '#default_value' => isset($result['month']) ? $result['month'] : '',
-    '#required' => FALSE,
-  );  
-  # dfo_zone text field
-  $form['fieldset']['dfo_zone'] = array(
-    '#type' => 'textfield',
-    '#title' => t('DFO Zone'),
-    '#default_value' => isset($result['dfo_zone']) ? $result['dfo_zone'] : '',
-    '#required' => FALSE,
-  );  
-  # dfo_subzone text field
-  $form['fieldset']['dfo_subzone'] = array(
-    '#type' => 'textfield',
-    '#title' => t('DFO Subzone'),
-    '#default_value' => isset($result['dfo_subzone']) ? $result['dfo_subzone'] : '',
     '#required' => FALSE,
   );  
   # site_name text field
@@ -214,8 +198,6 @@ function bampcrud_farm_inventory_form_submit($form, &$form_state) {
         'year' => $form_state['values']['year'],
         'quarter' => $form_state['values']['quarter'],
         'month' => $form_state['values']['month'],
-        'dfo_zone' => $form_state['values']['dfo_zone'],
-        'dfo_subzone' => $form_state['values']['dfo_subzone'],
         'site_name' => $form_state['values']['site_name'],
         'fish_group_name' => $form_state['values']['fish_group_name'],
         'fish_group_id' => $form_state['values']['fish_group_id'],
@@ -240,8 +222,6 @@ function bampcrud_farm_inventory_form_submit($form, &$form_state) {
         'year' => $form_state['values']['year'],
         'quarter' => $form_state['values']['quarter'],
         'month' => $form_state['values']['month'],
-        'dfo_zone' => $form_state['values']['dfo_zone'],
-        'dfo_subzone' => $form_state['values']['dfo_subzone'],
         'site_name' => $form_state['values']['site_name'],
         'fish_group_name' => $form_state['values']['fish_group_name'],
         'fish_group_id' => $form_state['values']['fish_group_id'],

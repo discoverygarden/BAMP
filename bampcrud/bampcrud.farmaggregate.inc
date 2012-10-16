@@ -44,8 +44,6 @@ function bampcrud_farm_aggregate_form($form, $form_state, $operation = 'add', $r
       'bamp_farm_id',
       'year',
       'month',
-      'dfo_zone',
-      'dfo_subzone',
       'site_name',
       'no_counts_reason',
       'date_sampled',
@@ -102,20 +100,6 @@ function bampcrud_farm_aggregate_form($form, $form_state, $operation = 'add', $r
     '#type' => 'textfield',
     '#title' => t('Month'),
     '#default_value' => isset($result['month']) ? $result['month'] : '',
-    '#required' => FALSE,
-  );  
-  # dfo_zone text field
-  $form['fieldset']['dfo_zone'] = array(
-    '#type' => 'textfield',
-    '#title' => t('DFO Zone'),
-    '#default_value' => isset($result['dfo_zone']) ? $result['dfo_zone'] : '',
-    '#required' => FALSE,
-  );  
-  # dfo_subzone text field
-  $form['fieldset']['dfo_subzone'] = array(
-    '#type' => 'textfield',
-    '#title' => t('DFO Subzone'),
-    '#default_value' => isset($result['dfo_subzone']) ? $result['dfo_subzone'] : '',
     '#required' => FALSE,
   );  
   # site_name text field
@@ -228,8 +212,6 @@ function bampcrud_farm_aggregate_form_submit($form, &$form_state) {
         'bamp_farm_id' => $form_state['values']['bamp_farm_id'],
         'year' => $form_state['values']['year'],
         'month' => $form_state['values']['month'],
-        'dfo_zone' => $form_state['values']['dfo_zone'],
-        'dfo_subzone' => $form_state['values']['dfo_subzone'],
         'site_name' => $form_state['values']['site_name'],
         'no_counts_reason' => $form_state['values']['no_counts_reason'],
         'date_sampled' => $form_state['values']['date_sampled'],
@@ -256,8 +238,6 @@ function bampcrud_farm_aggregate_form_submit($form, &$form_state) {
         'bamp_farm_id' => $form_state['values']['bamp_farm_id'],
         'year' => $form_state['values']['year'],
         'month' => $form_state['values']['month'],
-        'dfo_zone' => $form_state['values']['dfo_zone'],
-        'dfo_subzone' => $form_state['values']['dfo_subzone'],
         'site_name' => $form_state['values']['site_name'],
         'no_counts_reason' => $form_state['values']['no_counts_reason'],
         'date_sampled' => $form_state['values']['date_sampled'],
