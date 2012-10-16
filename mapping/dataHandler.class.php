@@ -92,8 +92,15 @@ class dataHandler {
 
       //If the marker is inside the selection or the selection is not defined add it to the markers array
       if($isInside){
+        //Try to parse the date with strtotime.
+        if(strtotime($row['date']) === false) {
+          $tripDate = $row['date'];
+        }else{
+          $tripDate = date('n/j/Y',strtotime($row['date']));
+        }//end if
+
         //Set the marker color
-        $month = date('m', strtotime($row['date']));
+        $month = date('m', $tripDate);
         switch($month){
           case 3:
           case 03:
@@ -115,6 +122,9 @@ class dataHandler {
           case 07:
             $icon = '5';
           break;
+          default: 
+            $icon = '1';
+          break;
         }//end switch
         
         //Set the marker shape (represents group);
@@ -126,6 +136,7 @@ class dataHandler {
             $shape = 'Squares';
           break;
           case 'BAMP':
+          default:
             $shape = 'Triangles';
           break;
         }//end switch
@@ -138,7 +149,7 @@ class dataHandler {
       //Create the content for the marker tooltip
       $markerContent = '<table>';
       $markerContent.= '<tr><th>Site&nbsp;Name</th><td colspan="2">'.ucwords($row['site_name']).'</td></tr>';
-      $markerContent.= '<tr><th>Trip&nbsp;Date</th><td colspan="2">'.date('n/j/Y',strtotime($row['date'])).'</td></tr>';
+      $markerContent.= '<tr><th>Trip&nbsp;Date</th><td colspan="2">'.$tripDate.'</td></tr>';
       $markerContent.= '<tr><th>Fish</th><th>Captured</th><th>Assessed</th></tr>';
       $markerContent.= '<tr><td>Pink</td><td>'.$row['si_pink_captured'].'</td><td>'.$row['si_pink_assessed'].'</td></tr>';
       $markerContent.= '<tr><td>Chum</td><td>'.$row['si_chum_captured'].'</td><td>'.$row['si_chum_assessed'].'</td></tr>';
@@ -267,7 +278,7 @@ class dataHandler {
   private function buildCsvQuery($type){
     switch($type){
       case 'exportAll':
-        $query = "SELECT si_id, si_trip_set_id, si_data_source, si_trip_date, si_trip_year, si_trip_month, si_trip_day, si_wild_site_number, si_wild_site_name, si_latitude_as_recorded, si_latitude_as_calculated, si_latitude as latitude, si_longitude_as_recorded, si_longitude_as_calculated, si_longitude as longitude, si_trip_replicate, si_route, si_gear_type, si_zone, si_chum_captured, si_chum_retained, si_chum_assessed, si_pink_captured, si_pink_retained, si_pink_assessed, si_coho_captured, si_coho_retained, si_coho_assessed, si_other_salmon_captured, si_other_salmon_retained, si_other_salmon_assessed, si_other_species_captured, si_other_species_retained, si_other_species_assessed, si_other_fish_assessed, si_crew, si_tide, si_search_time, si_salinity, si_salinity_surface, si_salinity_1m, si_salinity_5m, si_salinity_refract, si_salinity_depth_not_specified, si_temperature, si_temperature_surface, si_temperature_1m, si_temperature_5m, si_temperature_dfo_surface, si_temperature_depth_not_specified, si_weather_comments, si_comments, si_change_log, si_set_no, si_site_name_as_recorded, si_blind_no, si_to_lab, si_trip_time, si_three_spine_stickleback, si_mortalities,
+        $query = "SELECT si_id, si_trip_set_id, si_data_source, si_trip_date, si_trip_year, si_trip_month, si_trip_day, si_wild_site_number, si_wild_site_name, si_latitude as latitude, si_longitude as longitude, si_trip_replicate, si_route, si_gear_type, si_zone, si_chum_captured, si_chum_retained, si_chum_assessed, si_pink_captured, si_pink_retained, si_pink_assessed, si_coho_captured, si_coho_retained, si_coho_assessed, si_other_salmon_captured, si_other_salmon_retained, si_other_salmon_assessed, si_other_species_captured, si_other_species_retained, si_other_species_assessed, si_other_fish_assessed, si_crew, si_tide, si_search_time, si_salinity, si_temperature, si_temperature_surface, si_temperature_1m, si_temperature_5m, si_temperature_dfo_surface, si_temperature_depth_not_specified, si_set_no, si_site_name_as_recorded, si_blind_no, si_to_lab, si_three_spine_stickleback, si_mortalities,
         fs_id, fs_fish_id, fs_trip_set_id, fs_trip_date, fs_trip_year, fs_trip_month, fs_trip_day, fs_fish_species_per_field, fs_fish_species_gr, fs_fish_species_gr_lab, fs_fish_no, fs_fish_species_per_lab, fs_length_mm, fs_height, fs_weight_g, fs_surface_area, fs_l_cop, fs_l_c1, fs_l_c2, fs_l_c3, fs_l_c4, fs_l_nm_not_stage, fs_l_pam, fs_l_paf, fs_l_pa_not_gender, fs_l_am, fs_l_af, fs_l_gravid, fs_l_adult_not_gender, fs_l_mob_not_stage, fs_c_cop, fs_c_c1, fs_c_c2, fs_c_c3, fs_c_c4, fs_c_nm_not_stage, fs_c_pam, fs_c_paf, fs_c_am, fs_c_af, fs_c_mob_not_stage, fs_c_gravid, fs_total_chal_03, fs_lep_total_mob_03, fs_lep_total, fs_cal_total_mob_03, fs_cal_total, fs_u_cop, fs_u_chal, fs_u_chal_stages_I_and_II, fs_u_chal_stages_III_and_IV, fs_u_mob, fs_lice_total, fs_lesions, fs_comments, fs_changelog, fs_trip, fs_gp_id, fs_lab, fs_date_examined, fs_examined_month, fs_examined_day, fs_examined_year, fs_initials, fs_scar_chal, fs_scar_mot, fs_pred_marks, fs_hem, fs_mate_guarding, fs_pin_belly, fs_lep_total_poo, fs_cal_total_poo, fs_u_total_poo ";
         $query.= "FROM ".$this->dbName.".bamp_wild_view_export ";
         $query.= "WHERE 1=1 ";
@@ -290,7 +301,7 @@ class dataHandler {
         $query.= "GROUP BY si_trip_set_id ";
       break;
       case 'exportSamplingInstances':
-        $query = "SELECT si_id, si_trip_set_id, si_data_source, si_trip_date, si_trip_year, si_trip_month, si_trip_day, si_wild_site_number, si_wild_site_name, si_latitude_as_recorded, si_latitude_as_calculated, si_latitude as latitude, si_longitude_as_recorded, si_longitude_as_calculated, si_longitude as longitude, si_trip_replicate, si_route, si_gear_type, si_zone, si_chum_captured, si_chum_retained, si_chum_assessed, si_pink_captured, si_pink_retained, si_pink_assessed, si_coho_captured, si_coho_retained, si_coho_assessed, si_other_salmon_captured, si_other_salmon_retained, si_other_salmon_assessed, si_other_species_captured, si_other_species_retained, si_other_species_assessed, si_crew, si_tide, si_search_time, si_salinity, si_salinity_surface, si_salinity_1m, si_salinity_5m, si_salinity_refract, si_salinity_depth_not_specified, si_temperature, si_temperature_surface, si_temperature_1m, si_temperature_5m, si_temperature_dfo_surface, si_temperature_depth_not_specified, si_weather_comments, si_comments, si_change_log, si_set_no, si_site_name_as_recorded, si_blind_no, si_to_lab, si_trip_time, si_three_spine_stickleback, si_mortalities ";
+        $query = "SELECT si_id, si_trip_set_id, si_data_source, si_trip_date, si_trip_year, si_trip_month, si_trip_day, si_wild_site_number, si_wild_site_name, si_latitude as latitude, si_longitude as longitude, si_trip_replicate, si_route, si_gear_type, si_zone, si_chum_captured, si_chum_retained, si_chum_assessed, si_pink_captured, si_pink_retained, si_pink_assessed, si_coho_captured, si_coho_retained, si_coho_assessed, si_other_salmon_captured, si_other_salmon_retained, si_other_salmon_assessed, si_other_species_captured, si_other_species_retained, si_other_species_assessed, si_tide, si_search_time, si_salinity, si_temperature, si_set_no, si_site_name_as_recorded, si_blind_no, si_to_lab, si_three_spine_stickleback, si_mortalities ";
         $query.= "FROM ".$this->dbName.".bamp_wild_view_export ";
         $query.= "WHERE 1=1 ";
         if(!empty($this->filters)){
